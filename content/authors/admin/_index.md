@@ -1,26 +1,28 @@
 ---
-bio: My research interests include distributed robotics, mobile computing and programmable
-  matter.
+bio:
 education:
   courses:
-  - course: PhD in Artificial Intelligence
-    institution: Stanford University
-    year: 2012
-  - course: MEng in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
-    year: 2009
-  - course: BSc in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
-    year: 2008
+  - course: M.Sc in STATISTICS
+    institution: West Bengal State University
+    year: 2021
+  - course: bachelor in STATISTICS
+    institution: A.P.C. College, WBSU
+    year: 2019
+  - course: Higher Secondary
+    institution: Madhyamgram High School, WBCHSE
+    year: 2016
+  - course: Secondary
+    institution: Madhyamgram High School, WBSE
+    year: 2014
 email: ""
 highlight_name: false
 interests:
-- Artificial Intelligence
-- Computational Linguistics
-- Information Retrieval
+- Statistics
+- Machine Learning
+- R Programming
 organizations:
 - name: West Bengal State University
-  url: https://www.wbsu.ac.in/
+  url: ''
 role: M.Sc. IN STATISTICS
 social:
 - icon: envelope
@@ -28,25 +30,23 @@ social:
   link: /#contact
 - display:
     header: true
-  icon: twitter
+  icon: telegram
   icon_pack: fab
-  label: Follow me on Twitter
-  link: https://twitter.com/GeorgeCushen
-- icon: graduation-cap
-  icon_pack: fas
-  link: https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ
+  label: '' 
+  link: /#contact
+#- icon: graduation-cap
+#  icon_pack: fas
+#  link: https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ
 - icon: github
   icon_pack: fab
-  link: https://github.com/gcushen
+  link: https://github.com/rajeshmajumder97/
 - icon: linkedin
   icon_pack: fab
-  link: https://www.linkedin.com/
+  link: /#contact
 superuser: true
 title: Rajesh Majumder
 ---
 
-Nelson Bighetti is a professor of artificial intelligence at the Stanford AI Lab. His research interests include distributed robotics, mobile computing and programmable matter. He leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
+Rajesh Majumder is the creator and mentor of Start With Stat (a one-stop solution of Statistics for undergraduate students)  and the creator of Med-EZY wholesale medicine billing & accounting software(which will be available on the online platform very soon). He has completed his Master's degree in Statistics from West Bengal State University, withholding the 1st position in the university. Before that, he has completed his graduation from A.P.C. College, in Kolkata, West Bengal. His primary interests include Regularized Regression theory, Advanced Multivariate Data Analysis, Missing Data, and Machine Learning.  He has an interest to learn different software and statistical/ML algorithms to develop software. Besides his academic and professional career, he has the interest to play blues harmonica and singing.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate.
-
-{{< icon name="download" pack="fas" >}} Download my {{< staticref "uploads/demo_resume.pdf" "newtab" >}}resumé{{< /staticref >}}.
+{{< icon name="download" pack="fas" >}} Download my {{< staticref "uploads/RAJESH MAJUMDER_RESUME.pdf" "newtab" >}}resumé{{< /staticref >}}.
