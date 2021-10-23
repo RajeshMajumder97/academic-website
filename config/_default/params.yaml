@@ -45,10 +45,10 @@ contact_links:
     icon_pack: fab
     name: contact Me
     link: 'https://www.linkedin.com/in/rajesh-majumder-616972214?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BNrulhD9cSza9XsgbduScIg%3D%3D'
-  - icon: keybase
+  - icon: telegram
     icon_pack: fab
-    name: Chat on Keybase
-    link: 'https://keybase.io/'
+    name: +91 9051745225
+    link: 'https://web.telegram.org/z/'
 #  - icon: comments
 #    icon_pack: fas
 #    name: Discuss on Forum
@@ -58,7 +58,7 @@ contact_links:
 
 main_menu:
   enable: true
-  align: l
+  align: c
   show_logo: true
   show_language: false
   show_day_night: true
