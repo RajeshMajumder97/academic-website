@@ -7,21 +7,18 @@ main:
   - name: Home
     url: '#about'
     weight: 10
-  - name: Biography
-    url: '#posts'
+  - name: Skills
+    url: '#skills'
     weight: 20
-  - name: Projects
-    url: '#projects'
+  - name: Accomplishments
+    url: '#accomplishments'
     weight: 30
-  - name: Tutorials
-    url: '#talks'
-    weight: 40
   - name: Blogs
-    url: '#featured'
-    weight: 50
-  - name: Med-EZY
-    url: courses/
-    weight: 60
+    url: '#blogs'
+    weight: 40
+  - name: Tutorials
+    url: '#tutorial'
+    weight: 40
   - name: Contact
     url: '#contact'
     weight: 70

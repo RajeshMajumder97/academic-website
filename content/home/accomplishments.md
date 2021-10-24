@@ -23,30 +23,22 @@ date_format: Jan 2006
 #   Leave other parameters empty if not required.
 #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
 item:
-- certificate_url: https://www.coursera.org
+- certificate_url: https://drive.google.com/file/d/19wadiTxtgVGr_Z0wi0v5SjDx6etJPc6G/view?usp=sharing
   date_end: ""
-  date_start: "2021-01-25"
+  date_start: "2021-10-06"
   description: ""
-  organization: Coursera
-  organization_url: https://www.coursera.org
-  title: Neural Networks and Deep Learning
-  url: ""
-- certificate_url: https://www.edx.org
+  organization: Udemy
+  organization_url: https://www.udemy.com/
+  title: Machine learning, Data Science and Deep Learning with Python
+  url: "https://www.udemy.com/course/data-science-and-machine-learning-with-python-hands-on/"
+- certificate_url: https://drive.google.com/file/d/1xUc0VaLeCGUAl28uJMaIuCqq8MrLIcA0/view?usp=sharing
   date_end: ""
-  date_start: "2021-01-01"
-  description: Formulated informed blockchain models, hypotheses, and use cases.
-  organization: edX
-  organization_url: https://www.edx.org
-  title: Blockchain Fundamentals
-  url: https://www.edx.org/professional-certificate/uc-berkeleyx-blockchain-fundamentals
-- certificate_url: https://www.datacamp.com
-  date_end: "2020-12-21"
-  date_start: "2020-07-01"
+  date_start: "2021-10-06"
   description: ""
-  organization: DataCamp
-  organization_url: https://www.datacamp.com
-  title: 'Object-Oriented Programming in R'
-  url: ""
+  organization: Simplilearn
+  organization_url: https://www.simplilearn.com/
+  title: Introduction to SQL
+  url: https://www.simplilearn.com/free-online-course-to-learn-sql-basics-skillup
 
 design:
   columns: '2' 
