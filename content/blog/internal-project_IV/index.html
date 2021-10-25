@@ -1,0 +1,198 @@
+---
+date: "2021-10-26T00:00:00Z"
+external_link: ""
+image:
+#  caption: Photo by rawpixel on Unsplash
+  focal_point: Smart
+  
+#slides: example
+summary: Understanding what is Statisticakl Regularity and an simulation.
+tags:
+- Blogs
+title: Understanding what is Statisticakl Regularity and an simulation
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>Welcome, everyone…</p>
+<p>In this tutorial we will learn what is <strong>Statistical Regularity ???</strong></p>
+<p>Actually, I am writing this blog, because when I first read about this Statistical Regularity from one of my favorite teacher, <a href="https://www.isical.ac.in/~arnabc/">Professor Arnab Chakraborty’s</a> blog, where he has described the concept of statistical regularity with a beautiful example; I was so excited, but there he did not give the actual solution of that example(i.e., the coding part). So, here I am giving my solution which is actually very easy, and I think that’s why he did not give the coding 😅 😅 😅. But, I was very happy to do that by myself, and that’s why now I like to share that with you. I guess you will enjoy it…</p>
+<p>So, before going to the example part, let me give a brief introduction on what is Statistical Regularity is.</p>
+<div id="ststistical-regularity" class="section level2">
+<h2>Ststistical Regularity</h2>
+<p>Statistical regularity is different from mathematical patterns in the sense that it is rarely exactly replicated, it is extremely similar but not the same. We see this all around us. Our finger prints, for example, or the leaves on a tree.</p>
+<p>Statistical regularity is like a mysterious black box which takes random unpredictable input and somehow digests the randomness to produce regular output. No doubt, if we can master this technique then it should help the predictable output from unpredictable inputs! The quite predictable profit of the Casino owner or insurance companies are examples.</p>
+<p>Statistical regularity takes many forms, some more dramatic, some less. The simplest occurrence of the phenomenon was first proved mathematically by Jakob Bernoulli.The theorem and its proof will hardly fill a page completely. But it took 25 years to figure out how to tackle randomness using mathematics to arrive at the proof!</p>
+<p>So, mathematically,</p>
+<p>Consider a random experiment. so as it is known that, the result of a single random experiment can never be correctly predicted before conducting the experiment, if the random experiment is carried out a large number of times under identical conditions it will be seen that the <strong>Relative Frequency (R.F)</strong> of an event stabilizes to a certain value.</p>
+<p>The Relative Frequency (R.F) of an outcome, <span class="math inline">\(O\)</span> (say), of an experiment is the number of time <span class="math inline">\(O\)</span> occurs, <span class="math inline">\(f_n (O)\)</span>, divided by the total number of times, <span class="math inline">\(n\)</span>, the experiment is carried out.</p>
+<p>So, the Relative Frequency (R.F) of an outcome <span class="math inline">\(O\)</span> is:<span class="math display">\[r_n (O)=\frac{f_n (O)}{n}\:\:;clearly\:0\leq r_n (O)\leq 1\]</span>. It is seen that when the experiment is repeated indefinitely, <span class="math inline">\(r_n (O)\)</span> tends to a certain value, <span class="math inline">\(p\)</span> (say); where <span class="math inline">\(0 \leq p \leq 1\)</span>.</p>
+<p>for example :</p>
+<p>A coin was tossed several times and the no. of times it fell Heads was noted. The following table shows the no. of Heads (H) obtained in sets of <span class="math inline">\(n\)</span> experiments.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Set</th>
+<th align="right">n=10</th>
+<th align="right">n=50</th>
+<th align="left">n=100</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="right">4</td>
+<td align="right">29</td>
+<td align="left">47</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="right">4</td>
+<td align="right">22</td>
+<td align="left">52</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="right">6</td>
+<td align="right">24</td>
+<td align="left">54</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="right">7</td>
+<td align="right">27</td>
+<td align="left">49</td>
+</tr>
+<tr class="odd">
+<td align="left">5</td>
+<td align="right">5</td>
+<td align="right">31</td>
+<td align="left">53</td>
+</tr>
+<tr class="even">
+<td align="left">6</td>
+<td align="right">5</td>
+<td align="right">26</td>
+<td align="left">51</td>
+</tr>
+<tr class="odd">
+<td align="left">7</td>
+<td align="right">3</td>
+<td align="right">25</td>
+<td align="left">48</td>
+</tr>
+<tr class="even">
+<td align="left">8</td>
+<td align="right">7</td>
+<td align="right">28</td>
+<td align="left">52</td>
+</tr>
+<tr class="odd">
+<td align="left">9</td>
+<td align="right">5</td>
+<td align="right">21</td>
+<td align="left">47</td>
+</tr>
+<tr class="even">
+<td align="left">10</td>
+<td align="right">6</td>
+<td align="right">23</td>
+<td align="left">55</td>
+</tr>
+<tr class="odd">
+<td align="left">Total</td>
+<td align="right">52</td>
+<td align="right">256</td>
+<td align="left">508</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>For N=10, Relative Frequency (R.F), r(H) varies from 0.3 to 0.7.</p></li>
+<li><p>For n=50, extreme values of r(H) become closer being 0.42 &amp; 0.62.</p></li>
+<li><p>For N=100, r(H) varies between 0.47 &amp; 0.55.</p></li>
+</ul>
+<p>The average values of <span class="math inline">\(r(H)\)</span> were 0.520, 0.512, 0.508 for <span class="math inline">\(n\)</span>= 10, 50 ,100, respectively. Thus one may conclude that as <span class="math inline">\(n\)</span> increases Relative Frequency of H will be expected to be very close to 0.50.</p>
+<p>Ok, so we have understand what is Statistical Regularity. Now, It’s time to jump into our main example.</p>
+</div>
+<div id="the-ludo-paper-game" class="section level2">
+<h2>The ‘Ludo &amp; Paper Game’</h2>
+<div id="theory" class="section level3">
+<h3>Theory</h3>
+<ul>
+<li>We take four pieces of paper and write the following formulas on them:</li>
+</ul>
+<p>1 <span class="math display">\[X_{(new)}=0.8*X_{(old)}+0.1\]</span>
+<span class="math display">\[Y_{(new)}=0.8*Y_{(old)}+0.04\]</span>
+2 <span class="math display">\[X_{(new)}=0.5*X_{(old)}+0.25\]</span>
+<span class="math display">\[Y_{(new)}=0.5*Y_{(old)}+0.04\]</span>
+3 <span class="math display">\[X_{(new)}=0.355*X_{(old)}-0.355*Y_{(old)}+0.266\]</span>
+<span class="math display">\[Y_{(new)}=0.355*X_{(old)}+0.355*Y_{(old)}+0.078\]</span>
+4 <span class="math display">\[X_{(new)}=0.355*X_{(old)}+0.355*Y_{(old)}+0.378\]</span>
+<span class="math display">\[Y_{(new)}=-0.355*X_{(old)}+0.355*Y_{(old)}+0.434\]</span></p>
+<ul>
+<li><p>These are all formulas to compute two numbers, <span class="math inline">\(X_{(new)}\)</span> and <span class="math inline">\({Y_(new)}\)</span> from two other numbers <span class="math inline">\(X_{(old)}\)</span> and <span class="math inline">\(Y_{(old)}\)</span>.</p></li>
+<li><p>We shall play a game of Ludo with these! The Ludo board will be <span class="math inline">\(\mathbb{R}^2\)</span>, and the counter will be a single point, which is initially at <span class="math inline">\((X,Y)=(0,0)\)</span>. Draw one of the four pieces of paper at random and apply the formula on it to compute the new position of the counter. Keep on doing this. A every step you are drawing one of the four papers at random (same paper may get picked many times). All the counter positions are marked as dots.</p></li>
+</ul>
+</div>
+<div id="r-code" class="section level3">
+<h3>R code</h3>
+<pre class="r"><code>play=function(n)
+{
+  X.old=0
+  Y.old=0
+  
+  X.all=NULL
+  Y.all=NULL
+  
+  for(i in 1:n)
+  {
+    sam=sample(1:4,1,replace=T)
+    
+    if(sam==1) 
+    {
+      X.new=0.8*X.old+0.1
+      Y.new=0.8*Y.old+0.04
+    }    
+    else if(sam==2)
+    {
+      X.new=0.5*X.old+0.25
+      Y.new=0.5*Y.old+0.4
+    }
+    
+    else if(sam==3)
+    {
+      X.new=0.355*X.old-0.355*Y.old+0.266
+      Y.new=0.355*X.old+0.355*Y.old+0.078
+    }
+    
+    else
+    {
+      X.new=0.355*X.old+0.355*Y.old+0.378
+      Y.new=-0.355*X.old+0.355*Y.old+0.434
+    }
+    
+    X.all[i]=X.new
+    Y.all[i]=Y.new
+    X.old=X.new
+    Y.old=Y.new
+  }
+  
+  plot(X.all,Y.all,
+              pch=16,
+              col=&quot;darkgreen&quot;,
+              cex=.7,
+              axes=F,
+              xlab=&quot;&quot;,
+              ylab=&quot;&quot;,
+       main=&quot;Ludo &amp; Paper Game Population&quot;)
+  box()
+}
+
+Ans=play(100000) #--- Playing this game 10000 times</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>So, actually, individual outcomes are random, but, when the number of trials are very large, then the experiment looses it’s randomness and gives a known structural shape which is very interesting.</p>
+<p>Thank you for reading…</p>
+</div>
+</div>

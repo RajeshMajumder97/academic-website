@@ -22,7 +22,7 @@ feature:
 - description: 'I am using R  for the last 5 years'
   name: R
 
-- description: 'I have 3 years experience using Late and Excel VBA'
+- description: 'I have 3 years experience using Advanced Excel & Excel VBA'
   name: 'Excel & Excel VBA'
   
 - description: 'I am using SQL  for the last 6 months '
@@ -31,7 +31,7 @@ feature:
 - description: 'I am using Python  for the last 1 year'
   name: Python
 
-- description: 'I am using Python  for the last years '
+- description: 'I am using Lyx/Latex for the last 3 years '
   name: Lyx/Latex
 
 
