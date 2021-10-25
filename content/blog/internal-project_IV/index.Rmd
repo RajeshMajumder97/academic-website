@@ -1,3 +1,555 @@
+# INTRODUCTION
+
+- Till now, we have known how to use a function in R.
+
+- But, we don't know how to make  our own customized function.
+
+- So, today we will learn, how to make a user defined function.
+
+# User Defined Functions
+
+- Functions are created using the ***function()*** directive and are
+stored as R objects just like anything else. In particular, they are R
+objects of class function".
+
+- The basic format of the code is 
+
+# User Defined Functions
+
+--------------------------------------
+**function_name = function(arguments)**   
+**{**
+  **main computation to be done**
+**}**
+--------------------------------------
+
+# User Defined Functions
+
+```{r}
+#---define a function
+testfunction = function(x,y)
+{
+  x+y
+}
+
+#--- call the function with arguments 2,5
+testfunction(2,5)
+```
+
+# Doing more than one computation
+
+- When a function performs more than one task and gives multiple objects ***return()*** is used to get all the outputs in a form of a vector.
+
+# Doing more than one computation
+
+```{r}
+testfunction = function(x,y)
+{
+  sum= x+y
+  prod= x*y
+  return(c(Sum=sum,Product=prod))
+}
+testfunction(2,5)
+```
+
+# Doing more than one computation
+
+- Note that the two output can be accepted separatedly as 
+
+```{r}
+result = testfunction(2,5)
+result[1]
+```
+```{r}
+result[2]
+```
+
+# Doing more than one computation
+
+- Alternatively multiple output can be extracted using ***list()***. This will enable us to extract by names (along with indices)
+
+```{r}
+testfunction = function(x,y)
+{
+  sum= x+y
+  prod= x*y
+  output=list(Sum=sum,Product=prod)
+  return(output)
+}
+output= testfunction(2,5)
+```
+
+# Doing more than one computation
+
+```{r}
+
+output$Sum
+```
+
+```{r}
+output$Product
+```
+
+# Default argument of a function
+
+- R provides methods to define the default value of the arguments while defining the function.
+
+- This default values will be used when the function is called unless this argument values are changed during calling.
+
+
+# Default argument of a function
+
+```{r}
+#--- initializing x=1 & y=1
+
+testfunction = function(x=1,y=1)
+{
+  sum= x+y
+  prod= x*y
+
+  #--- Creates the output list
+  
+  output=list(Sum=sum,Product=prod)
+  return(output)
+}
+testfunction() #-- calling function with no arguments
+```
+# Additional Arguments
+
+- Provision for additional arguments (*probably optional arguments, which cannot be decided beforehand*) can be done using "**...**"
+
+# Additional Arguments
+
+```{r}
+testfunction = function(x=1,y=1,...)
+{
+  sum= x+y
+  prod= x*y
+
+  #--- Creates the output list
+  
+  output=list(Sum=sum,Product=prod)
+  return(output)
+}
+testfunction(2,5,z=12) #-- z is an extra argument which has no use in this function
+```
+
+# Data types of arguments
+
+- Since the types of arguments are not specified (*at the time of definition*), the arguments can be of any type of any data type provided the **internal code of the function is conformable with that data type**
+
+# Data types of arguments
+
+```{r}
+testfunction = function(x=1,y=1,...)
+{
+  sum= x+y
+  prod= x*y
+
+  #--- Creates the output list
+  
+  output=list(Sum=sum,Product=prod)
+  return(output)
+}
+testfunction(2,5,z=12) #-- calling with vectors
+```
+
+# Data types of arguments
+
+::::::{.columns}
+
+:::{.column}
+
+```{r,eval=FALSE}
+#-- calling with characters
+testfunction("F","M")
+```
+
+:::
+
+:::{.column}
+
+![](D:/MY_NEW_TECHING_METERIALS/Power point presentation using R/Pictures/Capture_1.PNG)
+
+:::
+
+::::::
+
+# Sanity checking argument
+
+- So how can we stop a function if the user calls it with non-conformable arguments ?
+
+- A good practice is to write functions in such that while calling, it checks whether the arguments supplied make sense before going to the main body of the function.
+
+# Sanity checking argument
+
+::::::{.columns}
+
+:::{.column}
+
+```{r,eval=FALSE}
+testfunction = function(x=1,y=1,...)
+{
+  #-- check if the arguments are not characters
+  stopifnot(typeof(x)!="character",typeof(y)!="character")
+  sum= x+y
+  prod= x*y
+
+  #--- Creates the output list
+  
+  output=list(Sum=sum,Product=prod)
+  return(output)
+}
+testfunction("F","M")
+```
+
+:::
+
+:::{.column}
+
+![](D:/MY_NEW_TECHING_METERIALS/Power point presentation using R/Pictures/Capture_2.PNG)
+
+:::
+
+::::::
+
+# Sanity checking argument
+
+- The **stopifnot** function halts the execution of the function (*with error message*) if all of its arguments do not evaluate to **TRUE**.
+
+# Scope of variables
+
+- When we define a **variable within a function**, it will be local and will not affect any **global variable** even if the name matches.
+
+```{r,eval=FALSE}
+f_outer=function()
+{
+  a=2
+  f_inner=function()
+  {
+    b=5
+  }
+}
+c=10
+```
+
+- Then variable **c** is global to both **f_outer** and **f_inner**. For **f_inner** variable **b** is local but **a** is global whereas for **f_outer**, both **a** and **b** are local.
+
+# Recursive Function
+
+- R supports recursive function, i.e., a function that calls itself recursively.
+
+```{r}
+#-- Creating a recursive function
+fact= function(x)
+{
+  if(x==0)
+  {
+    return(1)
+  }
+  else
+  {
+    return(x+fact(x-1))
+  }
+}
+
+fact(5) #-- calling the function with x=5
+```
+
+# Loops in R
+
+- Loops helps to repeat a job. We first start with for loop.
+
+- The syntax is
+**for(variable in sequence)**
+**{**
+  **expression to be evaluated**
+**}**
+
+- Here sequence is an expression which evaluates to a vector(not necessarily in A.P.)
+
+- For example all the following are valid
+**for(i in 1:10)**
+**for(i in c(2,3,7,9,13,17,19,23))**
+**for(i in c("A","B","C"))**
+
+- The no. of times the expression in loop is evaluated is the length of the sequence.
+
+# While loop
+
+- The syntax is 
+**while(condition)**
+**{**
+  **expression to be evaluated**
+**}**
+
+- The loop repeats its action until the test condition is not satisfied.
+
+- Unlike for loop we need not to know in advance how many times the loop will repeat.
+
+# If & If-Else
+
+- The syntax for if statement is
+if(condition)
+{
+  expression
+}
+
+- For a binary situation we can use if-else
+if(condition)
+{
+  expression 1
+}
+else
+{
+  expression 2
+}
+
+# If-Else function
+
+- An alternative better way if-else statements is **ifelse()** function.
+
+- The syntax is
+**new variable= ifelse(Some Condition, Value of new variable if condition is true, value if condition is false)**
+
+- e.g. 
+**category= ifelse(marks>80, "Good","Fair")**
+assigns value Good if marks is more than 80 and otherwise Fair.
+
+- The additional advantage is in the condition this function can compare a vector with scalar (*interpreted as each element compared to the scalar*)
+
+# Else if Ladder
+
+- When we have more than two cases we can use else-if ladder
+
+```{r,eval=FALSE}
+f= function(x)
+{
+  if(x==1) print(a)
+  else if(x==2) print(b)
+  else print(c)
+}
+```
+
+# Switch Statement
+
+- An alternative and faster way is **switch()** statement.
+
+- The basic syntax is **switch(statement,list)**
+
+- Here **statement** is evaluated and based on this value, the corresponding item in the **list** is returned.
+
+- e.g. **switch(2,"A","B","C")** gives the answer "B". It selects the item no. 2 from the list.
+
+- **switch(4,"A","B","C")** gives NULL as there is no item with index 4 in the list.
+
+- **switch("color","color"="red","shape"="round","length"=5)** gives answer red (*it matches the string*)
+
+# Example
+
+```{r}
+stat= function(x,type)
+{
+  switch(type,"mean"=mean(x),
+         "median"=median(x),
+         "sd"=sd(x))
+} #--- function ends here
+
+stat(1:10,"mean") #-- call the function with mean
+```
+
+```{r}
+stat(1:10,"median") #-- call the function with median
+```
+
+# Repeat Loop
+
+- Basic syntax is 
+
+repeat
+{
+  expression to be evaluated
+}
+
+- No default way of termination.
+
+- We need to manually terminate the loop using **break** statement.
+
+# Repeat Loop
+
+```{r}
+x=1 #-- Take any value x as 1
+repeat
+{     #-- Loop begin here
+  x=x+1
+  if(x==6) break #-- manual instruction to exit loop
+}   #-- Loop ends here
+
+x #-- checking the value of x
+```
+
+# Plotting Functions
+
+- Any function can be plotted using **curve()**
+
+- The syntax is 
+**curve(function,from,to,n,add=T/F,...)**
+where from and to are range over which the function is plotted and **n**(*integer*) is the number of points at which we evaluate. **add=TRUE/FALSE** indicates whether to add this curve to a existing plot or not.
+
+- To get more information about it's arguments type **??curve() **
+
+# Example
+
+::::::{.columns}
+
+:::{.column}
+
+```{r,eval=FALSE}
+myfun= function(x)
+{
+  x*(1-x)
+}
+curve(myfun,from=0,to=1)
+```
+
+:::
+
+:::{.column}
+
+```{r,echo=FALSE}
+myfun= function(x)
+{
+  x*(1-x)
+}
+curve(myfun,from=0,to=1)
+```
+
+:::
+
+::::::
+
+# Plotting normal curve
+
+::::::{.columns}
+
+:::{.column}
+
+```{r,eval=FALSE}
+#-- dnorm gives pdf of N(0,1)
+curve(dnorm,from = -4,to=4,n=500)
+```
+:::
+
+:::{.column}
+
+```{r,echo=FALSE}
+#-- dnorm gives pdf of N(0,1)
+curve(dnorm,from = -4,to=4,n=500)
+```
+
+:::
+
+::::::
+
+# sin(1/x) plot
+
+```{r}
+curve(sin(1/x),from = -2,to = 2)
+```
+
+# Zoom at the origin
+
+```{r}
+curve(sin(1/x),from = -0.1,to = 0.1)
+```
+
+# Solving Equation
+
+- Already we know if we have a system of equations we can use ***solve()***
+
+- For equations involving one variable we can use ***uniroot()***
+
+- The syntax is ***uniroot(function,interval,...)***
+
+- For solve $$e^x=sin(x)$$ we write
+
+```{r,eval=FALSE}
+uniroot(function(x) exp(x)-sin(x),c(-5,5))
+```
+
+# Solving Equation
+
+```{r,echo=FALSE}
+uniroot(function(x) exp(x)-sin(x),c(-5,5))
+```
+
+# Solving Equation
+
+- For finding real or complex roots of a ploynomial use ***polyroot()***
+
+- For solving roots of $n$ non-linear equations we can use ***multiroot()*** from the ***rootSolve*** package.
+
+# Some Calculus in R
+
+- Define integral can be done using ***integrate()***
+
+- e.g. $\int_0^1(x^2)dx$ can be done using
+
+```{r}
+integrate(function(x) x^2,0,1)
+```
+
+- For derivatives, we use ***deriv()***
+
+# Optimization
+
+- Maximum or Minimum value of a function can be found using ***optimize()***
+
+- ***optimize(function,interval,maximum=TRUE/FALSE)***
+
+```{r}
+optimise(function(x) exp(-x),c(0,5))
+```
+
+- There are other functions for optimization like ***optim()***,***nlm()***,***constrOptim()***.
+
+# An Example On Statistical Regularity
+
+**What is Statistical Regularity ??**
+
+# An Example On Statistical Regularity
+
+Statistical regularity is different from mathematical patterns in the sense that it is rarely exactly replicated, it is extremely similar but not the same. We see this all around us. Our finger prints, for example, or the leaves on a tree. Statistical regularity is like a mysterious black box which takes random unpredictable input and somehow digests the randomness to produce regular output. No doubt, if we can master this technique then it should help the predictable output from unpredictable inputs! The quite predictable profit of the Casino owner or insurance companies are examples.
+Statistical regularity takes many forms, some more dramatic, some less. The simplest occurrence of the phenomenon was first proved mathematically by Jakob Bernoulli. We shall learn it in this course. The theorem and its proof will hardly fill a page completely. But it took 25 years to figure out how to tackle randomness using mathematics to arrive at the proof!
+
+# An Example On Statistical Regularity
+
+- Let's do a little experiment
+
+- We take four pieces of paper and write the following formulas on them:
+
+# An Example On Statistical Regularity
+
+1       $$X_(new)=0.8*X_(old)+0.1$$
+        $$Y_(new)=0.8*Y_(old)+0.04$$
+2       $$X_(new)=0.5*X_(old)+0.25$$
+        $$Y_(new)=0.5*Y_(old)+0.04$$
+3       $$X_(new)=0.355*X_(old)-0.355*Y_(old)+0.266$$
+        $$Y_(new)=0.355*X_(old)+0.355*Y_(old)+0.078$$
+4        $$X_(new)=0.355*X_(old)+0.355*Y_(old)+0.378$$
+        $$Y_(new)=-0.355*X_(old)+0.355*Y_(old)+0.434$$
+        
+# An Example On Statistical Regularity
+
+These are all formulas to compute two numbers, $X_{(new)}$ and ${Y_(new)}$ from two other numbers $X_{(old)}$ and $Y_{(old)}$.
+
+We shall play a game of Ludo with these! The Ludo board will be $\mathbb{R}^2$, and the counter will be a single point, which is initially at $$(X,Y)=(0,0)$$. Draw one of the four pieces of paper at random and apply the formula on it to compute the new position of the counter. Keep on doing this. A every step you are drawing one of the four papers at random (same paper may get picked many times). All the counter positions are marked as dots.
+
+# An Example On Statistical Regularity
+
+- So, the R code is :
+
+```{r,eval=FALSE}
 ---
 date: "2021-10-26T00:00:00Z"
 external_link: ""
@@ -152,3 +704,67 @@ So, actually, individual outcomes are random, but, when the number of trials are
 
 Thank you for reading...
 
+
+```
+
+
+# An Example On Statistical Regularity
+
+```{r,echo=FALSE}
+play=function(n)
+{
+  X.old=0
+  Y.old=0
+  
+  X.all=NULL
+  Y.all=NULL
+  
+  for(i in 1:n)
+  {
+    sam=sample(1:4,1,replace=T)
+    
+    if(sam==1) 
+    {
+      X.new=0.8*X.old+0.1
+      Y.new=0.8*Y.old+0.04
+    }    
+    else if(sam==2)
+    {
+      X.new=0.5*X.old+0.25
+      Y.new=0.5*Y.old+0.4
+    }
+    
+    else if(sam==3)
+    {
+      X.new=0.355*X.old-0.355*Y.old+0.266
+      Y.new=0.355*X.old+0.355*Y.old+0.078
+    }
+    
+    else
+    {
+      X.new=0.355*X.old+0.355*Y.old+0.378
+      Y.new=-0.355*X.old+0.355*Y.old+0.434
+    }
+    
+    X.all[i]=X.new
+    Y.all[i]=Y.new
+    X.old=X.new
+    Y.old=Y.new
+  }
+  
+  plot(X.all,Y.all,
+              pch=16,
+              col="darkgreen",
+              cex=.7,
+              axes=F,
+              xlab="",
+              ylab="")
+  box()
+}
+
+Ans=play(100000) #--- Playing this game 100000 times
+```
+
+# An Example On Statistical Regularity
+
+- The above example is a simulation type example....
