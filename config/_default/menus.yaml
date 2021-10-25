@@ -13,12 +13,9 @@ main:
   - name: Accomplishments
     url: '#accomplishments'
     weight: 30
-  - name: Tutorials
-    url: '#tutorial'
+  - name: Projects & Blogs
+    url: '#blog'
     weight: 40
-  - name: Blogs
-    url: '#blogs'
-    weight: 50
   - name: Contact
     url: '#contact'
-    weight: 60
+    weight: 50

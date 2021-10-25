@@ -16,18 +16,24 @@ subtitle:
 # - Add/remove as many `feature` blocks below as you like.
 # - For available icons, see: https://wowchemy.com/docs/page-builder/#icons
 feature:
-- description: 'I have 2 years of experience using R'
-  icon: r-project
-  icon_pack: fab
-  name: R
 - description: 'I have 2 years of experience'
-  icon: chart-line
-  icon_pack: fas
   name: Statistics
-- description: 10%
-  icon: "database"
-  icon_pack: fas
+
+- description: 'I am using R  for the last 5 years'
+  name: R
+
+- description: 'I have 3 years experience using Late and Excel VBA'
+  name: 'Excel & Excel VBA'
+  
+- description: 'I am using SQL  for the last 6 months '
   name: SQL
+
+- description: 'I am using Python  for the last 1 year'
+  name: Python
+
+- description: 'I am using Python  for the last years '
+  name: Lyx/Latex
+
 
 # Uncomment to use emoji icons.
 #- icon = ":smile:"
