@@ -6,639 +6,138 @@ image:
   focal_point: Smart
   
 #slides: example
-summary: Understanding what is Statisticakl Regularity and an simulation.
+summary: Understanding what is Statistical Regularity with a Ludo & Paper Game.
 tags:
 - Blogs
-title: Understanding what is Statisticakl Regularity and an simulation
+title: Understanding what is Statistical Regularity with a Ludo & Paper Game
 ---
 
 <script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
 
 
-<div id="introduction" class="section level1">
-<h1>INTRODUCTION</h1>
-<ul>
-<li><p>Till now, we have known how to use a function in R.</p></li>
-<li><p>But, we don’t know how to make our own customized function.</p></li>
-<li><p>So, today we will learn, how to make a user defined function.</p></li>
-</ul>
-</div>
-<div id="user-defined-functions" class="section level1">
-<h1>User Defined Functions</h1>
-<ul>
-<li><p>Functions are created using the <strong><em>function()</em></strong> directive and are
-stored as R objects just like anything else. In particular, they are R
-objects of class function".</p></li>
-<li><p>The basic format of the code is</p></li>
-</ul>
-</div>
-<div id="user-defined-functions-1" class="section level1">
-<h1>User Defined Functions</h1>
+<p>Welcome, everyone…</p>
+<p>In this tutorial we will learn what is <strong>Statistical Regularity ???</strong></p>
+<p>Actually, I am writing this blog, because when I first read about this Statistical Regularity from one of my favorite teacher, <a href="https://www.isical.ac.in/~arnabc/">Professor Arnab Chakraborty’s</a> blog, where he has described the concept of statistical regularity with a beautiful example; I was so excited, but there he did not give the actual solution of that example(i.e., the coding part). So, here I am giving my solution which is actually very easy, and I think that’s why he did not give the coding 😅 😅 😅. But, I was very happy to do that by myself, and that’s why now I like to share that with you. I guess you will enjoy it…</p>
+<p>So, before going to the example part, let me give a brief introduction on what is Statistical Regularity is.</p>
+<div id="ststistical-regularity" class="section level2">
+<h2>Ststistical Regularity</h2>
+<p>Statistical regularity is different from mathematical patterns in the sense that it is rarely exactly replicated, it is extremely similar but not the same. We see this all around us. Our finger prints, for example, or the leaves on a tree.</p>
+<p>Statistical regularity is like a mysterious black box which takes random unpredictable input and somehow digests the randomness to produce regular output. No doubt, if we can master this technique then it should help the predictable output from unpredictable inputs! The quite predictable profit of the Casino owner or insurance companies are examples.</p>
+<p>Statistical regularity takes many forms, some more dramatic, some less. The simplest occurrence of the phenomenon was first proved mathematically by Jakob Bernoulli.The theorem and its proof will hardly fill a page completely. But it took 25 years to figure out how to tackle randomness using mathematics to arrive at the proof!</p>
+<p>So, mathematically,</p>
+<p>Consider a random experiment. so as it is known that, the result of a single random experiment can never be correctly predicted before conducting the experiment, if the random experiment is carried out a large number of times under identical conditions it will be seen that the <strong>Relative Frequency (R.F)</strong> of an event stabilizes to a certain value.</p>
+<p>The Relative Frequency (R.F) of an outcome, <span class="math inline">\(O\)</span> (say), of an experiment is the number of time <span class="math inline">\(O\)</span> occurs, <span class="math inline">\(f_n (O)\)</span>, divided by the total number of times, <span class="math inline">\(n\)</span>, the experiment is carried out.</p>
+<p>So, the Relative Frequency (R.F) of an outcome <span class="math inline">\(O\)</span> is:<span class="math display">\[r_n (O)=\frac{f_n (O)}{n}\:\:;clearly\:0\leq r_n (O)\leq 1\]</span>. It is seen that when the experiment is repeated indefinitely, <span class="math inline">\(r_n (O)\)</span> tends to a certain value, <span class="math inline">\(p\)</span> (say); where <span class="math inline">\(0 \leq p \leq 1\)</span>.</p>
+<p>for example :</p>
+<p>A coin was tossed several times and the no. of times it fell Heads was noted. The following table shows the no. of Heads (H) obtained in sets of <span class="math inline">\(n\)</span> experiments.</p>
 <table>
+<thead>
+<tr class="header">
+<th align="left">Set</th>
+<th align="right">n=10</th>
+<th align="right">n=50</th>
+<th align="left">n=100</th>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
-<td><strong>function_name = function(arguments)</strong></td>
+<td align="left">1</td>
+<td align="right">4</td>
+<td align="right">29</td>
+<td align="left">47</td>
 </tr>
 <tr class="even">
-<td><strong>{</strong></td>
+<td align="left">2</td>
+<td align="right">4</td>
+<td align="right">22</td>
+<td align="left">52</td>
 </tr>
 <tr class="odd">
-<td><strong>main computation to be done</strong></td>
+<td align="left">3</td>
+<td align="right">6</td>
+<td align="right">24</td>
+<td align="left">54</td>
 </tr>
 <tr class="even">
-<td><strong>}</strong></td>
+<td align="left">4</td>
+<td align="right">7</td>
+<td align="right">27</td>
+<td align="left">49</td>
+</tr>
+<tr class="odd">
+<td align="left">5</td>
+<td align="right">5</td>
+<td align="right">31</td>
+<td align="left">53</td>
+</tr>
+<tr class="even">
+<td align="left">6</td>
+<td align="right">5</td>
+<td align="right">26</td>
+<td align="left">51</td>
+</tr>
+<tr class="odd">
+<td align="left">7</td>
+<td align="right">3</td>
+<td align="right">25</td>
+<td align="left">48</td>
+</tr>
+<tr class="even">
+<td align="left">8</td>
+<td align="right">7</td>
+<td align="right">28</td>
+<td align="left">52</td>
+</tr>
+<tr class="odd">
+<td align="left">9</td>
+<td align="right">5</td>
+<td align="right">21</td>
+<td align="left">47</td>
+</tr>
+<tr class="even">
+<td align="left">10</td>
+<td align="right">6</td>
+<td align="right">23</td>
+<td align="left">55</td>
+</tr>
+<tr class="odd">
+<td align="left">Total</td>
+<td align="right">52</td>
+<td align="right">256</td>
+<td align="left">508</td>
 </tr>
 </tbody>
 </table>
-</div>
-<div id="user-defined-functions-2" class="section level1">
-<h1>User Defined Functions</h1>
-<pre class="r"><code>#---define a function
-testfunction = function(x,y)
-{
-  x+y
-}
-
-#--- call the function with arguments 2,5
-testfunction(2,5)</code></pre>
-<pre><code>## [1] 7</code></pre>
-</div>
-<div id="doing-more-than-one-computation" class="section level1">
-<h1>Doing more than one computation</h1>
 <ul>
-<li>When a function performs more than one task and gives multiple objects <strong><em>return()</em></strong> is used to get all the outputs in a form of a vector.</li>
+<li><p>For N=10, Relative Frequency (R.F), r(H) varies from 0.3 to 0.7.</p></li>
+<li><p>For n=50, extreme values of r(H) become closer being 0.42 &amp; 0.62.</p></li>
+<li><p>For N=100, r(H) varies between 0.47 &amp; 0.55.</p></li>
+</ul>
+<p>The average values of <span class="math inline">\(r(H)\)</span> were 0.520, 0.512, 0.508 for <span class="math inline">\(n\)</span>= 10, 50 ,100, respectively. Thus one may conclude that as <span class="math inline">\(n\)</span> increases Relative Frequency of H will be expected to be very close to 0.50.</p>
+<p>Ok, so we have understand what is Statistical Regularity. Now, It’s time to jump into our main example.</p>
+</div>
+<div id="the-ludo-paper-game" class="section level2">
+<h2>The ‘Ludo &amp; Paper Game’</h2>
+<div id="theory" class="section level3">
+<h3>Theory</h3>
+<ul>
+<li>We take four pieces of paper and write the following formulas on them:</li>
+</ul>
+<p>1 <span class="math display">\[X_{(new)}=0.8*X_{(old)}+0.1\]</span>
+<span class="math display">\[Y_{(new)}=0.8*Y_{(old)}+0.04\]</span>
+2 <span class="math display">\[X_{(new)}=0.5*X_{(old)}+0.25\]</span>
+<span class="math display">\[Y_{(new)}=0.5*Y_{(old)}+0.04\]</span>
+3 <span class="math display">\[X_{(new)}=0.355*X_{(old)}-0.355*Y_{(old)}+0.266\]</span>
+<span class="math display">\[Y_{(new)}=0.355*X_{(old)}+0.355*Y_{(old)}+0.078\]</span>
+4 <span class="math display">\[X_{(new)}=0.355*X_{(old)}+0.355*Y_{(old)}+0.378\]</span>
+<span class="math display">\[Y_{(new)}=-0.355*X_{(old)}+0.355*Y_{(old)}+0.434\]</span></p>
+<ul>
+<li><p>These are all formulas to compute two numbers, <span class="math inline">\(X_{(new)}\)</span> and <span class="math inline">\({Y_(new)}\)</span> from two other numbers <span class="math inline">\(X_{(old)}\)</span> and <span class="math inline">\(Y_{(old)}\)</span>.</p></li>
+<li><p>We shall play a game of Ludo with these! The Ludo board will be <span class="math inline">\(\mathbb{R}^2\)</span>, and the counter will be a single point, which is initially at <span class="math inline">\((X,Y)=(0,0)\)</span>. Draw one of the four pieces of paper at random and apply the formula on it to compute the new position of the counter. Keep on doing this. A every step you are drawing one of the four papers at random (same paper may get picked many times). All the counter positions are marked as dots.</p></li>
 </ul>
 </div>
-<div id="doing-more-than-one-computation-1" class="section level1">
-<h1>Doing more than one computation</h1>
-<pre class="r"><code>testfunction = function(x,y)
-{
-  sum= x+y
-  prod= x*y
-  return(c(Sum=sum,Product=prod))
-}
-testfunction(2,5)</code></pre>
-<pre><code>##     Sum Product 
-##       7      10</code></pre>
-</div>
-<div id="doing-more-than-one-computation-2" class="section level1">
-<h1>Doing more than one computation</h1>
-<ul>
-<li>Note that the two output can be accepted separatedly as</li>
-</ul>
-<pre class="r"><code>result = testfunction(2,5)
-result[1]</code></pre>
-<pre><code>## Sum 
-##   7</code></pre>
-<pre class="r"><code>result[2]</code></pre>
-<pre><code>## Product 
-##      10</code></pre>
-</div>
-<div id="doing-more-than-one-computation-3" class="section level1">
-<h1>Doing more than one computation</h1>
-<ul>
-<li>Alternatively multiple output can be extracted using <strong><em>list()</em></strong>. This will enable us to extract by names (along with indices)</li>
-</ul>
-<pre class="r"><code>testfunction = function(x,y)
-{
-  sum= x+y
-  prod= x*y
-  output=list(Sum=sum,Product=prod)
-  return(output)
-}
-output= testfunction(2,5)</code></pre>
-</div>
-<div id="doing-more-than-one-computation-4" class="section level1">
-<h1>Doing more than one computation</h1>
-<pre class="r"><code>output$Sum</code></pre>
-<pre><code>## [1] 7</code></pre>
-<pre class="r"><code>output$Product</code></pre>
-<pre><code>## [1] 10</code></pre>
-</div>
-<div id="default-argument-of-a-function" class="section level1">
-<h1>Default argument of a function</h1>
-<ul>
-<li><p>R provides methods to define the default value of the arguments while defining the function.</p></li>
-<li><p>This default values will be used when the function is called unless this argument values are changed during calling.</p></li>
-</ul>
-</div>
-<div id="default-argument-of-a-function-1" class="section level1">
-<h1>Default argument of a function</h1>
-<pre class="r"><code>#--- initializing x=1 &amp; y=1
-
-testfunction = function(x=1,y=1)
-{
-  sum= x+y
-  prod= x*y
-
-  #--- Creates the output list
-  
-  output=list(Sum=sum,Product=prod)
-  return(output)
-}
-testfunction() #-- calling function with no arguments</code></pre>
-<pre><code>## $Sum
-## [1] 2
-## 
-## $Product
-## [1] 1</code></pre>
-</div>
-<div id="additional-arguments" class="section level1">
-<h1>Additional Arguments</h1>
-<ul>
-<li>Provision for additional arguments (<em>probably optional arguments, which cannot be decided beforehand</em>) can be done using “<strong>…</strong>”</li>
-</ul>
-</div>
-<div id="additional-arguments-1" class="section level1">
-<h1>Additional Arguments</h1>
-<pre class="r"><code>testfunction = function(x=1,y=1,...)
-{
-  sum= x+y
-  prod= x*y
-
-  #--- Creates the output list
-  
-  output=list(Sum=sum,Product=prod)
-  return(output)
-}
-testfunction(2,5,z=12) #-- z is an extra argument which has no use in this function</code></pre>
-<pre><code>## $Sum
-## [1] 7
-## 
-## $Product
-## [1] 10</code></pre>
-</div>
-<div id="data-types-of-arguments" class="section level1">
-<h1>Data types of arguments</h1>
-<ul>
-<li>Since the types of arguments are not specified (<em>at the time of definition</em>), the arguments can be of any type of any data type provided the <strong>internal code of the function is conformable with that data type</strong></li>
-</ul>
-</div>
-<div id="data-types-of-arguments-1" class="section level1">
-<h1>Data types of arguments</h1>
-<pre class="r"><code>testfunction = function(x=1,y=1,...)
-{
-  sum= x+y
-  prod= x*y
-
-  #--- Creates the output list
-  
-  output=list(Sum=sum,Product=prod)
-  return(output)
-}
-testfunction(2,5,z=12) #-- calling with vectors</code></pre>
-<pre><code>## $Sum
-## [1] 7
-## 
-## $Product
-## [1] 10</code></pre>
-</div>
-<div id="data-types-of-arguments-2" class="section level1">
-<h1>Data types of arguments</h1>
-<div class="columns">
-<div class="column">
-<pre class="r"><code>#-- calling with characters
-testfunction(&quot;F&quot;,&quot;M&quot;)</code></pre>
-</div><div class="column">
-<p><img src="D:/MY_NEW_TECHING_METERIALS/Power%20point%20presentation%20using%20R/Pictures/Capture_1.PNG" /></p>
-</div>
-</div>
-</div>
-<div id="sanity-checking-argument" class="section level1">
-<h1>Sanity checking argument</h1>
-<ul>
-<li><p>So how can we stop a function if the user calls it with non-conformable arguments ?</p></li>
-<li><p>A good practice is to write functions in such that while calling, it checks whether the arguments supplied make sense before going to the main body of the function.</p></li>
-</ul>
-</div>
-<div id="sanity-checking-argument-1" class="section level1">
-<h1>Sanity checking argument</h1>
-<div class="columns">
-<div class="column">
-<pre class="r"><code>testfunction = function(x=1,y=1,...)
-{
-  #-- check if the arguments are not characters
-  stopifnot(typeof(x)!=&quot;character&quot;,typeof(y)!=&quot;character&quot;)
-  sum= x+y
-  prod= x*y
-
-  #--- Creates the output list
-  
-  output=list(Sum=sum,Product=prod)
-  return(output)
-}
-testfunction(&quot;F&quot;,&quot;M&quot;)</code></pre>
-</div><div class="column">
-<p><img src="D:/MY_NEW_TECHING_METERIALS/Power%20point%20presentation%20using%20R/Pictures/Capture_2.PNG" /></p>
-</div>
-</div>
-</div>
-<div id="sanity-checking-argument-2" class="section level1">
-<h1>Sanity checking argument</h1>
-<ul>
-<li>The <strong>stopifnot</strong> function halts the execution of the function (<em>with error message</em>) if all of its arguments do not evaluate to <strong>TRUE</strong>.</li>
-</ul>
-</div>
-<div id="scope-of-variables" class="section level1">
-<h1>Scope of variables</h1>
-<ul>
-<li>When we define a <strong>variable within a function</strong>, it will be local and will not affect any <strong>global variable</strong> even if the name matches.</li>
-</ul>
-<pre class="r"><code>f_outer=function()
-{
-  a=2
-  f_inner=function()
-  {
-    b=5
-  }
-}
-c=10</code></pre>
-<ul>
-<li>Then variable <strong>c</strong> is global to both <strong>f_outer</strong> and <strong>f_inner</strong>. For <strong>f_inner</strong> variable <strong>b</strong> is local but <strong>a</strong> is global whereas for <strong>f_outer</strong>, both <strong>a</strong> and <strong>b</strong> are local.</li>
-</ul>
-</div>
-<div id="recursive-function" class="section level1">
-<h1>Recursive Function</h1>
-<ul>
-<li>R supports recursive function, i.e., a function that calls itself recursively.</li>
-</ul>
-<pre class="r"><code>#-- Creating a recursive function
-fact= function(x)
-{
-  if(x==0)
-  {
-    return(1)
-  }
-  else
-  {
-    return(x+fact(x-1))
-  }
-}
-
-fact(5) #-- calling the function with x=5</code></pre>
-<pre><code>## [1] 16</code></pre>
-</div>
-<div id="loops-in-r" class="section level1">
-<h1>Loops in R</h1>
-<ul>
-<li><p>Loops helps to repeat a job. We first start with for loop.</p></li>
-<li><p>The syntax is
-<strong>for(variable in sequence)</strong>
-<strong>{</strong>
-<strong>expression to be evaluated</strong>
-<strong>}</strong></p></li>
-<li><p>Here sequence is an expression which evaluates to a vector(not necessarily in A.P.)</p></li>
-<li><p>For example all the following are valid
-<strong>for(i in 1:10)</strong>
-<strong>for(i in c(2,3,7,9,13,17,19,23))</strong>
-<strong>for(i in c(“A”,“B”,“C”))</strong></p></li>
-<li><p>The no. of times the expression in loop is evaluated is the length of the sequence.</p></li>
-</ul>
-</div>
-<div id="while-loop" class="section level1">
-<h1>While loop</h1>
-<ul>
-<li><p>The syntax is
-<strong>while(condition)</strong>
-<strong>{</strong>
-<strong>expression to be evaluated</strong>
-<strong>}</strong></p></li>
-<li><p>The loop repeats its action until the test condition is not satisfied.</p></li>
-<li><p>Unlike for loop we need not to know in advance how many times the loop will repeat.</p></li>
-</ul>
-</div>
-<div id="if-if-else" class="section level1">
-<h1>If &amp; If-Else</h1>
-<ul>
-<li><p>The syntax for if statement is
-if(condition)
-{
-expression
-}</p></li>
-<li><p>For a binary situation we can use if-else
-if(condition)
-{
-expression 1
-}
-else
-{
-expression 2
-}</p></li>
-</ul>
-</div>
-<div id="if-else-function" class="section level1">
-<h1>If-Else function</h1>
-<ul>
-<li><p>An alternative better way if-else statements is <strong>ifelse()</strong> function.</p></li>
-<li><p>The syntax is
-<strong>new variable= ifelse(Some Condition, Value of new variable if condition is true, value if condition is false)</strong></p></li>
-<li><p>e.g. 
-<strong>category= ifelse(marks&gt;80, “Good”,“Fair”)</strong>
-assigns value Good if marks is more than 80 and otherwise Fair.</p></li>
-<li><p>The additional advantage is in the condition this function can compare a vector with scalar (<em>interpreted as each element compared to the scalar</em>)</p></li>
-</ul>
-</div>
-<div id="else-if-ladder" class="section level1">
-<h1>Else if Ladder</h1>
-<ul>
-<li>When we have more than two cases we can use else-if ladder</li>
-</ul>
-<pre class="r"><code>f= function(x)
-{
-  if(x==1) print(a)
-  else if(x==2) print(b)
-  else print(c)
-}</code></pre>
-</div>
-<div id="switch-statement" class="section level1">
-<h1>Switch Statement</h1>
-<ul>
-<li><p>An alternative and faster way is <strong>switch()</strong> statement.</p></li>
-<li><p>The basic syntax is <strong>switch(statement,list)</strong></p></li>
-<li><p>Here <strong>statement</strong> is evaluated and based on this value, the corresponding item in the <strong>list</strong> is returned.</p></li>
-<li><p>e.g. <strong>switch(2,“A”,“B”,“C”)</strong> gives the answer “B”. It selects the item no. 2 from the list.</p></li>
-<li><p><strong>switch(4,“A”,“B”,“C”)</strong> gives NULL as there is no item with index 4 in the list.</p></li>
-<li><p><strong>switch(“color”,“color”=“red”,“shape”=“round”,“length”=5)</strong> gives answer red (<em>it matches the string</em>)</p></li>
-</ul>
-</div>
-<div id="example" class="section level1">
-<h1>Example</h1>
-<pre class="r"><code>stat= function(x,type)
-{
-  switch(type,&quot;mean&quot;=mean(x),
-         &quot;median&quot;=median(x),
-         &quot;sd&quot;=sd(x))
-} #--- function ends here
-
-stat(1:10,&quot;mean&quot;) #-- call the function with mean</code></pre>
-<pre><code>## [1] 5.5</code></pre>
-<pre class="r"><code>stat(1:10,&quot;median&quot;) #-- call the function with median</code></pre>
-<pre><code>## [1] 5.5</code></pre>
-</div>
-<div id="repeat-loop" class="section level1">
-<h1>Repeat Loop</h1>
-<ul>
-<li>Basic syntax is</li>
-</ul>
-<p>repeat
-{
-expression to be evaluated
-}</p>
-<ul>
-<li><p>No default way of termination.</p></li>
-<li><p>We need to manually terminate the loop using <strong>break</strong> statement.</p></li>
-</ul>
-</div>
-<div id="repeat-loop-1" class="section level1">
-<h1>Repeat Loop</h1>
-<pre class="r"><code>x=1 #-- Take any value x as 1
-repeat
-{     #-- Loop begin here
-  x=x+1
-  if(x==6) break #-- manual instruction to exit loop
-}   #-- Loop ends here
-
-x #-- checking the value of x</code></pre>
-<pre><code>## [1] 6</code></pre>
-</div>
-<div id="plotting-functions" class="section level1">
-<h1>Plotting Functions</h1>
-<ul>
-<li><p>Any function can be plotted using <strong>curve()</strong></p></li>
-<li><p>The syntax is
-<strong>curve(function,from,to,n,add=T/F,…)</strong>
-where from and to are range over which the function is plotted and <strong>n</strong>(<em>integer</em>) is the number of points at which we evaluate. <strong>add=TRUE/FALSE</strong> indicates whether to add this curve to a existing plot or not.</p></li>
-<li><p>To get more information about it’s arguments type <strong>??curve() </strong></p></li>
-</ul>
-</div>
-<div id="example-1" class="section level1">
-<h1>Example</h1>
-<div class="columns">
-<div class="column">
-<pre class="r"><code>myfun= function(x)
-{
-  x*(1-x)
-}
-curve(myfun,from=0,to=1)</code></pre>
-</div><div class="column">
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
-</div>
-</div>
-</div>
-<div id="plotting-normal-curve" class="section level1">
-<h1>Plotting normal curve</h1>
-<div class="columns">
-<div class="column">
-<pre class="r"><code>#-- dnorm gives pdf of N(0,1)
-curve(dnorm,from = -4,to=4,n=500)</code></pre>
-</div><div class="column">
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
-</div>
-</div>
-</div>
-<div id="sin1x-plot" class="section level1">
-<h1>sin(1/x) plot</h1>
-<pre class="r"><code>curve(sin(1/x),from = -2,to = 2)</code></pre>
-<pre><code>## Warning in sin(1/x): NaNs produced</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
-</div>
-<div id="zoom-at-the-origin" class="section level1">
-<h1>Zoom at the origin</h1>
-<pre class="r"><code>curve(sin(1/x),from = -0.1,to = 0.1)</code></pre>
-<pre><code>## Warning in sin(1/x): NaNs produced</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
-</div>
-<div id="solving-equation" class="section level1">
-<h1>Solving Equation</h1>
-<ul>
-<li><p>Already we know if we have a system of equations we can use <strong><em>solve()</em></strong></p></li>
-<li><p>For equations involving one variable we can use <strong><em>uniroot()</em></strong></p></li>
-<li><p>The syntax is <strong><em>uniroot(function,interval,…)</em></strong></p></li>
-<li><p>For solve <span class="math display">\[e^x=sin(x)\]</span> we write</p></li>
-</ul>
-<pre class="r"><code>uniroot(function(x) exp(x)-sin(x),c(-5,5))</code></pre>
-</div>
-<div id="solving-equation-1" class="section level1">
-<h1>Solving Equation</h1>
-<pre><code>## $root
-## [1] -3.183063
-## 
-## $f.root
-## [1] -1.359327e-08
-## 
-## $iter
-## [1] 8
-## 
-## $init.it
-## [1] NA
-## 
-## $estim.prec
-## [1] 6.103516e-05</code></pre>
-</div>
-<div id="solving-equation-2" class="section level1">
-<h1>Solving Equation</h1>
-<ul>
-<li><p>For finding real or complex roots of a ploynomial use <strong><em>polyroot()</em></strong></p></li>
-<li><p>For solving roots of <span class="math inline">\(n\)</span> non-linear equations we can use <strong><em>multiroot()</em></strong> from the <strong><em>rootSolve</em></strong> package.</p></li>
-</ul>
-</div>
-<div id="some-calculus-in-r" class="section level1">
-<h1>Some Calculus in R</h1>
-<ul>
-<li><p>Define integral can be done using <strong><em>integrate()</em></strong></p></li>
-<li><p>e.g. <span class="math inline">\(\int_0^1(x^2)dx\)</span> can be done using</p></li>
-</ul>
-<pre class="r"><code>integrate(function(x) x^2,0,1)</code></pre>
-<pre><code>## 0.3333333 with absolute error &lt; 3.7e-15</code></pre>
-<ul>
-<li>For derivatives, we use <strong><em>deriv()</em></strong></li>
-</ul>
-</div>
-<div id="optimization" class="section level1">
-<h1>Optimization</h1>
-<ul>
-<li><p>Maximum or Minimum value of a function can be found using <strong><em>optimize()</em></strong></p></li>
-<li><p><strong><em>optimize(function,interval,maximum=TRUE/FALSE)</em></strong></p></li>
-</ul>
-<pre class="r"><code>optimise(function(x) exp(-x),c(0,5))</code></pre>
-<pre><code>## $minimum
-## [1] 4.999936
-## 
-## $objective
-## [1] 0.006738379</code></pre>
-<ul>
-<li>There are other functions for optimization like <strong><em>optim()</em></strong>,<strong><em>nlm()</em></strong>,<strong><em>constrOptim()</em></strong>.</li>
-</ul>
-</div>
-<div id="an-example-on-statistical-regularity" class="section level1">
-<h1>An Example On Statistical Regularity</h1>
-<p><strong>What is Statistical Regularity ??</strong></p>
-</div>
-<div id="an-example-on-statistical-regularity-1" class="section level1">
-<h1>An Example On Statistical Regularity</h1>
-<p>Statistical regularity is different from mathematical patterns in the sense that it is rarely exactly replicated, it is extremely similar but not the same. We see this all around us. Our finger prints, for example, or the leaves on a tree. Statistical regularity is like a mysterious black box which takes random unpredictable input and somehow digests the randomness to produce regular output. No doubt, if we can master this technique then it should help the predictable output from unpredictable inputs! The quite predictable profit of the Casino owner or insurance companies are examples.
-Statistical regularity takes many forms, some more dramatic, some less. The simplest occurrence of the phenomenon was first proved mathematically by Jakob Bernoulli. We shall learn it in this course. The theorem and its proof will hardly fill a page completely. But it took 25 years to figure out how to tackle randomness using mathematics to arrive at the proof!</p>
-</div>
-<div id="an-example-on-statistical-regularity-2" class="section level1">
-<h1>An Example On Statistical Regularity</h1>
-<ul>
-<li><p>Let’s do a little experiment</p></li>
-<li><p>We take four pieces of paper and write the following formulas on them:</p></li>
-</ul>
-</div>
-<div id="an-example-on-statistical-regularity-3" class="section level1">
-<h1>An Example On Statistical Regularity</h1>
-<p>1 <span class="math display">\[X_(new)=0.8*X_(old)+0.1\]</span>
-<span class="math display">\[Y_(new)=0.8*Y_(old)+0.04\]</span>
-2 <span class="math display">\[X_(new)=0.5*X_(old)+0.25\]</span>
-<span class="math display">\[Y_(new)=0.5*Y_(old)+0.04\]</span>
-3 <span class="math display">\[X_(new)=0.355*X_(old)-0.355*Y_(old)+0.266\]</span>
-<span class="math display">\[Y_(new)=0.355*X_(old)+0.355*Y_(old)+0.078\]</span>
-4 <span class="math display">\[X_(new)=0.355*X_(old)+0.355*Y_(old)+0.378\]</span>
-<span class="math display">\[Y_(new)=-0.355*X_(old)+0.355*Y_(old)+0.434\]</span></p>
-</div>
-<div id="an-example-on-statistical-regularity-4" class="section level1">
-<h1>An Example On Statistical Regularity</h1>
-<p>These are all formulas to compute two numbers, <span class="math inline">\(X_{(new)}\)</span> and <span class="math inline">\({Y_(new)}\)</span> from two other numbers <span class="math inline">\(X_{(old)}\)</span> and <span class="math inline">\(Y_{(old)}\)</span>.</p>
-<p>We shall play a game of Ludo with these! The Ludo board will be <span class="math inline">\(\mathbb{R}^2\)</span>, and the counter will be a single point, which is initially at <span class="math display">\[(X,Y)=(0,0)\]</span>. Draw one of the four pieces of paper at random and apply the formula on it to compute the new position of the counter. Keep on doing this. A every step you are drawing one of the four papers at random (same paper may get picked many times). All the counter positions are marked as dots.</p>
-</div>
-<div id="an-example-on-statistical-regularity-5" class="section level1">
-<h1>An Example On Statistical Regularity</h1>
-<ul>
-<li>So, the R code is :</li>
-</ul>
-<pre class="r"><code>---
-date: &quot;2021-10-26T00:00:00Z&quot;
-external_link: &quot;&quot;
-image:
-#  caption: Photo by rawpixel on Unsplash
-  focal_point: Smart
-  
-#slides: example
-summary: Understanding what is Statisticakl Regularity and an simulation.
-tags:
-- Blogs
-title: Understanding what is Statisticakl Regularity and an simulation
----
-
-Welcome, everyone... 
-
-In this tutorial we will learn what is **Statistical Regularity ???** 
-
-Actually, I am writing this blog, because when I first read about this Statistical Regularity from one of my favorite teacher, [Professor Arnab Chakraborty&#39;s](https://www.isical.ac.in/~arnabc/) blog, where he has described the concept of statistical regularity with a beautiful example; I was so excited, but there he did not give the actual solution of that example(i.e., the coding part). So, here I am giving my solution which is actually very easy, and I think that&#39;s why he did not give the coding `r knitr::asis_output(&quot;\U1F605 \U1F605 \U1F605&quot;)`. But, I was very happy to do that by myself, and that&#39;s why now I like to share that with you. I guess you will enjoy it...
-
-So, before going to the example part, let me give a brief introduction on what is Statistical Regularity is. 
-
-## Ststistical Regularity
-
-Statistical regularity is different from mathematical patterns in the sense that it is rarely exactly replicated, it is extremely similar but not the same. We see this all around us. Our finger prints, for example, or the leaves on a tree.
-
-Statistical regularity is like a mysterious black box which takes random unpredictable input and somehow digests the randomness to produce regular output. No doubt, if we can master this technique then it should help the predictable output from unpredictable inputs! The quite predictable profit of the Casino owner or insurance companies are examples.
-
-Statistical regularity takes many forms, some more dramatic, some less. The simplest occurrence of the phenomenon was first proved mathematically by Jakob Bernoulli.The theorem and its proof will hardly fill a page completely. But it took 25 years to figure out how to tackle randomness using mathematics to arrive at the proof!
-
-So, mathematically,
-
-Consider a random experiment. so as it is known that, the result of a single random experiment can never be correctly predicted before conducting the experiment, if the random experiment is carried out a large number of times under identical conditions it will be seen that the **Relative Frequency (R.F)** of an event stabilizes to a certain value. 
-
-The Relative Frequency (R.F) of an outcome, $O$ (say), of an experiment is the number of time $O$ occurs, $f_n (O)$, divided by the total number of times, $n$, the experiment is carried out.
-
-So, the Relative Frequency (R.F) of an outcome $O$ is:$$r_n (O)=\frac{f_n (O)}{n}\:\:;clearly\:0\leq r_n (O)\leq 1$$. It is seen that when the experiment is repeated indefinitely, $r_n (O)$ tends to a certain value, $p$ (say); where $0 \leq p \leq 1$.
-
-for example :
-
-A coin was tossed several times and the no. of times it fell Heads was noted. The following table shows the no. of Heads (H) obtained in sets of $n$ experiments.
-
-Set    n=10   n=50   n=100    
-----  -----  -----   ------ 
-1       4     29       47
-2       4     22       52
-3       6     24       54
-4       7     27       49
-5       5     31       53
-6       5     26       51
-7       3     25       48
-8       7     28       52
-9       5     21       47
-10      6     23       55
-Total   52    256      508
-
-
-- For N=10, Relative Frequency (R.F), r(H) varies from 0.3 to 0.7.
-
-- For n=50, extreme values of r(H) become closer being 0.42 &amp; 0.62. 
-
-- For N=100, r(H) varies between 0.47 &amp; 0.55.
-
-
-The average values of $r(H)$ were 0.520, 0.512, 0.508 for $n$= 10, 50 ,100, respectively. Thus one may conclude that as $n$ increases Relative Frequency of H will be expected to be very close to 0.50.
-
-Ok, so we have understand what is Statistical Regularity. Now, It&#39;s time to jump into our main example.
-
-## The &#39;Ludo &amp; Paper Game&#39;
-
-
-### Theory
-
-- We take four pieces of paper and write the following formulas on them:
-
-1       $$X_{(new)}=0.8*X_{(old)}+0.1$$
-        $$Y_{(new)}=0.8*Y_{(old)}+0.04$$
-2       $$X_{(new)}=0.5*X_{(old)}+0.25$$
-        $$Y_{(new)}=0.5*Y_{(old)}+0.04$$
-3       $$X_{(new)}=0.355*X_{(old)}-0.355*Y_{(old)}+0.266$$
-        $$Y_{(new)}=0.355*X_{(old)}+0.355*Y_{(old)}+0.078$$
-4        $$X_{(new)}=0.355*X_{(old)}+0.355*Y_{(old)}+0.378$$
-        $$Y_{(new)}=-0.355*X_{(old)}+0.355*Y_{(old)}+0.434$$
-        
-
-- These are all formulas to compute two numbers, $X_{(new)}$ and ${Y_(new)}$ from two other numbers $X_{(old)}$ and $Y_{(old)}$.
-
-
-- We shall play a game of Ludo with these! The Ludo board will be $\mathbb{R}^2$, and the counter will be a single point, which is initially at $(X,Y)=(0,0)$. Draw one of the four pieces of paper at random and apply the formula on it to compute the new position of the counter. Keep on doing this. A every step you are drawing one of the four papers at random (same paper may get picked many times). All the counter positions are marked as dots.
-
-
-### R code</code></pre>
+<div id="r-code" class="section level3">
+<h3>R code</h3>
 <pre class="r"><code>play=function(n)
 {
   X.old=0
@@ -692,18 +191,8 @@ Ok, so we have understand what is Statistical Regularity. Now, It&#39;s time to 
 }
 
 Ans=play(100000) #--- Playing this game 10000 times</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <p>So, actually, individual outcomes are random, but, when the number of trials are very large, then the experiment looses it’s randomness and gives a known structural shape which is very interesting.</p>
 <p>Thank you for reading…</p>
-<p>```</p>
 </div>
-<div id="an-example-on-statistical-regularity-6" class="section level1">
-<h1>An Example On Statistical Regularity</h1>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
-</div>
-<div id="an-example-on-statistical-regularity-7" class="section level1">
-<h1>An Example On Statistical Regularity</h1>
-<ul>
-<li>The above example is a simulation type example….</li>
-</ul>
 </div>
