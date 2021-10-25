@@ -1,0 +1,435 @@
+---
+date: "2021-10-25T00:00:00Z"
+external_link: ""
+image:
+#  caption: Photo by rawpixel on Unsplash
+  focal_point: Smart
+  
+#slides: example
+summary: How to write a user-defined function in R.
+tags:
+- Blogs
+title: Write a user-defined function in R
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<div id="introduction" class="section level2">
+<h2>INTRODUCTION</h2>
+<p>In this tutorial, we will learn, how to make our own custom function in R.Though, R has thousands of functions under thousands of packages, but it is most important to know about how to make a customized function function.</p>
+</div>
+<div id="user-defined-functions" class="section level2">
+<h2>User Defined Functions</h2>
+<ul>
+<li><p>Functions are created using the <strong><em>function()</em></strong> directive and are
+stored as R objects just like anything else. In particular, they are R
+objects of class function".</p></li>
+<li><p>The basic format of the code is</p></li>
+</ul>
+<p><strong>function_name = function(arguments)</strong><br />
+<strong>{</strong>
+<strong>main computation to be done</strong>
+<strong>}</strong></p>
+<pre class="r"><code>#---define a function
+testfunction = function(x,y)
+{
+  x+y
+}
+
+#--- call the function with arguments 2,5
+testfunction(2,5)</code></pre>
+<pre><code>## [1] 7</code></pre>
+</div>
+<div id="doing-more-than-one-computation" class="section level2">
+<h2>Doing more than one computation</h2>
+<ul>
+<li>When a function performs more than one task and gives multiple objects <strong><em>return()</em></strong> is used to get all the outputs in a form of a vector.</li>
+</ul>
+<pre class="r"><code>testfunction = function(x,y)
+{
+  sum= x+y
+  prod= x*y
+  return(c(Sum=sum,Product=prod))
+}
+testfunction(2,5)</code></pre>
+<pre><code>##     Sum Product 
+##       7      10</code></pre>
+<ul>
+<li>Note that the two output can be accepted separatedly as</li>
+</ul>
+<pre class="r"><code>result = testfunction(2,5)
+result[1]</code></pre>
+<pre><code>## Sum 
+##   7</code></pre>
+<pre class="r"><code>result[2]</code></pre>
+<pre><code>## Product 
+##      10</code></pre>
+<ul>
+<li>Alternatively multiple output can be extracted using <strong><em>list()</em></strong>. This will enable us to extract by names (along with indices)</li>
+</ul>
+<pre class="r"><code>testfunction = function(x,y)
+{
+  sum= x+y
+  prod= x*y
+  output=list(Sum=sum,Product=prod)
+  return(output)
+}
+output= testfunction(2,5)</code></pre>
+<pre class="r"><code>output$Sum</code></pre>
+<pre><code>## [1] 7</code></pre>
+<pre class="r"><code>output$Product</code></pre>
+<pre><code>## [1] 10</code></pre>
+</div>
+<div id="default-argument-of-a-function" class="section level2">
+<h2>Default argument of a function</h2>
+<ul>
+<li><p>R provides methods to define the default value of the arguments while defining the function.</p></li>
+<li><p>This default values will be used when the function is called unless this argument values are changed during calling.</p></li>
+</ul>
+<pre class="r"><code>#--- initializing x=1 &amp; y=1
+
+testfunction = function(x=1,y=1)
+{
+  sum= x+y
+  prod= x*y
+
+  #--- Creates the output list
+  
+  output=list(Sum=sum,Product=prod)
+  return(output)
+}
+testfunction() #-- calling function with no arguments</code></pre>
+<pre><code>## $Sum
+## [1] 2
+## 
+## $Product
+## [1] 1</code></pre>
+</div>
+<div id="additional-arguments" class="section level2">
+<h2>Additional Arguments</h2>
+<ul>
+<li>Provision for additional arguments (<em>probably optional arguments, which cannot be decided beforehand</em>) can be done using “<strong>…</strong>”</li>
+</ul>
+<pre class="r"><code>testfunction = function(x=1,y=1,...)
+{
+  sum= x+y
+  prod= x*y
+
+  #--- Creates the output list
+  
+  output=list(Sum=sum,Product=prod)
+  return(output)
+}
+testfunction(2,5,z=12) #-- z is an extra argument which has no use in this function</code></pre>
+<pre><code>## $Sum
+## [1] 7
+## 
+## $Product
+## [1] 10</code></pre>
+</div>
+<div id="data-types-of-arguments" class="section level2">
+<h2>Data types of arguments</h2>
+<ul>
+<li>Since the types of arguments are not specified (<em>at the time of definition</em>), the arguments can be of any type of any data type provided the <strong>internal code of the function is conformable with that data type</strong></li>
+</ul>
+<pre class="r"><code>testfunction = function(x=1,y=1,...)
+{
+  sum= x+y
+  prod= x*y
+
+  #--- Creates the output list
+  
+  output=list(Sum=sum,Product=prod)
+  return(output)
+}
+testfunction(2,5,z=12) #-- calling with vectors</code></pre>
+<pre><code>## $Sum
+## [1] 7
+## 
+## $Product
+## [1] 10</code></pre>
+<pre class="r"><code>#-- calling with characters
+testfunction(&quot;F&quot;,&quot;M&quot;)</code></pre>
+<p><strong><span class="math inline">\(\color{red}{\text{Error in x+y : non-numeric argument to binary operator}}\)</span></strong></p>
+</div>
+<div id="sanity-checking-argument" class="section level2">
+<h2>Sanity checking argument</h2>
+<ul>
+<li><p>So how can we stop a function if the user calls it with non-conformable arguments ?</p></li>
+<li><p>A good practice is to write functions in such that while calling, it checks whether the arguments supplied make sense before going to the main body of the function.</p></li>
+</ul>
+<pre class="r"><code>testfunction = function(x=1,y=1,...)
+{
+  #-- check if the arguments are not characters
+  stopifnot(typeof(x)!=&quot;character&quot;,typeof(y)!=&quot;character&quot;)
+  sum= x+y
+  prod= x*y
+
+  #--- Creates the output list
+  
+  output=list(Sum=sum,Product=prod)
+  return(output)
+}
+testfunction(&quot;F&quot;,&quot;M&quot;)</code></pre>
+<p><strong><span class="math inline">\(\color{red}{\text{Error in testfunction(&quot;F&quot;,&quot;M&quot;) : typeof(x) != &quot;character&quot; is not TRUE}}\)</span></strong></p>
+<ul>
+<li>The <strong>stopifnot</strong> function halts the execution of the function (<em>with error message</em>) if all of its arguments do not evaluate to <strong>TRUE</strong>.</li>
+</ul>
+</div>
+<div id="scope-of-variables" class="section level2">
+<h2>Scope of variables</h2>
+<ul>
+<li>When we define a <strong>variable within a function</strong>, it will be local and will not affect any <strong>global variable</strong> even if the name matches.</li>
+</ul>
+<pre class="r"><code>f_outer=function()
+{
+  a=2
+  f_inner=function()
+  {
+    b=5
+  }
+}
+c=10</code></pre>
+<ul>
+<li>Then variable <strong>c</strong> is global to both <strong>f_outer</strong> and <strong>f_inner</strong>. For <strong>f_inner</strong> variable <strong>b</strong> is local but <strong>a</strong> is global whereas for <strong>f_outer</strong>, both <strong>a</strong> and <strong>b</strong> are local.</li>
+</ul>
+</div>
+<div id="recursive-function" class="section level2">
+<h2>Recursive Function</h2>
+<ul>
+<li>R supports recursive function, i.e., a function that calls itself recursively.</li>
+</ul>
+<pre class="r"><code>#-- Creating a recursive function
+fact= function(x)
+{
+  if(x==0)
+  {
+    return(1)
+  }
+  else
+  {
+    return(x+fact(x-1))
+  }
+}
+
+fact(5) #-- calling the function with x=5</code></pre>
+<pre><code>## [1] 16</code></pre>
+</div>
+<div id="loops-in-r" class="section level2">
+<h2>Loops in R</h2>
+<ul>
+<li><p>Loops helps to repeat a job. We first start with for loop.</p></li>
+<li><p>The syntax is
+<strong>for(variable in sequence)</strong>
+<strong>{</strong>
+<strong>expression to be evaluated</strong>
+<strong>}</strong></p></li>
+<li><p>Here sequence is an expression which evaluates to a vector(not necessarily in A.P.)</p></li>
+<li><p>For example all the following are valid
+<strong>for(i in 1:10)</strong>
+<strong>for(i in c(2,3,7,9,13,17,19,23))</strong>
+<strong>for(i in c(“A”,“B”,“C”))</strong></p></li>
+<li><p>The no. of times the expression in loop is evaluated is the length of the sequence.</p></li>
+</ul>
+</div>
+<div id="while-loop" class="section level2">
+<h2>While loop</h2>
+<ul>
+<li><p>The syntax is
+<strong>while(condition)</strong>
+<strong>{</strong>
+<strong>expression to be evaluated</strong>
+<strong>}</strong></p></li>
+<li><p>The loop repeats its action until the test condition is not satisfied.</p></li>
+<li><p>Unlike for loop we need not to know in advance how many times the loop will repeat.</p></li>
+</ul>
+</div>
+<div id="if-if-else" class="section level2">
+<h2>If &amp; If-Else</h2>
+<ul>
+<li><p>The syntax for if statement is
+if(condition)
+{
+expression
+}</p></li>
+<li><p>For a binary situation we can use if-else
+if(condition)
+{
+expression 1
+}
+else
+{
+expression 2
+}</p></li>
+</ul>
+</div>
+<div id="if-else-function" class="section level2">
+<h2>If-Else function</h2>
+<ul>
+<li><p>An alternative better way if-else statements is <strong>ifelse()</strong> function.</p></li>
+<li><p>The syntax is
+<strong>new variable= ifelse(Some Condition, Value of new variable if condition is true, value if condition is false)</strong></p></li>
+<li><p>e.g. 
+<strong>category= ifelse(marks&gt;80, “Good”,“Fair”)</strong>
+assigns value Good if marks is more than 80 and otherwise Fair.</p></li>
+<li><p>The additional advantage is in the condition this function can compare a vector with scalar (<em>interpreted as each element compared to the scalar</em>)</p></li>
+</ul>
+</div>
+<div id="else-if-ladder" class="section level2">
+<h2>Else if Ladder</h2>
+<ul>
+<li>When we have more than two cases we can use else-if ladder</li>
+</ul>
+<pre class="r"><code>f= function(x)
+{
+  if(x==1) print(a)
+  else if(x==2) print(b)
+  else print(c)
+}</code></pre>
+</div>
+<div id="switch-statement" class="section level2">
+<h2>Switch Statement</h2>
+<ul>
+<li><p>An alternative and faster way is <strong>switch()</strong> statement.</p></li>
+<li><p>The basic syntax is <strong>switch(statement,list)</strong></p></li>
+<li><p>Here <strong>statement</strong> is evaluated and based on this value, the corresponding item in the <strong>list</strong> is returned.</p></li>
+<li><p>e.g. <strong>switch(2,“A”,“B”,“C”)</strong> gives the answer “B”. It selects the item no. 2 from the list.</p></li>
+<li><p><strong>switch(4,“A”,“B”,“C”)</strong> gives NULL as there is no item with index 4 in the list.</p></li>
+<li><p><strong>switch(“color”,“color”=“red”,“shape”=“round”,“length”=5)</strong> gives answer red (<em>it matches the string</em>)</p></li>
+</ul>
+<pre class="r"><code>stat= function(x,type)
+{
+  switch(type,&quot;mean&quot;=mean(x),
+         &quot;median&quot;=median(x),
+         &quot;sd&quot;=sd(x))
+} #--- function ends here
+
+stat(1:10,&quot;mean&quot;) #-- call the function with mean</code></pre>
+<pre><code>## [1] 5.5</code></pre>
+<pre class="r"><code>stat(1:10,&quot;median&quot;) #-- call the function with median</code></pre>
+<pre><code>## [1] 5.5</code></pre>
+</div>
+<div id="repeat-loop" class="section level2">
+<h2>Repeat Loop</h2>
+<ul>
+<li>Basic syntax is</li>
+</ul>
+<p>repeat
+{
+expression to be evaluated
+}</p>
+<ul>
+<li><p>No default way of termination.</p></li>
+<li><p>We need to manually terminate the loop using <strong>break</strong> statement.</p></li>
+</ul>
+<pre class="r"><code>x=1 #-- Take any value x as 1
+repeat
+{     #-- Loop begin here
+  x=x+1
+  if(x==6) break #-- manual instruction to exit loop
+}   #-- Loop ends here
+
+x #-- checking the value of x</code></pre>
+<pre><code>## [1] 6</code></pre>
+</div>
+<div id="plotting-functions" class="section level2">
+<h2>Plotting Functions</h2>
+<ul>
+<li><p>Any function can be plotted using <strong>curve()</strong></p></li>
+<li><p>The syntax is
+<strong>curve(function,from,to,n,add=T/F,…)</strong>
+where from and to are range over which the function is plotted and <strong>n</strong>(<em>integer</em>) is the number of points at which we evaluate. <strong>add=TRUE/FALSE</strong> indicates whether to add this curve to a existing plot or not.</p></li>
+<li><p>To get more information about it’s arguments type <strong>??curve() </strong></p></li>
+</ul>
+<pre class="r"><code>  myfun= function(x)
+  {
+    x*(1-x)
+  }
+  curve(myfun,from=0,to=1)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+</div>
+<div id="plotting-normal-curve" class="section level2">
+<h2>Plotting normal curve</h2>
+<pre class="r"><code>  #-- dnorm gives pdf of N(0,1)
+  curve(dnorm,from = -4,to=4,n=500)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+</div>
+<div id="sin1x-plot" class="section level2">
+<h2>sin(1/x) plot</h2>
+<pre class="r"><code>  curve(sin(1/x),from = -2,to = 2)</code></pre>
+<pre><code>## Warning in sin(1/x): NaNs produced</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+</div>
+<div id="zoom-at-the-origin" class="section level2">
+<h2>Zoom at the origin</h2>
+<pre class="r"><code>  curve(sin(1/x),from = -0.1,to = 0.1)</code></pre>
+<pre><code>## Warning in sin(1/x): NaNs produced</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+</div>
+<div id="solving-equation" class="section level2">
+<h2>Solving Equation</h2>
+<ul>
+<li><p>Already we know if we have a system of equations we can use <strong><em>solve()</em></strong></p></li>
+<li><p>For equations involving one variable we can use <strong><em>uniroot()</em></strong></p></li>
+<li><p>The syntax is <strong><em>uniroot(function,interval,…)</em></strong></p></li>
+<li><p>For solve <span class="math display">\[e^x=sin(x)\]</span> we write</p></li>
+</ul>
+<pre class="r"><code>  uniroot(function(x) exp(x)-sin(x),c(-5,5))</code></pre>
+</div>
+<div id="solving-equation-1" class="section level2">
+<h2>Solving Equation</h2>
+<pre><code>## $root
+## [1] -3.183063
+## 
+## $f.root
+## [1] -1.359327e-08
+## 
+## $iter
+## [1] 8
+## 
+## $init.it
+## [1] NA
+## 
+## $estim.prec
+## [1] 6.103516e-05</code></pre>
+</div>
+<div id="solving-equation-2" class="section level2">
+<h2>Solving Equation</h2>
+<ul>
+<li><p>For finding real or complex roots of a ploynomial use <strong><em>polyroot()</em></strong></p></li>
+<li><p>For solving roots of <span class="math inline">\(n\)</span> non-linear equations we can use <strong><em>multiroot()</em></strong> from the <strong><em>rootSolve</em></strong> package.</p></li>
+</ul>
+</div>
+<div id="some-calculus-in-r" class="section level2">
+<h2>Some Calculus in R</h2>
+<ul>
+<li><p>Define integral can be done using <strong><em>integrate()</em></strong></p></li>
+<li><p>e.g. <span class="math inline">\(\int_0^1(x^2)dx\)</span> can be done using</p></li>
+</ul>
+<pre class="r"><code>  integrate(function(x) x^2,0,1)</code></pre>
+<pre><code>## 0.3333333 with absolute error &lt; 3.7e-15</code></pre>
+<ul>
+<li>For derivatives, we use <strong><em>deriv()</em></strong></li>
+</ul>
+</div>
+<div id="optimization" class="section level2">
+<h2>Optimization</h2>
+<ul>
+<li><p>Maximum or Minimum value of a function can be found using <strong><em>optimize()</em></strong></p></li>
+<li><p><strong><em>optimize(function,interval,maximum=TRUE/FALSE)</em></strong></p></li>
+</ul>
+<pre class="r"><code>  optimise(function(x) exp(-x),c(0,5))</code></pre>
+<pre><code>## $minimum
+## [1] 4.999936
+## 
+## $objective
+## [1] 0.006738379</code></pre>
+<ul>
+<li>There are other functions for optimization like <strong><em>optim()</em></strong>,<strong><em>nlm()</em></strong>,<strong><em>constrOptim()</em></strong>.</li>
+</ul>
+</div>
+<div id="further-reading" class="section level2">
+<h2>Further reading</h2>
+<p><a href="https://rstudio-education.github.io/hopr/"><em>Garrett Grolemund</em>, <strong>Hands-On Programming with R</strong>, <em>O’REILLY</em></a></p>
+</div>
