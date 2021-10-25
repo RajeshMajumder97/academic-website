@@ -12,7 +12,7 @@ tags:
 title: Understanding what is Statistical Regularity with a Ludo & Paper Game
 ---
 
-Welcome, everyone... 
+Hi,... 
 
 In this tutorial we will learn what is **Statistical Regularity ???** 
 
