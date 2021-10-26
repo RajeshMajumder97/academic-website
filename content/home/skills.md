@@ -28,7 +28,7 @@ feature:
 - description: 'I am using SQL  for the last 6 months '
   name: SQL
 
-- description: 'I am using Python  for the last 1 year'
+- description: '2'
   name: Python
 
 - description: 'I am using Lyx/Latex for the last 3 years '
