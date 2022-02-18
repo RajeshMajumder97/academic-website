@@ -21,9 +21,9 @@ interests:
 - Machine Learning
 - R Programming
 organizations:
-- name: West Bengal State University
+- name: St. John's Research Institute
   url: ''
-role: M.Sc. IN STATISTICS
+role: Statistician, Research Assistant
 social:
 - icon: envelope
   icon_pack: fas
@@ -47,6 +47,6 @@ superuser: true
 title: Rajesh Majumder
 ---
 
-Rajesh Majumder is the creator and mentor of Start With Stat (a one-stop solution of Statistics for undergraduate students)  and the creator of Med-EZY wholesale medicine billing & accounting software(which will be available on the online platform very soon). He has completed his Master's degree in Statistics from West Bengal State University, withholding the 1st position in the university. Before that, he has completed his graduation from A.P.C. College, in Kolkata, West Bengal. His primary interests include Regularized Regression theory, Advanced Multivariate Data Analysis, Missing Data, and Machine Learning.  He has an interest to learn different software and statistical/ML algorithms to develop software. Besides his academic and professional career, he has the interest to play blues harmonica and singing.
+Rajesh Majumder is the creator and mentor of Start With Stat (a one-stop solution of Statistics for undergraduate students)  and the creator of Med-EZY wholesale medicine billing & accounting software(which will be available on the online platform very soon). He has completed his Master's degree in Statistics from West Bengal State University, withholding the 1st position in the university. Before that, he has completed his graduation from A.P.C. College, in Kolkata, West Bengal. Recently he is working  at St. John's Research Institute as a Research Assistant, Statistician. His primary interests include Regularized Regression theory, Advanced Multivariate Data Analysis, Missing Data, and Machine Learning.  He has an interest to learn different software and statistical/ML algorithms to develop software. Besides his academic and professional career, he has the interest to play blues harmonica and singing.
 
 {{< icon name="download" pack="fas" >}} Download my {{< staticref "uploads/RAJESH MAJUMDER_RESUME.pdf" "newtab" >}}resumé{{< /staticref >}}.
