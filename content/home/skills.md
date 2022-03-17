@@ -16,24 +16,26 @@ subtitle:
 # - Add/remove as many `feature` blocks below as you like.
 # - For available icons, see: https://wowchemy.com/docs/page-builder/#icons
 feature:
-- description: 'I have 2 years of experience'
+- description: ''
   name: Statistics
-
-- description: 'I am using R  for the last 5 years'
-  name: R
-
-- description: 'I have 3 years experience using Advanced Excel & Excel VBA'
-  name: 'Excel & Excel VBA'
   
-- description: 'I am using SQL  for the last 6 months '
+- description: ''
+  name: 'Missing Data Techniques'
+
+- description: ''
+  name: 'Penalized Regression Techniques'
+
+- description: ''
+  name: 'Biostatistics(Epidemiology)'
+
+- description: ''
+  name: R/Python
+  
+- description: ''
+  name: 'SAS'
+
+- description: ''
   name: SQL
-
-- description: 'I am using Python  for the last 1 year'
-  name: Python
-
-- description: 'I am using Lyx/Latex for the last 3 years '
-  name: Lyx/Latex
-
 
 # Uncomment to use emoji icons.
 #- icon = ":smile:"
