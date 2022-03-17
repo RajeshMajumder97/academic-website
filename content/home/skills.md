@@ -29,11 +29,8 @@ feature:
   name: 'Biostatistics(Epidemiology)'
 
 - description: ''
-  name: R/Python
+  name: R/SAS/Python
   
-- description: ''
-  name: 'SAS'
-
 - description: ''
   name: SQL
 
