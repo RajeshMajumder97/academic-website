@@ -1,0 +1,1537 @@
+---
+date: "2022-04-08T00:00:00Z"
+external_link: ""
+image:
+#  caption: Photo by rawpixel on Unsplash
+  focal_point: Smart
+  
+#slides: example
+summary: Survival Analysis with R
+tags:
+- Blogs
+title: Survival Analysis with R
+
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    math: katex
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<ul>
+<li><strong>This class will provide theoretical as well as hands-on instruction and exercises covering basic survival analysis using R.</strong></li>
+<li><strong>Some References for further reading:</strong>
+<ul>
+<li><span style="text-decoration:underline"><em>Clark, T., Bradhurn, M., Love, S., &amp; Altman, D. (2003). Survival analysis part I: Basic concepts and first analysis.232-238.ISSN 0007-0920.</em></span></li>
+<li><span style="text-decoration:underline"><em>Clark, T., Bradhurn, M., Love, S., &amp; Altman, D. (2003). Survival analysis part II: Multivariate data analysis- an introduction to concepts and methods. British Journal of Cancer, 89(3),431-436.</em></span></li>
+<li><span style="text-decoration:underline"><em>Clark, T., Bradhurn, M., Love, S., &amp; Altman, D. (2003). Survival analysis part III: Multivariate data analysis- choosing a model and assessing its adequacy and fit. British Journal of Cancer, 89(4),605-11.</em></span></li>
+<li><span style="text-decoration:underline"><em>Clark, T., Bradhurn, M., Love, S., &amp; Altman, D. (2003). Survival analysis part IV: Farther concepts and methods in survival analysis. 781-786.ISSN 0007-0920.</em></span></li>
+</ul></li>
+<li><strong>It is assumed that the readers are familiar with R Programming. If not then get some basic R programming knowledge and then comeback.</strong></li>
+<li><strong>In this tutorial I have used some random toy data set as well as some R inbuilt data sets.</strong></li>
+<li><strong>Some packages we’ll be using here include:</strong>
+<ul>
+<li><em>lubridate</em></li>
+<li><em>survival</em></li>
+<li><em>cmprsk</em> and some others.</li>
+</ul></li>
+</ul>
+<p><strong>Lets start….</strong></p>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Generally, Survival Analysis is a collection off statistical procedures for data analysis for which the outcome variable of interest is <span style="text-decoration:underline"><strong>time until an event occurs.</strong></span>. More precisely, consider an example; suppose we want to study that how diabetes rate differed between males and females. So, here we will use some basic categorical data analysis – comparing proportions (risks, rates, etc) between different groups using a chi-square or fisher exact test, or logistic regression. Note that, in this kind of analysis you implicitly assume that the rates are constant over the period of the study, or as defined by the different groups you defined.</p>
+<p>But, in longitudinal studies where you track samples or subjects from one time point (e.g., entry into a study, diagnosis, start of a treatment) until you observe some outcome event (e.g., death, onset of disease, relapse), it doesn’t make sense to assume the rates are constant. For example: the risk of death after heart surgery is highest immediately post-op, decreases as the patient recovers, then rises slowly again as the patient ages. Or, recurrence rate of different cancers varies highly over time, and depends on tumor genetics, treatment, and other environmental factors.</p>
+<div id="examples-for-time-to-event-data" class="section level4">
+<h4>Examples for Time-to-Event data</h4>
+<p><strong>Examples from cancer</strong></p>
+<ul>
+<li>Time from surgery to death</li>
+<li>Time from start of treatment to progression</li>
+<li>Time from response to recurrence</li>
+</ul>
+<p><strong>Examples from other fields</strong></p>
+<ul>
+<li>Time from HIV infection to development of AIDS</li>
+<li>Time to heart attack</li>
+<li>Time to onset of substance abuse</li>
+<li>Time to initiation of sexual activity</li>
+<li>Time to machine malfunction</li>
+</ul>
+<p><strong>Aliases for survival analysis</strong></p>
+<ul>
+<li>Reliability analysis</li>
+<li>Duration analysis</li>
+<li>Event history analysis</li>
+<li>Time-to-event analysis</li>
+</ul>
+</div>
+</div>
+<div id="examples-of-survival-data" class="section level1">
+<h1>Examples of Survival Data</h1>
+<p>In the following you can see how the survival data looks like. For this, I’ve used some R’s inbuilt datasets which are available under different packages.</p>
+<div id="a-the-lung-dataset" class="section level2">
+<h2>(A) The lung dataset</h2>
+<p>The <em>lung</em> dataset is available inside the <em>survival</em> package in R. The data contain subjects with advanced lung cancer from the North Central Cancer Treatment Group.</p>
+<ul>
+<li><strong>time:</strong> Survival time in days</li>
+<li><strong>status:</strong> censoring status 1=censored, 2=dead</li>
+<li><strong>sex:</strong> Male=1, Female=2</li>
+</ul>
+<p>I’m ignoring the other variables for simplicity. You can explore those by your self.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+time
+</th>
+<th style="text-align:right;">
+status
+</th>
+<th style="text-align:right;">
+age
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+306
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+74
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+455
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+68
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1010
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+56
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+210
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+57
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+883
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+60
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1022
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+74
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="b-the-alloauto-dataset" class="section level2">
+<h2>(B) The alloauto dataset</h2>
+<p>Consider the <em>alloauto</em> dataset in the <em>KMSurv</em> library in R. This contains 90 measurement on Leukemia treated patients with allogeneic and autologous Transplantation.</p>
+<p><span style="text-decoration:underline"><em>Klein and Moeschberger (1997) Survival Analysis Techniques for Censored and truncated data, Springer. Kardaun Stat. Nederlandica 37 (1983), 103-126.</em></span></p>
+<ul>
+<li><strong>time:</strong> <em>Time to death or relapse months</em></li>
+<li><span class="math inline">\(\mathbf{\delta}\)</span>: 0= alive without replace, 1 = dead or relapse</li>
+<li><strong>Event:</strong> 0= alive(Censored), 1= dead(Event)</li>
+<li><strong>type:</strong> Transplant, 1=allogeneic, 2=autologous</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+time
+</th>
+<th style="text-align:right;">
+type
+</th>
+<th style="text-align:right;">
+delta
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0.030
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.493
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.855
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.184
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.283
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.480
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="some-basic-definations-which-are-used-in-survival-studies" class="section level1">
+<h1>Some Basic Definations which are used in Survival Studies:</h1>
+<p>Let, <span class="math inline">\(T\)</span> be the failure time or survival time or failure time, which is non negative valued discrete random variable &amp; <span class="math inline">\((t_1,t_2,t_3,...,t_n)\)</span> are the <span class="math inline">\(n\)</span> number of observations.</p>
+<div id="cumulative-distribution" class="section level3">
+<h3>Cumulative Distribution</h3>
+<p><span class="math display">\[F(t)=P(T\leq t)\]</span></p>
+</div>
+<div id="survival-function" class="section level3">
+<h3>Survival Function</h3>
+<p>The survival function, is the probability an individual survives (or, the probability that the event of interest does not occur) up to and including time <span class="math inline">\(t\)</span>. It’s the probability that the event (e.g., death) hasn’t occured yet. It looks like this, where <span class="math inline">\(T\)</span> is the time of death, and <span class="math inline">\(P(T&gt;t)\)</span> is the probability that the time of death is greater than some time <span class="math inline">\(t\)</span>.</p>
+<p>So, <span class="math display">\[\text{Survival Function}=S(t)= P(T&gt;t)= 1-F(t)\]</span></p>
+<p><strong>Characteristics of</strong> <span class="math inline">\(S(t)\)</span>:</p>
+<ul>
+<li><span class="math inline">\(S(t)=1\:\: \text{,if}\:\;t&lt;0\)</span></li>
+<li><span class="math inline">\(S(\infty)=\lim_{t \to \infty} S(t)=0\)</span></li>
+<li><span class="math inline">\(S(t)\: \text{is non increasing in}\:t\)</span></li>
+</ul>
+</div>
+<div id="failure-rate-or-hazard-rate" class="section level3">
+<h3>Failure rate or Hazard rate</h3>
+<p>Failure rate or hazard rate for an item at the time point <span class="math inline">\(t\)</span>; usually denoted by <span class="math inline">\(\gamma(t)\)</span> or <span class="math inline">\(r(t)\)</span> or <span class="math inline">\(h(t)\)</span>. Infact, it is an instantaneous probability rate that an item functioning till the time point <span class="math inline">\(t\)</span> will fail at tat instant.</p>
+<p><span class="math display">\[\gamma(t)/h(t)=lim_{t \to \infty} \frac{P(t \leq T&lt; t+{\Delta}t){\mid}T{\geq}t}{{\Delta}t}\]</span></p>
+<p><strong>This hazard function</strong><span class="math inline">\(\{h(t)\}\)</span> <strong>can be written in term of</strong> <span style="text-decoration:underline"><em>Cumulative distribution function</em></span> <strong>&amp;</strong> <span style="text-decoration:underline"><em>Survival function</em></span>:</p>
+<p><span class="math display">\[\gamma(t)/h(t)= \frac{\frac{d}{dt}\{F(t)\}}{1-F(t)}= \frac{-\frac{d}{dt}\{S(t)\}}{S(t)}\]</span></p>
+<div id="types-of-hazard" class="section level4">
+<h4>Types of Hazard</h4>
+<p>The hazard function may be increase, decrease, remain constant or indicate more complicated processes.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Hazard Nane</th>
+<th align="center">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Increasing Hazard(IFR)</td>
+<td align="center">Patients with acute leukemia who do not respond to treatment have an increasing hazard.</td>
+</tr>
+<tr class="even">
+<td align="left">Decreasing Hazard(DFR)</td>
+<td align="center">Risk of soldiers, wounded by bullets who undergo survey, The main danger is the operation itself and this danger decreases if the surgery is successful.</td>
+</tr>
+<tr class="odd">
+<td align="left">Constant Hazard</td>
+<td align="center">The risk of healthy persons between 18 to 40 years of age whose main risk of death are accidents.</td>
+</tr>
+<tr class="even">
+<td align="left">Bathtub curve</td>
+<td align="center">Describes the process of human life. During an initial period, the risk is high(<em>high Infant Mortality</em>). Subsequently, <span class="math inline">\(\gamma(t)\)</span> stays approximately constant until a certain time, after which it increases because of were-out failures.</td>
+</tr>
+<tr class="odd">
+<td align="left">Increasing &amp; Decreasing Hazard</td>
+<td align="center">Patients with tuberculosis have risks that increase initially, then decrease after treatment.</td>
+</tr>
+</tbody>
+</table>
+<p><img src="WhatsApp%20Image%202022-05-07%20at%209.21.42%20AM.jpeg" /></p>
+<p>The <strong>Kaplan-Meier</strong> curve illustrates the survival function. It’s a step function illustrating the cumulative survival probability over time. The curve is horizontal over periods where no event occurs, then drops vertically corresponding to a change in the survival function at each time an event occurs.</p>
+</div>
+</div>
+</div>
+<div id="what-is-censoring" class="section level1">
+<h1>What is Censoring ?</h1>
+<p>Censoring is a type of missing data problem unique to survival analysis. This happens when you track the sample/subject through the end of the study and the event never occurs. This could also happen due to the sample/subject dropping out of the study for reasons other than death, or some other loss to followup. The sample is censored in that you only know that the individual survived up to the loss to followup, but you don’t know anything about survival after that.</p>
+<p><img src="WhatsApp%20Image%202022-05-07%20at%209.21.41%20AM.jpeg" /></p>
+<p>Depending on the directions from which incompleteness in the observations come, censoring is of three types:</p>
+<ul>
+<li><strong>Right Censoring</strong></li>
+<li><strong>Left Censoring</strong></li>
+<li><strong>Interval Censoring</strong></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Type of Censoring</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Right Censoring</td>
+<td align="center">Here the lifetime of an item is followed until some time at which the event (i.e., <em>failure</em> or <em>death</em>) is yet to occur; but the event takes no farther part in the study after the time. Example: Measuring the survival years of a patient with lung cancer; but he died in a car accident after <span class="math inline">\(t\)</span> years.</td>
+</tr>
+<tr class="even">
+<td align="left">Left Censoring</td>
+<td align="center">This occurs when the event of interest has already taken place at the time of observation; but the exact time of occurence of the event is not known. Example: Infection with a sexually transmitted like HIV/AIDS.</td>
+</tr>
+<tr class="odd">
+<td align="left">Interval Censoring</td>
+<td align="center">It reflects uncertainty as to the exact times the units failed within an interval. This type of data frequently comes from tests or situations where the objects of interest are not constantly monitored.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="censored-survival-data" class="section level1">
+<h1>Censored survival data</h1>
+<p>Let’s create a toy example for survival data in R.</p>
+<pre class="r"><code>my.data = data.frame(id=c(1:13), # Patient id
+                     time=c(3,2,3,5,1,0.5,4.5,3.3,2,3.6,1.4,5.0,4.7), # Study years
+                     Status=factor(c(&quot;E&quot;,&quot;C&quot;,&quot;C&quot;,&quot;E&quot;,&quot;E&quot;,&quot;C&quot;,&quot;C&quot;,&quot;C&quot;,&quot;E&quot;,&quot;C&quot;,&quot;E&quot;,&quot;C&quot;,&quot;C&quot;)) # Censored or Event status
+                     )
+
+head(my.data)
+
+# Visualizing the Data
+SurvPlot(time = my.data$time,
+         status = my.data$Status,
+         C=&quot;C&quot;,E=&quot;E&quot;,
+         text.adjs = 0.7,point.cex = 3,
+         title = &quot;Survival Plot for My Data&quot;,
+         legend.posi = &quot;bottomright&quot;) # This is my created function  </code></pre>
+<pre><code>##   id time Status
+## 1  1  3.0      E
+## 2  2  2.0      C
+## 3  3  3.0      C
+## 4  4  5.0      E
+## 5  5  1.0      E
+## 6  6  0.5      C</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>In this example, how would we compute the proportion who are event-free at 4 years ?</p>
+<p>Subjects 5,7,12 &amp; 13 were <strong>event-free</strong> at 4 years. Subjects 7 &amp; 12 had the <strong>event before 4 years</strong>. Subjects 1,2,5,6,8,9 and 11 were <strong>censored before 4 years</strong>, so we don’t know whether they had event or not by 4 years- how do we incorporate these subjects into our estimate?</p>
+</div>
+<div id="distribution-of-follow-up-time" class="section level1">
+<h1>Distribution of follow-up time</h1>
+<p>Censored subjects still provide information so must be appropriately included in the analysis. Distribution of follow-up times is skewed, and may differ between censored patients and those with events. Follow-up times always positive.</p>
+<p>Let’s draw the Histogram and density plot(using Kernel density estimation technique) for <strong>Censored</strong> and <strong>Event</strong> from the above toy example.</p>
+<pre class="r"><code># Histogram
+
+pp=function(...){
+with(subset(my.data,Status==&quot;C&quot;),hist(time,col= adjustcolor(&quot;red&quot;, alpha.f = 0.20)))
+par(new=T)
+with(subset(my.data,Status==&quot;E&quot;),hist(time,col=adjustcolor(&quot;blue&quot;, alpha.f = 0.20),axes = F))
+}
+
+par(mar=c(5.1,4.1,4.1,7))
+pp()
+legend(x=5.3,y=3,
+       legend = c(&quot;Censor&quot;,&quot;Event&quot;),
+       fill=c(adjustcolor(&quot;red&quot;, alpha.f = 0.20),
+              adjustcolor(&quot;blue&quot;, alpha.f = 0.20)),
+       title = &quot;Survival&quot;,
+       xpd=T)
+par(mar=c(5.1,4.1,4.1,2.1),xpd=NA)
+
+
+# Density Plot
+
+density.plot=function(...){
+  cens=density(my.data$time[my.data$Status==&quot;C&quot;]) # fitting Kernel density for Censored data
+event=density(my.data$time[my.data$Status==&quot;E&quot;]) # fitting Kernel density for Event data
+
+plot(cens,main=&quot;&quot;,xlab = &quot;&quot;,ylab = &quot;&quot;,...)
+par(new=T)
+polygon(cens,col = adjustcolor(&quot;red&quot;, alpha.f = 0.20))
+par(new=T)
+plot(event,main = &quot;Density Plots of time for Censored &amp; Event&quot;,
+     xlab=&quot;time&quot;,
+     ylab=&quot;Frequency&quot;,
+     axes=F)
+par(new=T)
+polygon(event,col=adjustcolor(&quot;blue&quot;, alpha.f = 0.20))
+}
+
+par(mar=c(5.1,4.1,4.1,7))
+density.plot()
+legend(x=8.2,y=0.25,
+       legend = c(&quot;Censor&quot;,&quot;Event&quot;),
+       fill=c(adjustcolor(&quot;red&quot;, alpha.f = 0.20),
+              adjustcolor(&quot;blue&quot;, alpha.f = 0.20)),
+       title = &quot;Survival&quot;,
+       xpd=T)
+par(mar=c(5.1,4.1,4.1,2.1),xpd=NA)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-1.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-2.png" width="672" /></p>
+<p>Note that, here I’ve used the <em>yarrr</em> package for reducing the density of the R base colors.</p>
+</div>
+<div id="components-of-survival-data" class="section level1">
+<h1>Components of survival data</h1>
+<p>For subject <span class="math inline">\(i\)</span>:</p>
+<ul>
+<li>Event time <span class="math inline">\(T_i\)</span></li>
+<li>Censoring time <span class="math inline">\(C_i\)</span></li>
+<li>Event indicator <span class="math inline">\(\delta_i\)</span>:
+<ul>
+<li>1 if event observed (i.e., <span class="math inline">\(T_i\le C_i\)</span>)</li>
+<li>0 if censored (i.e., <span class="math inline">\(T_i&gt; C_i\)</span>)</li>
+</ul></li>
+<li>Observed time <span class="math inline">\(Y_i=min(T_i,C_i)\)</span></li>
+</ul>
+<p>The observed times and an event indicator are provided in the <em>lung</em> data.</p>
+<ul>
+<li>time: Survival time in days <span class="math inline">\((Y_i)\)</span></li>
+<li>status: censoring status 1=censored, 2=dead <span class="math inline">\((\delta_i)\)</span></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+inst
+</th>
+<th style="text-align:right;">
+time
+</th>
+<th style="text-align:right;">
+status
+</th>
+<th style="text-align:right;">
+age
+</th>
+<th style="text-align:right;">
+sex
+</th>
+<th style="text-align:right;">
+ph.ecog
+</th>
+<th style="text-align:right;">
+ph.karno
+</th>
+<th style="text-align:right;">
+pat.karno
+</th>
+<th style="text-align:right;">
+meal.cal
+</th>
+<th style="text-align:right;">
+wt.loss
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+306
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+74
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+90
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+1175
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+455
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+90
+</td>
+<td style="text-align:right;">
+90
+</td>
+<td style="text-align:right;">
+1225
+</td>
+<td style="text-align:right;">
+15
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1010
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+56
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+90
+</td>
+<td style="text-align:right;">
+90
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+15
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+210
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+57
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+90
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+1150
+</td>
+<td style="text-align:right;">
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+883
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+90
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+1022
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+74
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+80
+</td>
+<td style="text-align:right;">
+513
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="dealing-with-dates-in-r" class="section level1">
+<h1>Dealing with dates in R</h1>
+<p>Data will often come with start and end dates rather than pre-calculated survival times. The first step is to make sure these are formatted as dates in R.</p>
+<p>Let’s create a small example dataset with <em>‘start.date’</em> for surgery date and <em>‘last.followup.date’</em> for the last follow-up date.</p>
+<pre class="r"><code>date_ex=data.frame(start.date=c(&quot;2007-06-22&quot;,&quot;2004-02-12&quot;,&quot;2010-11-03&quot;),
+                last.followup.date=c(&quot;2017-04-15&quot;,&quot;2018-07-04&quot;,&quot;2016-10-31&quot;))
+
+
+str(date_ex)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    3 obs. of  2 variables:
+##  $ start.date        : chr  &quot;2007-06-22&quot; &quot;2004-02-12&quot; &quot;2010-11-03&quot;
+##  $ last.followup.date: chr  &quot;2017-04-15&quot; &quot;2018-07-04&quot; &quot;2016-10-31&quot;</code></pre>
+<p>We see these are both character variables, which will often be the case, but we need them to be formatted as dates. For that, here I’m showing two methods; one is using the R base <em>as.Date()</em> function and another is using <em>lubridate</em> package.</p>
+<div id="formating-dates" class="section level3">
+<h3>Formating dates</h3>
+<pre class="r"><code>#####################################
+##                                 ##
+##--Using base function as.Date()--##
+##                                 ##
+#####################################
+
+date_ex$start.date=as.Date(date_ex$start.date,format = &quot;%Y-%m-%d&quot;)
+date_ex$last.followup.date=as.Date(date_ex$last.followup.date,format = &quot;%Y-%m-%d&quot;)
+
+date_ex
+
+str(date_ex)
+
+##################################################
+##                                              ##
+##--Using ymd() func. inside lubridate package--##
+##                                              ##
+##################################################
+
+library(lubridate)
+date_ex$start.date=ymd(date_ex$start.date)
+date_ex$last.followup.date=ymd(date_ex$last.followup.date)
+
+date_ex
+
+str(date_ex)</code></pre>
+<pre><code>##   start.date last.followup.date
+## 1 2007-06-22         2017-04-15
+## 2 2004-02-12         2018-07-04
+## 3 2010-11-03         2016-10-31</code></pre>
+<pre><code>## &#39;data.frame&#39;:    3 obs. of  2 variables:
+##  $ start.date        : Date, format: &quot;2007-06-22&quot; &quot;2004-02-12&quot; ...
+##  $ last.followup.date: Date, format: &quot;2017-04-15&quot; &quot;2018-07-04&quot; ...</code></pre>
+<p>Note that in base R the format must include the separator as well as the symbol.e.g., if your date is in format <em>m/d/Y</em> then you would need <em>format= “%m/%d/%Y”</em>, on the other hand for <em>ymd()</em> function in the <em>lubridate</em> package, the separators do not need to be specified.</p>
+</div>
+<div id="calculating-survival-times" class="section level3">
+<h3>Calculating Survival Times</h3>
+<p>Now to calculate the survival times, we need to calculate the difference between the start time &amp; end time. So for this, in base R there is a function called <em>difftime()</em> which gives the number of days between two dates. Use as.numeric() function to convert the the differences into a numeric value. Finally to convert it into years divide it by 365.25, the average number of days in a year.</p>
+<p>On the other hand, using the <em>lubridate</em> package, the operator <em>%–%</em> designates a time interval, which i then converted to the number of elapsed seconds using <em>as.duration()</em> and finally converted to years by dividing by <em>dyears(1)</em>, which gives the number of seconds in a year.</p>
+<pre class="r"><code>#####################################
+##                                 ##
+##--Using base function as.Date()--##
+##                                 ##
+#####################################
+
+date_ex$time=round(as.numeric(difftime(date_ex$last.followup.date,
+                                 date_ex$start.date,
+                                 units = &quot;days&quot;))/365.25,2)
+
+date_ex
+
+###############################
+##                           ##
+##--Using lubridate package--##
+##                           ##
+###############################
+
+date_ex$time=as.duration(date_ex$start.date %--% date_ex$last.followup.date)/dyears(1)
+
+date_ex</code></pre>
+<pre><code>##   start.date last.followup.date  time
+## 1 2007-06-22         2017-04-15  9.82
+## 2 2004-02-12         2018-07-04 14.39
+## 3 2010-11-03         2016-10-31  5.99</code></pre>
+</div>
+</div>
+<div id="event-indicator-and-creating-survival-objects" class="section level1">
+<h1>Event indicator and Creating survival objects</h1>
+<p>In the <strong>Components of survival data</strong> section I mentioned the event indicator:</p>
+<p>Event indicator <span class="math inline">\(\delta_i\)</span>:</p>
+<ul>
+<li>1 if event observed (i.e., <span class="math inline">\(T_i\le C_i\)</span>)</li>
+<li>0 if censored (i.e., <span class="math inline">\(T_i&gt; C_i\)</span>)</li>
+</ul>
+<p>In R <em>Surv()</em> function inside the survival package creates a survival object. There will be one entry for each subject that is the survival time, which is followed by a <strong>‘+’</strong> if the subject was censored. To create the survival object, inside the <em>Surv()</em> function, you need to give the time variable and the status variable which indicates that the subject was censored or not.</p>
+<p>Let’s look at the first 10 observations of the survival objects for the <em>lung</em> dataset:</p>
+<pre class="r"><code>library(survival)
+Surv(lung$time,lung$status)[1:10]</code></pre>
+<pre><code>## Warning: package &#39;survival&#39; was built under R version 4.1.3</code></pre>
+<pre><code>##  [1]  306   455  1010+  210   883  1022+  310   361   218   166</code></pre>
+</div>
+<div id="estimating-survival-curves-and-survival-probabilities-with-kaplan-meier-method" class="section level1">
+<h1>Estimating Survival curves and Survival probabilities with Kaplan-Meier method</h1>
+<p>Now, Our interest is to estimate what is the survival probability at a certain time say <span class="math inline">\(t\)</span>. Survival probability at a certain time, <span class="math inline">\(S(t)\)</span>, is a conditional probability of surviving beyond that time, given that an individual has survived just prior to that time.
+There are various techniques are available, one of them is <strong>Product Limit estimation/Kaplan-Meier estimation</strong>.</p>
+<div id="kaplan-meier-estimator-product-limitpl-estimator" class="section level4">
+<h4>Kaplan-Meier Estimator/ Product Limit(PL) Estimator</h4>
+<p>Let <span class="math inline">\(t_1,t_2,...,t_n\)</span> be uncensored sample observations on failure time. Then, a non-parametric estimate of survival function <span class="math inline">\(S(t)\)</span> at the time point <span class="math inline">\(t\)</span> is given by,</p>
+<p><span class="math display">\[R_n(t)=\frac{\# \text{Observations}&gt;t}{n}\]</span> <span class="math display">\[R_n(t)=\frac{\# T_i&gt;t}{n}\:\: \text{where}\:T_i\:\forall i=1(1)n \: \: \text{are uncensored R.V.&#39;s}\]</span>
+This is basically the <strong>complementary empirical distribution function</strong> at time <span class="math inline">\(t\)</span>.</p>
+<p>Note that, <span class="math inline">\(R_n(t)\)</span> is an UMVUE(uniformly minimum variance unbiased estimator), consistent, efficient estimator of <span class="math inline">\(S(t)\)</span>.</p>
+<p>But, usually we cannot expect uncensored failure data due to many practical limitations, that’s why we need some modifications. This modified estimator is called Product limit estimator/Kaplan-Meier estimator.</p>
+<p>Let there be <span class="math inline">\(n\)</span> items and <span class="math inline">\(k(\leq n)\)</span> distinct failure times <span class="math inline">\(t_1 \leq t_2 \leq .... \leq t_k\)</span> observed.</p>
+<p>Let, <span class="math display">\[d_j=\# \text{failures at time}\: t_j \:\:\: ,\forall j=1(1)k\]</span>
+<span class="math display">\[n_j=\# \text{items at risk of failing at}\: t_j \\ \:\:\:\:\;\;\;\;\;\;\;\:\:\:\:\:\:\:\;\;\;\;\;\;\;\:\:\:\:\:\:\:\;\;\;\;\;\;\;\:\:\:\:\:\:\:\;\;\;\;\;\;\;\:\:\: =\# \text{items that are functioning and uncensored just prior to}\: t_j\]</span>
+Then, the Kaplan-Meier estimator is defined as: <span class="math display">\[\hat{R_n(t)}={\prod}_{j:t_j&lt;t} \frac{n_j-d_j}{n_j}\]</span>
+where, <span class="math inline">\(n_{j+1}=n_j-d_j-c_j\:\:\:\:, c_j=\# \text{items censored at }t_j\)</span></p>
+<ul>
+<li>It can be shown that, <span class="math inline">\(\hat{R_n(t)}\)</span> is a non-parametric MLE of the survival function <span class="math inline">\(S(t)\)</span>.</li>
+<li>So, <span class="math inline">\(E(\hat{R_n(t)})=S(t)\)</span> at a particular time <span class="math inline">\(t\)</span>.</li>
+<li>The estimated asymptotic variance of Kaplan-Meier estimator (by Greenwood’s formula) is <span class="math display">\[\hat{V}(\hat{R_n(t)}) \approx (\frac{\delta \hat{R_n(t)}}{\delta\:log \hat{R_n(t)}})^2. \hat{V}(log \hat{R_n(t)}) \\ \:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\: =(\hat{R_n(t)})^2 .{\sum}_{j:t_j&lt;t} \frac{d_j}{n_j(n_j-d_j)}\]</span></li>
+</ul>
+<p>Now, in R the <em>survfit</em> function creates survival curves based on a formula. Let’s generate the overall survival curve for the entire cohort, assign it to object <em>f1</em>, and look at the summary.</p>
+<pre class="r"><code>f1=survfit(Surv(time, status)~1,data=lung)
+f1
+summary(f1)</code></pre>
+<pre><code>## Call: survfit(formula = Surv(time, status) ~ 1, data = lung)
+## 
+##        n events median 0.95LCL 0.95UCL
+## [1,] 228    165    310     285     363</code></pre>
+<p>These tables show a row for each time point where either the event occured or a sample was censored. It shows the number at risk (number still remaining), and the cumulative survival at that instant.</p>
+<p>For more details about the outputs of <em>survfit()</em>, type <em>?summary.survfit</em> or you can simply run <em>names(fit1)</em> to know all the output features.</p>
+<p>Here we’ve created a simple survival curve that doesn’t consider any different groupings, so we’ve specified just an intercept (e.g., <em>~1</em>) in the formula that <em>survfit</em> expects. It is similar to how we specify data for linear models with <em>lm()</em>, we use the <em>data=</em> argument to specify which data we’re using.</p>
+<p>You can give the summary() function an option for what times you want to show in the results.
+let’s create a sequence of times from the lung dataset and for those time points we’ll see the <em>survfit</em> results.</p>
+<pre class="r"><code># checking the range of the time variable
+range(lung$time)
+
+# creating a time sequence
+seq(0,1100,100)
+
+# visualizing the summary of &#39;f1&#39; for the above time sequence
+summary(f1, times = seq(0,1100,100))</code></pre>
+<pre><code>## [1]    5 1022</code></pre>
+<pre><code>##  [1]    0  100  200  300  400  500  600  700  800  900 1000 1100</code></pre>
+<pre><code>## Call: survfit(formula = Surv(time, status) ~ 1, data = lung)
+## 
+##  time n.risk n.event survival std.err lower 95% CI upper 95% CI
+##     0    228       0   1.0000  0.0000       1.0000        1.000
+##   100    196      31   0.8640  0.0227       0.8206        0.910
+##   200    144      41   0.6803  0.0311       0.6219        0.744
+##   300     92      29   0.5306  0.0346       0.4669        0.603
+##   400     57      25   0.3768  0.0358       0.3128        0.454
+##   500     41      12   0.2933  0.0351       0.2320        0.371
+##   600     24      10   0.2136  0.0335       0.1571        0.290
+##   700     16       8   0.1424  0.0303       0.0938        0.216
+##   800      8       7   0.0783  0.0246       0.0423        0.145
+##   900      3       2   0.0503  0.0228       0.0207        0.123
+##  1000      2       0   0.0503  0.0228       0.0207        0.123</code></pre>
+<p>What’s more interesting though is if we model something besides just an intercept. Let’s fit survival curves separately by sex.</p>
+<pre class="r"><code>f2=survfit(Surv(time, status)~sex,data=lung)
+f2</code></pre>
+<pre><code>## Call: survfit(formula = Surv(time, status) ~ sex, data = lung)
+## 
+##         n events median 0.95LCL 0.95UCL
+## sex=1 138    112    270     212     310
+## sex=2  90     53    426     348     550</code></pre>
+<p>We can use the above time sequence vector with a summary call on fit2 to get life tables at those intervals separately for both males (1) and females (2). From these tables we can start to see that males tend to have worse survival than females.</p>
+<pre class="r"><code>summary(f2,times = seq(0,1100,100))</code></pre>
+<pre><code>## Call: survfit(formula = Surv(time, status) ~ sex, data = lung)
+## 
+##                 sex=1 
+##  time n.risk n.event survival std.err lower 95% CI upper 95% CI
+##     0    138       0   1.0000  0.0000       1.0000        1.000
+##   100    114      24   0.8261  0.0323       0.7652        0.892
+##   200     78      30   0.6073  0.0417       0.5309        0.695
+##   300     49      20   0.4411  0.0439       0.3629        0.536
+##   400     31      15   0.2977  0.0425       0.2250        0.394
+##   500     20       7   0.2232  0.0402       0.1569        0.318
+##   600     13       7   0.1451  0.0353       0.0900        0.234
+##   700      8       5   0.0893  0.0293       0.0470        0.170
+##   800      6       2   0.0670  0.0259       0.0314        0.143
+##   900      2       2   0.0357  0.0216       0.0109        0.117
+##  1000      2       0   0.0357  0.0216       0.0109        0.117
+## 
+##                 sex=2 
+##  time n.risk n.event survival std.err lower 95% CI upper 95% CI
+##     0     90       0   1.0000  0.0000       1.0000        1.000
+##   100     82       7   0.9221  0.0283       0.8683        0.979
+##   200     66      11   0.7946  0.0432       0.7142        0.884
+##   300     43       9   0.6742  0.0523       0.5791        0.785
+##   400     26      10   0.5089  0.0603       0.4035        0.642
+##   500     21       5   0.4110  0.0626       0.3050        0.554
+##   600     11       3   0.3433  0.0634       0.2390        0.493
+##   700      8       3   0.2496  0.0652       0.1496        0.417
+##   800      2       5   0.0832  0.0499       0.0257        0.270
+##   900      1       0   0.0832  0.0499       0.0257        0.270</code></pre>
+<p><strong>Note:</strong> You can see that the outputs of the summary is a <em>‘list’</em>. To convert the summary output into a <strong>data.frame</strong>, one easiest way to do this is to use the <em>tidy</em> function from <em>broom</em> package.</p>
+</div>
+</div>
+<div id="kaplan-meier-plots" class="section level1">
+<h1>Kaplan-Meier Plots</h1>
+<p>Now we plot the <em>survfit</em> object in base R to get the Kaplan-Meier plot.</p>
+<pre class="r"><code>##-- Survival plot for overall data --##
+plot(f1,
+     xlab = &quot;Days&quot;,
+     ylab=&quot;Survival Probability&quot;,
+     main=&quot;Overall Survival Probability&quot;)
+
+
+##-- Survival plot grouped by Sex --##
+plot(f2,
+     col=c(1,2),
+     xlab = &quot;Days&quot;,
+     ylab=&quot;Survival Probability&quot;,
+     main=&quot;Survival Probability ptot grouped by Sex&quot;,
+     lwd=2)
+legend(&quot;top&quot;,legend=c(&quot;Male&quot;,&quot;Female&quot;),col = c(1,2),lty = c(1,2),lwd=2,box.col = &quot;white&quot;,horiz = T,title = &quot;Sex&quot;)
+box()</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-24-1.png" width="672" /><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-24-2.png" width="672" /></p>
+<ul>
+<li><p>The default plot in base R shows the step function(solid line) with associated confidende intervals (dotted lines)</p></li>
+<li><p>Horizontal lines represent survival duration for the interval.</p></li>
+<li><p>The height of vertical lines show the change in cumulative probability.</p></li>
+<li><p>Censored observations, indicated by tick marks, reduce the cumulative survival between intervals.(the tick marks for censored patients are not shown by default, but could be added using the option <em>mark.time = TRUE</em>)</p></li>
+<li><p>When there are two or more survival curves, by default the plot ignore the confidence intervals.</p></li>
+<li><p>To plot survival curve in more convenient way, use the <em>ggsurvplot</em> function from the <em>survminer</em> package.</p></li>
+<li><p>But you can customize this base R survival plots according to your needs. For example :</p></li>
+</ul>
+<pre class="r"><code>summary_1=summary(f1) # Summary of f1
+
+##-- Survival Probability plot --##
+plot(summary_1$time,summary_1$surv,
+     type=&quot;S&quot;,
+     lwd=2,
+     xlab = &quot;Days&quot;,
+     ylab=&quot;Survival Probability&quot;,
+     main=&quot;Overall Survival Probability&quot;)
+
+##-- Plotting confidence interval with shade --##
+polygon(c(summary_1$time,rev(summary_1$time)),c(summary_1$upper,rev(summary_1$lower)),
+        col=gray(0.4,0.4),border = NA)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p><strong>Note:</strong> To plot the confidence interval with a shaded region, the trick is that use the <em>polygon</em> function and you must provide 2 times the x coordinates in one vector, once in normal order and once in reverse order (with function <em>rev</em>) and you must provide the y coordinates as a vector of the upper bounds followed by the lower bounds in reverse order.</p>
+<p>Similarly, you can plot this type of customized plot for the ‘f2’.</p>
+<pre class="r"><code>summary_2=summary(f2)
+
+##-- Informations that we need --##
+
+# For Sex=1 (Male)
+time_sex_1 = summary_2$time[summary_2$strata==&quot;sex=1&quot;] # Times for Sex=1
+surv.prob_sex_1 = summary_2$surv[summary_2$strata==&quot;sex=1&quot;] # Survival Prob. for Sex=1
+lower_sex_1 = summary_2$lower[summary_2$strata==&quot;sex=1&quot;] # lower Confidence level for Sex=1
+upper_sex_1= summary_2$upper[summary_2$strata==&quot;sex=1&quot;] # upper Confidence level for Sex=1
+
+# For Sex=2 (Female)
+time_sex_2 = summary_2$time[summary_2$strata==&quot;sex=2&quot;] # Times for Sex=2
+surv.prob_sex_2 = summary_2$surv[summary_2$strata==&quot;sex=2&quot;] # Survival Prob. for Sex=2
+lower_sex_2 = summary_2$lower[summary_2$strata==&quot;sex=2&quot;] # lower Confidence level for Sex=2
+upper_sex_2= summary_2$upper[summary_2$strata==&quot;sex=2&quot;] # upper Confidence level for Sex=2
+
+
+##-- Plotting Survival Curve grouped by Sex --##
+
+plot(time_sex_1,surv.prob_sex_1,   
+     type=&quot;S&quot;,
+     lwd=2,
+     col= &quot;blue&quot;,
+     xlab = &quot;Days&quot;,
+     ylab=&quot;Survival Probability&quot;,
+     main=&quot;Survival Probability Curve grouped by Gender&quot;)
+
+polygon(c(time_sex_1,rev(time_sex_1)),c(upper_sex_1,rev(lower_sex_1)),
+        col=adjustcolor(&quot;blue&quot;, alpha.f = 0.20),border = NA)
+
+par(new=T)
+
+plot(time_sex_2,surv.prob_sex_2,
+     type=&quot;S&quot;,
+     lwd=2,
+     col=&quot;red&quot;,
+     xlab = &quot;&quot;,
+     ylab=&quot;&quot;,
+     axes=FALSE)
+
+polygon(c(time_sex_2,rev(time_sex_2)),c(upper_sex_2,rev(lower_sex_2)),
+        col=adjustcolor(&quot;red&quot;, alpha.f = 0.20),border = NA)
+
+legend(&quot;top&quot;,legend=c(&quot;Male&quot;,&quot;Female&quot;),
+       fill=c(&quot;blue&quot;,&quot;red&quot;),
+       box.col = &quot;white&quot;,
+       horiz = T,
+       title = &quot;Sex&quot;)
+box()</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+</div>
+<div id="estimating-x-years-survival" class="section level1">
+<h1>Estimating x-years survival</h1>
+<p>One quantity often of interest in a survival analysis is the probability of surviving beyond a certain number<span class="math inline">\((x)\)</span> of years.</p>
+<p>For example, to estimate the probability of surviving to 1 year, use <em>summary</em> with the times argument (<strong>Note:</strong> the <em>time</em> variable in the <em>lung</em> data is actually in days, so we need to use <em>times=365.25</em>)</p>
+<pre class="r"><code>summary(f1,times = 365.25)</code></pre>
+<pre><code>## Call: survfit(formula = Surv(time, status) ~ 1, data = lung)
+## 
+##  time n.risk n.event survival std.err lower 95% CI upper 95% CI
+##   365     65     121    0.409  0.0358        0.345        0.486</code></pre>
+<p><strong>We find the 1 year probability of survival in this study is 41%.</strong></p>
+<p>Note that,</p>
+<ul>
+<li><p>n.risk = 65 = the number of subjects at risk at 1 year ,i.e.,number of subjects who are remaining in the study</p></li>
+<li><p>n.event = 121 = it is the cumulative number of events that have occurred since the last time listed until 1 year</p></li>
+</ul>
+</div>
+<div id="testing-of-survival-curves" class="section level1">
+<h1>Testing of survival curves</h1>
+<p>When there are more than 1 survival curves for <span class="math inline">\(k\;(\text{where,}\:k\geq2)\)</span> number of groups, we need to perform a statistical significant test between those survival curves. As, <span class="math inline">\(S(t)\)</span> is a probability function, so, <strong>Log Rank test statistic</strong> is approximately distributed as a chi-square test statistic with d.f. 1.</p>
+<p>The hypothesis are:</p>
+<p><span class="math display">\[H_0: \text{In terms of survivability, there is no difference between the groups} \\ a.g.\\ H_1: \text{There is a survival differential between the groups.}\]</span></p>
+<p>In R to do Log Rank test, there is a function called <em>survdiff</em> under the <em>survival</em> package, that we usually use.</p>
+<pre class="r"><code>test= survdiff(Surv(time,status)~sex,data=lung)
+test</code></pre>
+<pre><code>## Call:
+## survdiff(formula = Surv(time, status) ~ sex, data = lung)
+## 
+##         N Observed Expected (O-E)^2/E (O-E)^2/V
+## sex=1 138      112     91.6      4.55      10.3
+## sex=2  90       53     73.4      5.68      10.3
+## 
+##  Chisq= 10.3  on 1 degrees of freedom, p= 0.001</code></pre>
+<p>The Chi-Squared test statistic is 10.3 with 1 degree of freedom and the corresponding p-value is 0.001. Since this p-value is less than 0.05, we reject the null hypothesis.</p>
+<p>In other words, we have sufficient evidence to say that there is a statistically significant difference in survival between the Male(sex=1) &amp; Female(sex=2).</p>
+<p>To, extract the p-value from <strong>survdiff</strong> we use the following trick</p>
+<pre class="r"><code>p.val= 1 - pchisq(test$chisq, length(test$n) - 1)
+
+round(p.val,3)</code></pre>
+<pre><code>## [1] 0.001</code></pre>
+<p>Or
+there is the <em>sdp</em> function in the <em>ezfun</em> package, which you can install using <em>devtools::install_github(“zabore/ezfun”)</em>. It returns a formulated p-value.</p>
+</div>
+<div id="coxs-proportional-hazard-regression-model" class="section level1">
+<h1>Cox’s Proportional Hazard Regression model</h1>
+<p>Kaplan-Meier curves are good for visualizing differences in survival between two categorical groups, but they don’t work well for assessing the effect of quantitative variables like age, gene expression, leukocyte count, etc. Cox PH regression can assess the effect of both categorical and continuous variables, and can model the effect of multiple variables at once.</p>
+<p>Cox PH regression models the natural log of the hazard at time <span class="math inline">\(t\)</span>, denoted <span class="math inline">\(h(t)\)</span>, as a function of the baseline hazard <span class="math inline">\(h_0(t)\)</span> (<em>the hazard for an individual where all exposure variables are 0</em>) and multiple exposure variables <span class="math inline">\(X_1,X_2,...,X_p\)</span>. The form of the Cox PH model is:</p>
+<p><span class="math display">\[ln(h(t))= ln(h_0(t))+\beta_1 X_1+\beta_2 X_2+......+\beta_p X_p\]</span>
+If you exponentiate both sides of the equation, and limit the right hand side to just a single categorical exposure variable <span class="math inline">\((X_1)\)</span> with two groups (<span class="math inline">\(X_1=1\)</span> for exposed and <span class="math inline">\(X_1=2\)</span> for unexposed), the equation becomes: <span class="math display">\[h_1(t)=h_0(t) \times e^{\beta_1 x_1}\]</span></p>
+<p>Rearranging that equation lets you estimate the <strong>hazard ratio</strong>, comparing the exposed to the unexposed individuals at time <span class="math inline">\(t\)</span>:
+<span class="math display">\[HR(t)=\frac{h_1(t)}{h_0(t)}=e^{\beta_1}\]</span></p>
+<p>This model shows that the hazard ratio is <span class="math inline">\(e^{\beta_1}\)</span>, and remains constant over time <span class="math inline">\(t\)</span> (<em>hence the name proportional hazards regression</em>). The <span class="math inline">\(\beta\)</span> values are the regression coefficients that are estimated from the model, and represent the <span class="math inline">\(log(\text{Hazard Ratio})\)</span> for each unit increase in the corresponding predictor variable. The interpretation of the hazards ratio depends on the measurement scale of the predictor variable, but in simple terms, a positive coefficient indicates worse survival and a negative coefficient indicates better survival for the variable in question.</p>
+<p>Note that, the model is a <em>semi-parametric</em> because:</p>
+<ul>
+<li>Model involves some parameters <span class="math inline">\(\beta\)</span>,</li>
+<li>Model does not depend on any specific life-distribution.</li>
+</ul>
+<p><strong>Note:</strong> parametric regression models for survival outcomes are also available, but they won’t be addressed in this taining. You can read about it in <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5233524/#:~:text=%20Parametric%20regression%20model%20for%20survival%20data%3A%20Weibull,%28%29%20function%20contained...%205%20Acknowledgements.%20%20More%20">here</a>.</p>
+<p>In R, to perform Cox regression, there is a function called <em>coxph</em> under the <em>survival</em> package. The <em>coxph()</em> function uses the same syntax as <em>lm()</em>, <em>glm()</em>, etc. The response variable you create with <em>Surv()</em> goes on the left hand side of the formula, specified with a <em>~</em>. Explanatory variables go on the right side.</p>
+<p>Let’s go back to the lung cancer data and run a Cox regression on sex.</p>
+<pre class="r"><code>Cox.fit=coxph(Surv(time,status)~sex,data=lung)
+
+Cox.fit</code></pre>
+<pre><code>## Call:
+## coxph(formula = Surv(time, status) ~ sex, data = lung)
+## 
+##        coef exp(coef) se(coef)      z       p
+## sex -0.5310    0.5880   0.1672 -3.176 0.00149
+## 
+## Likelihood ratio test=10.63  on 1 df, p=0.001111
+## n= 228, number of events= 165</code></pre>
+<p>The <em>exp(coef)</em> column contains <span class="math inline">\(e^{\beta_1}\)</span>. This is the hazard ratio (in our case HR=0.59) – the multiplicative effect of that variable on the hazard rate (for each unit increase in that variable). So, for a categorical variable like sex, going from male (baseline) to female results in approximately ~40% reduction in hazard, i.e., around 0.6 times as many females are dying as males, at any given time. You could also flip the sign on the coef column, and take <em>exp(0.531)</em>, which you can interpret as being male resulting in a 1.7-fold increase in hazard, or that males die ad approximately 1.7x the rate per unit time as females (females die at 0.588x the rate per unit time as males).</p>
+<p>Note that:</p>
+<ul>
+<li>HR=1: No effect</li>
+<li>HR&gt;1: Increase in hazard</li>
+<li>HR&lt;1: Reduction in hazard (protective)</li>
+</ul>
+<p>You’ll also notice there’s a p-value on the <em>sex</em> term, and a p-value on the <em>overall model</em>. That 0.00111 p-value is really close to the p=0.00131 p-value we saw on the Kaplan-Meier plot. That’s because the KM plot is showing the log-rank test p-value. You can get this out of the Cox model with a call to <em>summary(Cox.fit)</em>.</p>
+</div>
+<div id="competing-risks" class="section level1">
+<h1>Competing Risks</h1>
+<div id="what-is-competing-event-and-competing-risk" class="section level4">
+<h4>What is Competing Event ? and Competing Risk ?</h4>
+<p>In standard survival data, subjects are supposed to experience only one type of event over follow-up, such as death from breast cancer. On the contrary, in real life, subjects can potentially experience more than one type of a certain event. For instance, if mortality is of research interest, then our observations – senior patients at an oncology department, could possibly die from heart attack or breast cancer, or even traffic accident. When only one of these different types of event can occur, we refers to these events as “competing events”, in a sense that they compete with each other to deliver the event of interest, and the occurrence of one type of event will prevent the occurrence of the others. As a result, we call the probability of these events as “competing risks”, in a sense that the probability of each competing event is somehow regulated by the other competing events, which has an interpretation suitable to describe the survival process determined by multiple types of events.</p>
+<p>To better understand the competing event scenario, consider the following examples:</p>
+<ul>
+<li>A patient can die from breast cancer or from stroke, but he cannot die from both;</li>
+<li>A breast cancer patient may die after surgery before they can develop hospital infection;</li>
+<li>A soldier may die during a combat or in a traffic accident.</li>
+</ul>
+<p>In the examples above, there are more than one pathway that a subject can fail, but the failure, either death or infection, can only occur once for each subject (without considering recurring event). Therefore, the failures caused by different pathways are mutually exclusive and hence called competing events. Analysis of such data requires special considerations.</p>
+</div>
+<div id="how-to-handel-this-type-of-situation" class="section level4">
+<h4>How to handel this type of situation ?</h4>
+<p>Competing risks implies that a subject can experience one of a set of different events or outcomes. In this case, 2 different types of hazard functions are of interest: the <strong>cause-specific hazard function</strong> and the <strong>subdistribution hazard function.</strong></p>
+<p>The key components for competing risks are :</p>
+<ul>
+<li><strong>Cumulative incidence function(CIF)</strong></li>
+<li><strong>Cause-specific hazard</strong></li>
+<li><strong>Subdistribution hazard</strong></li>
+</ul>
+</div>
+<div id="cumulative-incidence-functioncif" class="section level4">
+<h4>Cumulative incidence function(CIF)</h4>
+<p>The cumulative incidence function gives the proportion of patients at time t who have died from cause k accounting for the fact that patients can die from other causes.</p>
+<p>define, <span class="math display">\[S_t= \text{Number at risk at the end of period}\;t \\ E_t= \text{Number of primary events in period}\;t \\ A_t= \text{Number of competing events in period}\;t\]</span></p>
+<p><span class="math display">\[P(E=t|E \geq t) \approx \frac{E_t}{E_t+A_t+S_t}\]</span></p>
+<p><strong>Note:</strong> <span class="math display">\[P(E \geq t+1|E \geq t) \neq 1- \frac{E_t}{E_t+A_t+S_t}\]</span></p>
+<p>That means, <span class="math inline">\(\color{blue}{\text{Kaplan-Meier estimator does not work!}}\)</span></p>
+<p>So, the survival function : <span class="math inline">\(\hat{S(t)}= {\prod}^{t}_{j=1} (1- \frac{A_j+E_j}{E_j+A_j+S_j})\)</span></p>
+<p>and, CIF(of the primary events) : <span class="math inline">\(\hat{C(t)}= {\sum}^t_{j=1} \frac{E_j}{E_j+A_j+S_j} \hat{S}(j-1)\)</span></p>
+</div>
+<div id="cause-specific-hazard" class="section level4">
+<h4>Cause-specific hazard</h4>
+<p>The cause-specific hazard, <span class="math inline">\(h^{cs}_k(t)\)</span>, is the instantaneous risk of dying from a particular cause <span class="math inline">\(k\)</span> given that the subject is still alive at time <span class="math inline">\(t\)</span>.</p>
+<p>Mathematically, <span class="math display">\[h^{cs}_k(t)={\lim}_{\Delta t \to 0} \frac{P(t \leq T&lt; t+ \Delta t ,D=k|T \geq t)}{\Delta t}\]</span></p>
+</div>
+<div id="subdistribution-hazard" class="section level4">
+<h4>Subdistribution hazard</h4>
+<p>The subdistribution hazard, <span class="math inline">\(h^{sd}_k(t)\)</span>, is the instantaneous risk of dying from a particular cause k given that the subject has not died from cause k.</p>
+<p>Mathematically, <span class="math display">\[h^{sd}_k(t)={\lim}_{\Delta t \to 0} \frac{P(t \leq T&lt; t+ \Delta t ,D=k\:|\:T \geq t \cup (T&lt;t \cap K \neq k))}{\Delta t}\]</span></p>
+</div>
+<div id="a-bunch-off-additional-notes" class="section level4">
+<h4>A bunch off additional notes</h4>
+<ul>
+<li>When the events are independent(almost never true), cause-specific hazards is unbiased.</li>
+<li>when the events are dependent, a variety of results can be obtained depending on the setting.</li>
+<li>Cumulative incidence using K-M is always <span class="math inline">\(\geq\)</span> Cumulative incidence using competing risks methods, so can only lead to an overestimate of the cumulative incidence, the amount of overestimation depends on event rates and dependence among events.</li>
+<li>To establish that a covariate is indeed acting on the event of interest, cause-specific hazards may be preferred for treatment or pronostic marker effect testing.</li>
+</ul>
+<p>In R, the primary package for use in competing risks analysis is <strong>cmprsk</strong>.</p>
+<pre class="r"><code>library(cmprsk)</code></pre>
+<pre><code>## Warning: package &#39;cmprsk&#39; was built under R version 4.1.3</code></pre>
+</div>
+</div>
+<div id="cumulative-incidence-in-melanoma-data" class="section level1">
+<h1>Cumulative incidence in Melanoma data</h1>
+<div id="description-of-the-melanoma-data" class="section level4">
+<h4>Description of the Melanoma data</h4>
+<p>The <strong>Melanoma dataset</strong> is available in the <strong>MASS</strong> package. It contains variables:</p>
+<ul>
+<li><em>time</em> survival times in days, possibly censored</li>
+<li><em>status</em> 1 died from melanoma, 2 alive, 3 dead from other causes.</li>
+<li><em>sex</em> 1= male; 0= Female</li>
+<li><em>age</em> age in years</li>
+<li><em>year</em> of operation</li>
+<li><em>thickness</em> tumor thickness in mm.</li>
+<li><em>ulcer</em> 1= presence; 0= absence</li>
+</ul>
+<pre class="r"><code>head(MASS::Melanoma)</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+time
+</th>
+<th style="text-align:right;">
+status
+</th>
+<th style="text-align:right;">
+sex
+</th>
+<th style="text-align:right;">
+age
+</th>
+<th style="text-align:right;">
+year
+</th>
+<th style="text-align:right;">
+thickness
+</th>
+<th style="text-align:right;">
+ulcer
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+76
+</td>
+<td style="text-align:right;">
+1972
+</td>
+<td style="text-align:right;">
+6.76
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+56
+</td>
+<td style="text-align:right;">
+1968
+</td>
+<td style="text-align:right;">
+0.65
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+41
+</td>
+<td style="text-align:right;">
+1977
+</td>
+<td style="text-align:right;">
+1.34
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+99
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+1968
+</td>
+<td style="text-align:right;">
+2.90
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+185
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+1965
+</td>
+<td style="text-align:right;">
+12.08
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+204
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+1971
+</td>
+<td style="text-align:right;">
+4.84
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="cumulative-incidence-in-melanoma-data-1" class="section level4">
+<h4>Cumulative incidence in Melanoma data</h4>
+<p>Estimate the cumulative incidence in the context of competing risks using the <em>cuminc</em> function.</p>
+<p><strong>Note:</strong> in the Melanoma data, censored patients are coded as 2 for <em>status</em>, so we cannot use the <em>cencode</em> option for the <em>cuminc()</em> function default of 0.</p>
+<pre class="r"><code>ci_fit= cuminc(MASS::Melanoma$time,MASS::Melanoma$status,cencode = 2)
+
+ci_fit</code></pre>
+<pre><code>## Estimates and Variances:
+## $est
+##           1000       2000       3000      4000      5000
+## 1 1 0.12745714 0.23013963 0.30962017 0.3387175 0.3387175
+## 1 3 0.03426709 0.05045644 0.05811143 0.1059471 0.1059471
+## 
+## $var
+##             1000         2000         3000        4000        5000
+## 1 1 0.0005481186 0.0009001172 0.0013789328 0.001690760 0.001690760
+## 1 3 0.0001628354 0.0002451319 0.0002998642 0.001040155 0.001040155</code></pre>
+</div>
+</div>
+<div id="plot-the-cumulative-incidence-cif" class="section level1">
+<h1>Plot the Cumulative incidence (CIF)</h1>
+<p>Here, I’m showing how to plot CIF using base R. There is a another beautiful function is available named <em>ggcompetingrisks()</em> which is available under the <em>survminer</em> package.</p>
+<pre class="r"><code>plot(ci_fit,xlab=&quot;Days&quot;)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p>In the legend:</p>
+<ul>
+<li>1st number indicates the the group. In this case there is only one group as overall data, so it is ‘1’ for both</li>
+<li>2nd number indicates the event type. In this case the <strong>solid line is 1 for death from melanoma</strong> and the <strong>dashed line is 3 for death from other cases</strong>.</li>
+</ul>
+</div>
+<div id="plot-the-cumulative-incidence-cif-manually" class="section level1">
+<h1>Plot the Cumulative incidence (CIF) manually</h1>
+<p>We can plot this above CIF curve manually in base R.</p>
+<pre class="r"><code>##-- For &#39;status= 1&#39;:  death from melanoma --##
+time_1= ci_fit$`1 1`$time
+estimate_1= ci_fit$`1 1`$est
+
+##-- For &#39;status= 3&#39;:  death from other cases --##
+time_3= ci_fit$`1 3`$time
+estimate_3= ci_fit$`1 3`$est
+
+##-- Plotting the Cumulative Incidence Curve --##
+
+plot(x=time_1, y=estimate_1,
+     type = &quot;S&quot;,
+     lwd=1,
+     ylim= c(0,1),
+     col= adjustcolor(&quot;blue&quot;,alpha.f = 0.55),
+     xlab = &quot;Days&quot;,
+     ylab = &quot;Probability of an event&quot;,
+     main=&quot;Cumulative incidence functions&quot;)
+
+par(new=T)
+
+plot(x=time_3, y=estimate_3,
+     type = &quot;S&quot;,
+     lwd=1,
+     ylim=c(0,1),
+     col= adjustcolor(&quot;red&quot;,alpha.f = 0.55),
+     xlab = &quot;&quot;,
+     ylab = &quot;&quot;,
+     axes=F)
+
+legend(&quot;top&quot;,
+       legend=c(&quot;1: death from melanoma&quot;,&quot;3: death from other cases&quot;),
+       col=c(adjustcolor(&quot;blue&quot;,alpha.f = 0.55),
+             adjustcolor(&quot;red&quot;,alpha.f = 0.55)),
+       lty=c(1,1),
+       title = &quot;Event&quot;,
+       box.col = &quot;white&quot;,
+       horiz = T)
+box()</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+</div>
+<div id="compare-cumultive-incidence-between-groups" class="section level1">
+<h1>Compare cumultive incidence between groups</h1>
+<p>Note that in <em>cuminc</em> <strong>Gray’s test</strong> is used for between-group tests.</p>
+<p>As an example, compare the Melanoma outcomes according to <em>ulcer</em>, the presence or absence of ulceration. The results of the tests can be found in <em>Tests</em>.</p>
+<pre class="r"><code>ci_fit_ulcer= cuminc(ftime = MASS::Melanoma$time,
+                     fstatus = MASS::Melanoma$status,
+                     group = MASS::Melanoma$ulcer,
+                     cencode = 2)
+
+ci_fit_ulcer</code></pre>
+<pre><code>## Tests:
+##        stat           pv df
+## 1 26.120719 3.207240e-07  1
+## 3  0.158662 6.903913e-01  1
+## Estimates and Variances:
+## $est
+##           1000       2000       3000       4000      5000
+## 0 1 0.03509042 0.10322276 0.18165409 0.18165409 0.1816541
+## 1 1 0.24444444 0.38972746 0.46972340 0.53306966        NA
+## 0 3 0.01746826 0.02624086 0.04028177 0.12960814 0.1296081
+## 1 3 0.05555556 0.07981432 0.07981432 0.07981432        NA
+## 
+## $var
+##             1000         2000         3000         4000        5000
+## 0 1 0.0002997449 0.0008952562 0.0019180376 0.0019180376 0.001918038
+## 1 1 0.0020796399 0.0026929462 0.0035308463 0.0046320135          NA
+## 0 3 0.0001512406 0.0002255429 0.0004165726 0.0029626459 0.002962646
+## 1 3 0.0005902878 0.0008546097 0.0008546097 0.0008546097          NA</code></pre>
+<pre class="r"><code>ci_fit_ulcer[[&#39;Tests&#39;]]</code></pre>
+<pre><code>##        stat           pv df
+## 1 26.120719 3.207240e-07  1
+## 3  0.158662 6.903913e-01  1</code></pre>
+</div>
+<div id="plot-the-cumulative-incidence-cif-between-groups-manually" class="section level1">
+<h1>Plot the Cumulative incidence (CIF) between groups manually</h1>
+<p>We can plot Cumulative incidence between groups using simply plot() function but it is good practice to visualize this using <em>ggcompetingrisks</em> function. But I always prefer to use base R functions and use additional packages only when it is absolutely necessary.</p>
+<pre class="r"><code>plot(ci_fit_ulcer$`0 1`$time,ci_fit_ulcer$`0 1`$est,
+     type = &quot;S&quot;,
+     lwd=1,
+     lty=1,
+     ylim = c(0,1),
+     col=adjustcolor(&quot;blue&quot;,alpha.f = 0.5),
+     xlab = &quot;Days&quot;,
+     ylab = &quot;Cumulative incidence of event&quot;,
+     main=&quot;Death by ulceration&quot;,
+     bg=gray(0.4,0.3))
+
+par(new=T)
+
+plot(ci_fit_ulcer$`0 3`$time,ci_fit_ulcer$`0 3`$est,
+     type = &quot;S&quot;,
+     lwd=1,
+     lty=1,
+     ylim = c(0,1),
+     col=adjustcolor(&quot;red&quot;,alpha.f = 0.5),
+     xlab = &quot;&quot;,
+     ylab = &quot;&quot;,
+     axes = F)
+
+par(new=T)
+
+plot(ci_fit_ulcer$`1 1`$time,ci_fit_ulcer$`1 1`$est,
+     type = &quot;S&quot;,
+     lwd=1,
+     lty=2,
+     ylim = c(0,1),
+     col=adjustcolor(&quot;blue&quot;,alpha.f = 0.5),
+     xlab = &quot;&quot;,
+     ylab = &quot;&quot;,
+     axes = F)
+
+par(new=T)
+
+plot(ci_fit_ulcer$`1 3`$time,ci_fit_ulcer$`1 3`$est,
+     type = &quot;S&quot;,
+     lwd=1,
+     lty=2,
+     ylim = c(0,1),
+     col=adjustcolor(&quot;red&quot;,alpha.f = 0.5),
+     xlab = &quot;&quot;,
+     ylab = &quot;&quot;,
+     axes = F)
+
+legend(&quot;topleft&quot;,
+       legend = c(&quot;0: not ulcerated&quot;,&quot; 1: ulcerated&quot;),
+       col=c(1,1),
+       lty=c(1,2),
+       title = &quot;Group&quot;,
+       box.col = &quot;white&quot;)
+
+legend(&quot;topright&quot;,
+       legend = c(&quot;1: death from melanoma&quot;,&quot;3: death from other cases&quot;),
+       fill= c(adjustcolor(&quot;blue&quot;,alpha.f = 0.5),adjustcolor(&quot;red&quot;,alpha.f = 0.5)),
+       title = &quot;Event&quot;,
+       box.col = &quot;white&quot;)
+
+box()</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+</div>
+<div id="competing-risks-regression" class="section level1">
+<h1>Competing risks regression</h1>
+<p>As discussed in the earlier, there are two approaches:</p>
+<ul>
+<li><strong>Cause-specific hazards</strong>
+<ul>
+<li>instantaneous rate of occurrence of the given type of event in subjects who are currently event-free</li>
+<li>estimated using <strong>Cox regression</strong> (<em>coxph</em> function)</li>
+</ul></li>
+<li><strong>Subdistribution hazards</strong>
+<ul>
+<li>instantaneous rate of occurrence of the given type of event in subjects who have not yet experienced an event of that type.</li>
+<li>estimated using <strong>Fine-Gray regression</strong> (<em>crr</em> function)</li>
+</ul></li>
+</ul>
+<div id="a-competing-risks-regression-in-melanoma-data--subdistribution-hazard-approach" class="section level3">
+<h3>(A) Competing risks regression in Melanoma data- subdistribution hazard approach</h3>
+<p>Let’s say we are interested in looking at the effect if age and sex on death from melanoma, with death from other causes as a competing event.</p>
+<p><strong>Notes:</strong></p>
+<ul>
+<li><p><em>crr</em> requires specification of covariates as a matrix.</p></li>
+<li><p>If more than one event is of interest, you can request results for a different event by using the failcode option, by default results are returned for <em>failcode = 1</em>.</p></li>
+</ul>
+<pre class="r"><code>shr_fit= crr(ftime = MASS::Melanoma$time,
+             fstatus = MASS::Melanoma$status,
+             cov1 = MASS::Melanoma[,c(&quot;sex&quot;,&quot;age&quot;)],
+             cencode = 2)
+
+shr_fit</code></pre>
+<pre><code>## convergence:  TRUE 
+## coefficients:
+##     sex     age 
+## 0.58840 0.01259 
+## standard errors:
+## [1] 0.271800 0.009301
+## two-sided p-values:
+##  sex  age 
+## 0.03 0.18</code></pre>
+<p>In the above example, both ‘sex’ and ‘age’ were coded as numeric variables. The <em>crr</em> function cannot naturally handle character variables, and you will get an error, so if character variables are present we have to create dummy variables using <em>model.matrix</em></p>
+</div>
+<div id="b-competing-risks-regression-in-melanoma-data--cause-specific-hazard-approach" class="section level3">
+<h3>(B) Competing risks regression in Melanoma data- Cause-specific hazard approach</h3>
+<p>Censor all subjects who did not have the event of interest, in this case death from melanoma, and use <em>coxph</em> as before. So patients who died from other causes are now censored for the cause-specific hazard approach to competing risks.</p>
+<pre class="r"><code>chr_fit= coxph(Surv(time,ifelse(status== 1,1,0))~sex + age, data = MASS::Melanoma)
+
+summary(chr_fit)</code></pre>
+<pre><code>## Call:
+## coxph(formula = Surv(time, ifelse(status == 1, 1, 0)) ~ sex + 
+##     age, data = MASS::Melanoma)
+## 
+##   n= 205, number of events= 57 
+## 
+##         coef exp(coef) se(coef)     z Pr(&gt;|z|)  
+## sex 0.598259  1.818949 0.267639 2.235   0.0254 *
+## age 0.016542  1.016679 0.008663 1.910   0.0562 .
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##     exp(coef) exp(-coef) lower .95 upper .95
+## sex     1.819     0.5498    1.0765     3.074
+## age     1.017     0.9836    0.9996     1.034
+## 
+## Concordance= 0.631  (se = 0.037 )
+## Likelihood ratio test= 9.94  on 2 df,   p=0.007
+## Wald test            = 10  on 2 df,   p=0.007
+## Score (logrank) test = 10.26  on 2 df,   p=0.006</code></pre>
+</div>
+</div>

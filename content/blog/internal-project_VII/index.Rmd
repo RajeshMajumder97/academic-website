@@ -10,6 +10,12 @@ summary: How to calculate sample size.
 tags:
 - Blogs
 title: Sample Size Calculation in R.
+
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    math: katex
 ---
 
 ## The Why of Sample Size Calculations :
@@ -62,7 +68,7 @@ title: Sample Size Calculation in R.
 ![For Epidemiology Study Design](Sample Size estimation formula for Epidemiology.PNG)
 
 
-![For Epidemiology Study Design](D:\Users\User\OneDrive\OneDrive\Pictures\Sample Size estimation formula for Epidemiology_2.PNG)
+![For Epidemiology Study Design](Sample Size estimation formula for Epidemiology_2.PNG)
 
 ## Sample Size Calculation in R :
 
