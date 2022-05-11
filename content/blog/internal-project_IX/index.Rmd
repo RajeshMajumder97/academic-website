@@ -1,0 +1,32 @@
+---
+date: "2022-05-11T00:00:00Z"
+external_link: ""
+image:
+#  caption: Photo by rawpixel on Unsplash
+  focal_point: Smart
+  
+#slides: example
+summary: Besic introduction to SQL 
+tags:
+- Blogs
+title: Besic introduction to SQL with MySQL
+---
+This tutorial was planned for the under graduate students who are totally new to SQL. Through out this course we mainly used MySQL & MySQL query and some times R and Python were used. Most of the tutorials of this lecture series are given here; rest of the tutorials and course works will be available soon.
+
+
+
+- (1) [Tutorial-I  Introduction (pdf)](https://drive.google.com/file/d/1zT1o_37lN6wIJvmPmONzatcp4EhZjS-6/view?usp=sharig)
+
+- (2) [Tutorial-II  Where can we write SQL Code ? (pdf)](https://drive.google.com/file/d/1pHy3ls6IK5r4QN8OAM3zPRsSd_Bm6lSn/view?usp=sharing)
+
+- (3) [Tutorial-III  MYSQL Terminologies (pdf)](https://drive.google.com/file/d/1IarwG7R3c8JRNI0CkdktONjUfWLjUsRB/view?usp=sharing)
+
+- (4) [Tutorial-IV  Querying Basics (pdf)](https://drive.google.com/file/d/1xGj0GzsFWiU_GK8CkVcRn5pKcYxjW_2R/view?usp=sharing)
+
+- (5) [Tutorial-V  Creating, Updating, Deleting (pdf)](https://drive.google.com/file/d/1SYAb3Q7DYn3zgZZEHNlfC8zOmuvZ1x7K/view?usp=sharing)
+
+- (6) [Tutorial-VI  Data types (pdf)](https://drive.google.com/file/d/1n4Rf0Hhir963VRzF1qdnBlb9rgamnI8i/view?usp=sharing)
+
+- (7) [Tutorial-VII  Operators and Functions (pdf)](https://drive.google.com/file/d/1gGgx_37aO3wl1s32Lj0GZgyTZSLcrulM/view?usp=sharing)
+
+
