@@ -5,14 +5,14 @@ name = "Ocean"
 light = true
 
 # Primary
-primary = "#3f51b5"
+primary = "#696969"
 
 # Menu
-menu_primary = "#3f51b5" # Material 500
+menu_primary = "#696969" # Material 500
 menu_text = "#fff"
 menu_text_active = "#ffeb3b" # Material Complemantary 500
 menu_title = "#fff"
 
 # Home sections
-home_section_odd = "rgb(255, 255, 255)"
-home_section_even = "rgb(247, 247, 247)"
+home_section_odd = "#dfe7fd"
+home_section_even = "#dfe7fd"
