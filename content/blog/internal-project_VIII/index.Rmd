@@ -12,10 +12,9 @@ tags:
 title: Survival Analysis with R
 
 output:
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
-    math: katex
+  blogdown::html_page:
+    toc: true
+  
 ---
 
 - **This class will provide theoretical as well as hands-on instruction and exercises covering basic survival analysis using R.**

@@ -12,14 +12,55 @@ tags:
 title: Survival Analysis with R
 
 output:
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
-    math: katex
+  blogdown::html_page:
+    toc: true
+  
 ---
 
 <script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
 
+<div id="TOC">
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#examples-of-survival-data">Examples of Survival Data</a>
+<ul>
+<li><a href="#a-the-lung-dataset">(A) The lung dataset</a></li>
+<li><a href="#b-the-alloauto-dataset">(B) The alloauto dataset</a></li>
+</ul></li>
+<li><a href="#some-basic-definations-which-are-used-in-survival-studies">Some Basic Definations which are used in Survival Studies:</a>
+<ul>
+<li><a href="#cumulative-distribution">Cumulative Distribution</a></li>
+<li><a href="#survival-function">Survival Function</a></li>
+<li><a href="#failure-rate-or-hazard-rate">Failure rate or Hazard rate</a></li>
+</ul></li>
+<li><a href="#what-is-censoring">What is Censoring ?</a></li>
+<li><a href="#censored-survival-data">Censored survival data</a></li>
+<li><a href="#distribution-of-follow-up-time">Distribution of follow-up time</a></li>
+<li><a href="#components-of-survival-data">Components of survival data</a></li>
+<li><a href="#dealing-with-dates-in-r">Dealing with dates in R</a>
+<ul>
+<li><a href="#formating-dates">Formating dates</a></li>
+<li><a href="#calculating-survival-times">Calculating Survival Times</a></li>
+</ul></li>
+<li><a href="#event-indicator-and-creating-survival-objects">Event indicator and Creating survival objects</a></li>
+<li><a href="#estimating-survival-curves-and-survival-probabilities-with-kaplan-meier-method">Estimating Survival curves and Survival probabilities with Kaplan-Meier method</a></li>
+<li><a href="#kaplan-meier-plots">Kaplan-Meier Plots</a></li>
+<li><a href="#estimating-x-years-survival">Estimating x-years survival</a></li>
+<li><a href="#testing-of-survival-curves">Testing of survival curves</a></li>
+<li><a href="#coxs-proportional-hazard-regression-model">Cox’s Proportional Hazard Regression model</a></li>
+<li><a href="#competing-risks">Competing Risks</a></li>
+<li><a href="#cumulative-incidence-in-melanoma-data">Cumulative incidence in Melanoma data</a></li>
+<li><a href="#plot-the-cumulative-incidence-cif">Plot the Cumulative incidence (CIF)</a></li>
+<li><a href="#plot-the-cumulative-incidence-cif-manually">Plot the Cumulative incidence (CIF) manually</a></li>
+<li><a href="#compare-cumultive-incidence-between-groups">Compare cumultive incidence between groups</a></li>
+<li><a href="#plot-the-cumulative-incidence-cif-between-groups-manually">Plot the Cumulative incidence (CIF) between groups manually</a></li>
+<li><a href="#competing-risks-regression">Competing risks regression</a>
+<ul>
+<li><a href="#a-competing-risks-regression-in-melanoma-data--subdistribution-hazard-approach">(A) Competing risks regression in Melanoma data- subdistribution hazard approach</a></li>
+<li><a href="#b-competing-risks-regression-in-melanoma-data--cause-specific-hazard-approach">(B) Competing risks regression in Melanoma data- Cause-specific hazard approach</a></li>
+</ul></li>
+</ul>
+</div>
 
 <ul>
 <li><strong>This class will provide theoretical as well as hands-on instruction and exercises covering basic survival analysis using R.</strong></li>
