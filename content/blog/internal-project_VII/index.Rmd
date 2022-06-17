@@ -12,10 +12,9 @@ tags:
 title: Sample Size Calculation in R.
 
 output:
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
-    math: katex
+  blogdown::html_page:
+    toc: true
+  
 ---
 
 ## The Why of Sample Size Calculations :

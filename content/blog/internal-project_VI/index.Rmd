@@ -10,6 +10,11 @@ summary: Understanding Monte Carlo Simulation in R.
 tags:
 - Blogs
 title: Simulation & Statistics in R
+
+output:
+  blogdown::html_page:
+    toc: true
+  
 ---
 
 ## INTRODUCTION

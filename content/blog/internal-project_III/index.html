@@ -10,10 +10,44 @@ summary: How to write a user-defined function in R.
 tags:
 - Blogs
 title: Write a user-defined function in R
+output:
+  blogdown::html_page:
+    toc: true
+  
 ---
 
 <script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
 
+<div id="TOC">
+<ul>
+<li><a href="#introduction">INTRODUCTION</a></li>
+<li><a href="#user-defined-functions">User Defined Functions</a></li>
+<li><a href="#doing-more-than-one-computation">Doing more than one computation</a></li>
+<li><a href="#default-argument-of-a-function">Default argument of a function</a></li>
+<li><a href="#additional-arguments">Additional Arguments</a></li>
+<li><a href="#data-types-of-arguments">Data types of arguments</a></li>
+<li><a href="#sanity-checking-argument">Sanity checking argument</a></li>
+<li><a href="#scope-of-variables">Scope of variables</a></li>
+<li><a href="#recursive-function">Recursive Function</a></li>
+<li><a href="#loops-in-r">Loops in R</a></li>
+<li><a href="#while-loop">While loop</a></li>
+<li><a href="#if-if-else">If &amp; If-Else</a></li>
+<li><a href="#if-else-function">If-Else function</a></li>
+<li><a href="#else-if-ladder">Else if Ladder</a></li>
+<li><a href="#switch-statement">Switch Statement</a></li>
+<li><a href="#repeat-loop">Repeat Loop</a></li>
+<li><a href="#plotting-functions">Plotting Functions</a></li>
+<li><a href="#plotting-normal-curve">Plotting normal curve</a></li>
+<li><a href="#sin1x-plot">sin(1/x) plot</a></li>
+<li><a href="#zoom-at-the-origin">Zoom at the origin</a></li>
+<li><a href="#solving-equation">Solving Equation</a></li>
+<li><a href="#solving-equation-1">Solving Equation</a></li>
+<li><a href="#solving-equation-2">Solving Equation</a></li>
+<li><a href="#some-calculus-in-r">Some Calculus in R</a></li>
+<li><a href="#optimization">Optimization</a></li>
+<li><a href="#further-reading">Further reading</a></li>
+</ul>
+</div>
 
 <div id="introduction" class="section level2">
 <h2>INTRODUCTION</h2>
@@ -24,7 +58,7 @@ title: Write a user-defined function in R
 <ul>
 <li><p>Functions are created using the <strong><em>function()</em></strong> directive and are
 stored as R objects just like anything else. In particular, they are R
-objects of class function".</p></li>
+objects of class function”.</p></li>
 <li><p>The basic format of the code is</p></li>
 </ul>
 <p><strong>function_name = function(arguments)</strong><br />
