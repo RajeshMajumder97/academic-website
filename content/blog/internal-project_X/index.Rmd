@@ -1,0 +1,252 @@
+---
+date: "2022-06-19T00:00:00Z"
+external_link: ""
+image:
+#  caption: Photo by rawpixel on Unsplash
+  focal_point: Smart
+  
+#slides: example
+summary: The c3 package is a wrapper, or htmlwidget, for the C3 javascript charting library by Masayuki Tanaka. 
+tags:
+- Blogs
+title: C3
+
+output:
+  blogdown::html_page:
+    toc: true
+  
+---
+The `` c3 `` package is a wrapper, or htmlwidget, for the C3 javascript charting library by Masayuki Tanaka. You will find this package useful if you are wanting to create a chart using R and embedding it in a Rmarkdown document or Shiny App.
+
+The ``C3`` library is very versatile and includes a lot of options. Currently this package wraps most of the ``C3`` options object. Even with this current limitation a wide range of options are available.
+
+
+# Instalation
+
+```{r,eval=FALSE}
+install.packages("c3")
+
+# or
+
+devtools::install_github("mrjoh3/c3")
+
+```
+
+# Usage
+
+The ``c3`` package is intended to be as simple and lightweight as possible. As a starting point the data input must be a ``data.frame`` or ``tibble`` with several options.
+
+- If a ``data.frame`` without any options is passed all of the numeric columns will be plotted. This can be used in line and bar plots. Each column is a line or bar.
+
+- For more complex plots only 3 columns are used, those defined as ``x``, ``y`` and ``group``. This requires a ``data.frame`` with a vertical structure.
+
+
+## The Basics
+
+Where no options are supplied a simple line plot is produced by default. Where no x-axis is defined the plots are sequential. ``Date`` x-axis can be parsed with not additional setting if in the format ``%Y-%m-%d`` (ie ‘2014-01-01’)
+
+```{r}
+library(c3)
+data = data.frame(a = abs(rnorm(20) * 10),
+                  b = abs(rnorm(20) * 10),
+                  date = seq(as.Date("2011-01-01"), by = "month", length.out = 20))
+c3(data)
+```
+
+## Piping
+
+The package also imports the magrittr piping function ``(%>%)`` to simplify syntax.
+
+```{r}
+data%>%c3()
+```
+
+# Other Line Plots
+
+There are 5 different line plots available:
+
+- line
+- spline
+- step
+- area
+- area-step
+
+
+### Spline
+
+```{r}
+data %>%
+  c3() %>%
+  c3_line('spline')
+```
+
+
+### Step
+
+```{r}
+data %>%
+  c3(x = 'date') %>%
+  c3_line('area-step')
+```
+
+
+# Bar Plots
+
+```{r}
+data[1:10, ] %>%
+  c3() %>%
+  c3_bar(stacked = TRUE, 
+         rotate = TRUE)
+```
+
+
+# Mixed Geometry Plots
+
+Mixed geometry currently only works with a horizontal ``data.frame`` where each numeric column is plotted.
+
+```{r}
+data$c <- abs(rnorm(20) *10)
+data$d <- abs(rnorm(20) *10)
+data %>%
+  c3() %>%
+  c3_mixedGeom(type = 'bar', 
+               stacked = c('b','d'),
+               types = list(a='area',
+                            c='spline')
+               )
+```
+
+
+# Secondary Y Axis
+
+To use a secondary Y axis columns must first be matched to an axis and then the secondary axis made visible.
+
+```{r}
+data %>% 
+  dplyr::select(date, a, b) %>%
+  c3(x = 'date',
+     axes = list(a = 'y',
+                 b = 'y2')) %>% 
+  c3_mixedGeom(types = list(a = 'line',
+                            b = 'area')) %>% 
+  y2Axis()
+```
+
+# Scatter Plot
+
+```{r}
+mtcars %>%
+  c3(x = 'mpg', 
+     y = 'wt', 
+     group = 'cyl') %>% 
+  c3_scatter()
+```
+
+# Pie Charts
+
+```{r}
+data.frame(India = 45,
+           Bangladesh = 20,
+           SriLanka = 10) %>% 
+  c3() %>% 
+  c3_pie()
+```
+
+
+# Donut Charts
+
+```{r}
+data.frame(red = 82, green = 33, blue = 93) %>% 
+  c3(colors = list(red = 'red',
+                   green = 'green',
+                   blue = 'blue')) %>% 
+  c3_donut(title = '#d053ee')
+```
+
+# Gauge Charts
+
+```{r}
+data.frame(data = 80) %>% 
+  c3() %>% 
+  c3_gauge()
+```
+
+
+# Grid Lines & Annotation
+
+```{r}
+data %>%
+  c3() %>%
+  grid('y') %>%
+  grid('x', 
+       show = F, 
+       lines = data.frame(value = c(3, 10), 
+                          text= c('Line 1','Line 2')))
+```
+
+# Sub-chart
+
+```{r}
+data %>%
+  c3(x = 'date') %>%
+  subchart()
+```
+
+
+# Color Palette
+
+Plot color palettes can be changed to either ``RColorBrewer`` or ``viridis`` palettes using either ``RColorBrewer`` (S3 method) or ``c3_viridus``.
+
+```{r}
+data.frame(sugar = 20, 
+           fat = 45, 
+           salt = 10, 
+           vegetables = 60) %>% 
+  c3() %>% 
+  c3_pie() %>%
+  RColorBrewer()
+```
+
+```{r}
+data.frame(sugar = 20, 
+           fat = 45, 
+           salt = 10, 
+           vegetables = 60) %>% 
+  c3() %>% 
+  c3_pie() %>%
+  c3_viridis()
+```
+
+
+# Point Size
+
+```{r}
+data %>%
+  c3(x = 'date') %>%
+  point_options(r = 6, 
+                expand.r = 2)
+```
+
+# On Click
+
+Onclick, onmouseover and onmouseout are all available via the ``c3`` function. To use wrap a js function as a character string to ``htmlwidgets::JS()``. Please see the ``C3.js`` documentation and examples. The example below should be enough to get you started.
+
+```{r}
+data %>% 
+    c3(onclick = htmlwidgets::JS('function(d, element){console.log(d)}'))
+```
+
+# Tooltips
+
+C3 tooltips are readily modified with the use of javascript functions. For further detail see the ``C3.js`` documentation. Or for more advanced usage see the ``C3.js`` examples page.
+
+```{r}
+library("htmlwidgets")
+data %>%
+  c3() %>%
+  tooltip(format = list(title = JS("function (x) { return 'Data ' + x; }"),
+                        name = JS('function (name, ratio, id, index) { return name; }'),
+                        value = JS('function (value, ratio, id, index) { return ratio; }')))
+```
+
+
