@@ -15,7 +15,6 @@ output:
     toc: true
   
 ---
-
 ## INTRODUCTION
 
 In this tutorial, we will learn, how to make our own custom function in R.Though, R has thousands of functions under thousands of packages, but it is most important to know about how to make a customized function function.
