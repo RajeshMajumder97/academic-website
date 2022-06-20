@@ -7,6 +7,7 @@ image:
   
 #slides: example
 summary: The c3 package is a wrapper, or htmlwidget, for the C3 javascript charting library by Masayuki Tanaka. 
+categories: ["R"]
 tags:
 - Blogs
 title: C3
@@ -14,14 +15,14 @@ title: C3
 output:
   blogdown::html_page:
     toc: true
-  
+      
 ---
 The `` c3 `` package is a wrapper, or htmlwidget, for the C3 javascript charting library by Masayuki Tanaka. You will find this package useful if you are wanting to create a chart using R and embedding it in a Rmarkdown document or Shiny App.
 
 The ``C3`` library is very versatile and includes a lot of options. Currently this package wraps most of the ``C3`` options object. Even with this current limitation a wide range of options are available.
 
 
-# Instalation
+## Instalation
 
 ```{r,eval=FALSE}
 install.packages("c3")
@@ -32,7 +33,7 @@ devtools::install_github("mrjoh3/c3")
 
 ```
 
-# Usage
+## Usage
 
 The ``c3`` package is intended to be as simple and lightweight as possible. As a starting point the data input must be a ``data.frame`` or ``tibble`` with several options.
 
@@ -41,7 +42,7 @@ The ``c3`` package is intended to be as simple and lightweight as possible. As a
 - For more complex plots only 3 columns are used, those defined as ``x``, ``y`` and ``group``. This requires a ``data.frame`` with a vertical structure.
 
 
-## The Basics
+### The Basics
 
 Where no options are supplied a simple line plot is produced by default. Where no x-axis is defined the plots are sequential. ``Date`` x-axis can be parsed with not additional setting if in the format ``%Y-%m-%d`` (ie ‘2014-01-01’)
 
@@ -53,7 +54,7 @@ data = data.frame(a = abs(rnorm(20) * 10),
 c3(data)
 ```
 
-## Piping
+### Piping
 
 The package also imports the magrittr piping function ``(%>%)`` to simplify syntax.
 
@@ -61,7 +62,7 @@ The package also imports the magrittr piping function ``(%>%)`` to simplify synt
 data%>%c3()
 ```
 
-# Other Line Plots
+## Other Line Plots
 
 There are 5 different line plots available:
 
@@ -90,7 +91,7 @@ data %>%
 ```
 
 
-# Bar Plots
+## Bar Plots
 
 ```{r}
 data[1:10, ] %>%
@@ -100,7 +101,7 @@ data[1:10, ] %>%
 ```
 
 
-# Mixed Geometry Plots
+## Mixed Geometry Plots
 
 Mixed geometry currently only works with a horizontal ``data.frame`` where each numeric column is plotted.
 
@@ -117,7 +118,7 @@ data %>%
 ```
 
 
-# Secondary Y Axis
+## Secondary Y Axis
 
 To use a secondary Y axis columns must first be matched to an axis and then the secondary axis made visible.
 
@@ -132,7 +133,7 @@ data %>%
   y2Axis()
 ```
 
-# Scatter Plot
+## Scatter Plot
 
 ```{r}
 mtcars %>%
@@ -142,7 +143,7 @@ mtcars %>%
   c3_scatter()
 ```
 
-# Pie Charts
+## Pie Charts
 
 ```{r}
 data.frame(India = 45,
@@ -153,7 +154,7 @@ data.frame(India = 45,
 ```
 
 
-# Donut Charts
+## Donut Charts
 
 ```{r}
 data.frame(red = 82, green = 33, blue = 93) %>% 
@@ -163,7 +164,7 @@ data.frame(red = 82, green = 33, blue = 93) %>%
   c3_donut(title = '#d053ee')
 ```
 
-# Gauge Charts
+## Gauge Charts
 
 ```{r}
 data.frame(data = 80) %>% 
@@ -172,7 +173,7 @@ data.frame(data = 80) %>%
 ```
 
 
-# Grid Lines & Annotation
+## Grid Lines & Annotation
 
 ```{r}
 data %>%
@@ -184,7 +185,7 @@ data %>%
                           text= c('Line 1','Line 2')))
 ```
 
-# Sub-chart
+## Sub-chart
 
 ```{r}
 data %>%
@@ -193,7 +194,7 @@ data %>%
 ```
 
 
-# Color Palette
+## Color Palette
 
 Plot color palettes can be changed to either ``RColorBrewer`` or ``viridis`` palettes using either ``RColorBrewer`` (S3 method) or ``c3_viridus``.
 
@@ -218,7 +219,7 @@ data.frame(sugar = 20,
 ```
 
 
-# Point Size
+## Point Size
 
 ```{r}
 data %>%
@@ -227,7 +228,7 @@ data %>%
                 expand.r = 2)
 ```
 
-# On Click
+## On Click
 
 Onclick, onmouseover and onmouseout are all available via the ``c3`` function. To use wrap a js function as a character string to ``htmlwidgets::JS()``. Please see the ``C3.js`` documentation and examples. The example below should be enough to get you started.
 
@@ -236,7 +237,7 @@ data %>%
     c3(onclick = htmlwidgets::JS('function(d, element){console.log(d)}'))
 ```
 
-# Tooltips
+## Tooltips
 
 C3 tooltips are readily modified with the use of javascript functions. For further detail see the ``C3.js`` documentation. Or for more advanced usage see the ``C3.js`` examples page.
 
