@@ -10,6 +10,9 @@ summary: How to write a user-defined function in R.
 tags:
 - Blogs
 title: Write a user-defined function in R
+
+categories: ["R"]
+
 output:
   blogdown::html_page:
     toc: true

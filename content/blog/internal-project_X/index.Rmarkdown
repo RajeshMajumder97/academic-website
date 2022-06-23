@@ -7,11 +7,11 @@ image:
   
 #slides: example
 summary: The c3 package is a wrapper, or htmlwidget, for the C3 javascript charting library by Masayuki Tanaka. 
-categories: ["R"]
+
 tags:
 - Blogs
 title: C3
-
+categories: ["R"]
 output:
   blogdown::html_page:
     toc: true
