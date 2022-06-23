@@ -36,7 +36,8 @@ objects of class function".
 **}**
 
 
-```{r}
+
+```r
 #---define a function
 testfunction = function(x,y)
 {
@@ -47,12 +48,17 @@ testfunction = function(x,y)
 testfunction(2,5)
 ```
 
+```
+## [1] 7
+```
+
 ## Doing more than one computation
 
 - When a function performs more than one task and gives multiple objects ***return()*** is used to get all the outputs in a form of a vector.
 
 
-```{r}
+
+```r
 testfunction = function(x,y)
 {
   sum= x+y
@@ -62,19 +68,37 @@ testfunction = function(x,y)
 testfunction(2,5)
 ```
 
+```
+##     Sum Product 
+##       7      10
+```
+
 - Note that the two output can be accepted separatedly as 
 
-```{r}
+
+```r
 result = testfunction(2,5)
 result[1]
 ```
-```{r}
+
+```
+## Sum 
+##   7
+```
+
+```r
 result[2]
+```
+
+```
+## Product 
+##      10
 ```
 
 - Alternatively multiple output can be extracted using ***list()***. This will enable us to extract by names (along with indices)
 
-```{r}
+
+```r
 testfunction = function(x,y)
 {
   sum= x+y
@@ -86,13 +110,22 @@ output= testfunction(2,5)
 ```
 
 
-```{r}
 
+```r
 output$Sum
 ```
 
-```{r}
+```
+## [1] 7
+```
+
+
+```r
 output$Product
+```
+
+```
+## [1] 10
 ```
 
 ## Default argument of a function
@@ -102,7 +135,8 @@ output$Product
 - This default values will be used when the function is called unless this argument values are changed during calling.
 
 
-```{r}
+
+```r
 #--- initializing x=1 & y=1
 
 testfunction = function(x=1,y=1)
@@ -118,11 +152,20 @@ testfunction = function(x=1,y=1)
 testfunction() #-- calling function with no arguments
 ```
 
+```
+## $Sum
+## [1] 2
+## 
+## $Product
+## [1] 1
+```
+
 ## Additional Arguments
 
 - Provision for additional arguments (*probably optional arguments, which cannot be decided beforehand*) can be done using "**...**"
 
-```{r}
+
+```r
 testfunction = function(x=1,y=1,...)
 {
   sum= x+y
@@ -136,11 +179,20 @@ testfunction = function(x=1,y=1,...)
 testfunction(2,5,z=12) #-- z is an extra argument which has no use in this function
 ```
 
+```
+## $Sum
+## [1] 7
+## 
+## $Product
+## [1] 10
+```
+
 ## Data types of arguments
 
 - Since the types of arguments are not specified (*at the time of definition*), the arguments can be of any type of any data type provided the **internal code of the function is conformable with that data type**
 
-```{r}
+
+```r
 testfunction = function(x=1,y=1,...)
 {
   sum= x+y
@@ -154,8 +206,17 @@ testfunction = function(x=1,y=1,...)
 testfunction(2,5,z=12) #-- calling with vectors
 ```
 
+```
+## $Sum
+## [1] 7
+## 
+## $Product
+## [1] 10
+```
 
-```{r,eval=FALSE}
+
+
+```r
 #-- calling with characters
 testfunction("F","M")
 ```
@@ -170,7 +231,8 @@ testfunction("F","M")
 - A good practice is to write functions in such that while calling, it checks whether the arguments supplied make sense before going to the main body of the function.
 
 
-```{r,eval=FALSE}
+
+```r
 testfunction = function(x=1,y=1,...)
 {
   #-- check if the arguments are not characters
@@ -194,7 +256,8 @@ testfunction("F","M")
 
 - When we define a **variable within a function**, it will be local and will not affect any **global variable** even if the name matches.
 
-```{r,eval=FALSE}
+
+```r
 f_outer=function()
 {
   a=2
@@ -212,7 +275,8 @@ c=10
 
 - R supports recursive function, i.e., a function that calls itself recursively.
 
-```{r}
+
+```r
 #-- Creating a recursive function
 fact= function(x)
 {
@@ -227,6 +291,10 @@ fact= function(x)
 }
 
 fact(5) #-- calling the function with x=5
+```
+
+```
+## [1] 16
 ```
 
 ## Loops in R
@@ -295,7 +363,8 @@ assigns value Good if marks is more than 80 and otherwise Fair.
 
 - When we have more than two cases we can use else-if ladder
 
-```{r,eval=FALSE}
+
+```r
 f= function(x)
 {
   if(x==1) print(a)
@@ -319,7 +388,8 @@ f= function(x)
 - **switch("color","color"="red","shape"="round","length"=5)** gives answer red (*it matches the string*)
 
 
-```{r}
+
+```r
 stat= function(x,type)
 {
   switch(type,"mean"=mean(x),
@@ -330,8 +400,17 @@ stat= function(x,type)
 stat(1:10,"mean") #-- call the function with mean
 ```
 
-```{r}
+```
+## [1] 5.5
+```
+
+
+```r
 stat(1:10,"median") #-- call the function with median
+```
+
+```
+## [1] 5.5
 ```
 
 ## Repeat Loop
@@ -347,7 +426,8 @@ repeat
 
 - We need to manually terminate the loop using **break** statement.
 
-```{r}
+
+```r
 x=1 #-- Take any value x as 1
 repeat
 {     #-- Loop begin here
@@ -356,6 +436,10 @@ repeat
 }   #-- Loop ends here
 
 x #-- checking the value of x
+```
+
+```
+## [1] 6
 ```
 
 ## Plotting Functions
@@ -368,7 +452,8 @@ where from and to are range over which the function is plotted and **n**(*intege
 
 - To get more information about it's arguments type **??curve() **
   
-```{r,eval=FALSE}
+
+```r
   myfun= function(x)
   {
     x*(1-x)
@@ -377,38 +462,44 @@ where from and to are range over which the function is plotted and **n**(*intege
 ```
   
 
-```{r,echo=FALSE}
-  myfun= function(x)
-  {
-    x*(1-x)
-  }
-  curve(myfun,from=0,to=1)
-```
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-20-1.png" width="672" />
   
 ## Plotting normal curve
     
   
-```{r,eval=FALSE}
+
+```r
   #-- dnorm gives pdf of N(0,1)
   curve(dnorm,from = -4,to=4,n=500)
 ```
     
-```{r,echo=FALSE}
-  #-- dnorm gives pdf of N(0,1)
-  curve(dnorm,from = -4,to=4,n=500)
-```
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-22-1.png" width="672" />
   
 ## sin(1/x) plot
     
-```{r}
+
+```r
   curve(sin(1/x),from = -2,to = 2)
 ```
+
+```
+## Warning in sin(1/x): NaNs produced
+```
+
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-23-1.png" width="672" />
   
 ## Zoom at the origin
   
-```{r}
+
+```r
   curve(sin(1/x),from = -0.1,to = 0.1)
 ```
+
+```
+## Warning in sin(1/x): NaNs produced
+```
+
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-24-1.png" width="672" />
   
 ## Solving Equation
   
@@ -418,32 +509,52 @@ where from and to are range over which the function is plotted and **n**(*intege
     
 - The syntax is ***uniroot(function,interval,...)***
     
-- For solve $$e^x=sin(x)$$ we write
+- For solve `$$e^x=sin(x)$$` we write
   
-```{r,eval=FALSE}
+
+```r
   uniroot(function(x) exp(x)-sin(x),c(-5,5))
 ```
   
 ## Solving Equation
   
-```{r,echo=FALSE}
-  uniroot(function(x) exp(x)-sin(x),c(-5,5))
+
+```
+## $root
+## [1] -3.183063
+## 
+## $f.root
+## [1] -1.359327e-08
+## 
+## $iter
+## [1] 8
+## 
+## $init.it
+## [1] NA
+## 
+## $estim.prec
+## [1] 6.103516e-05
 ```
   
 ## Solving Equation
   
 - For finding real or complex roots of a ploynomial use ***polyroot()***
     
-- For solving roots of $n$ non-linear equations we can use ***multiroot()*** from the ***rootSolve*** package.
+- For solving roots of `\(n\)` non-linear equations we can use ***multiroot()*** from the ***rootSolve*** package.
   
 ## Some Calculus in R
   
 - Define integral can be done using ***integrate()***
     
-- e.g. $\int_0^1(x^2)dx$ can be done using
+- e.g. `\(\int_0^1(x^2)dx\)` can be done using
   
-```{r}
+
+```r
   integrate(function(x) x^2,0,1)
+```
+
+```
+## 0.3333333 with absolute error < 3.7e-15
 ```
   
 - For derivatives, we use ***deriv()***
@@ -454,8 +565,17 @@ where from and to are range over which the function is plotted and **n**(*intege
     
 - ***optimize(function,interval,maximum=TRUE/FALSE)***
     
-```{r}
+
+```r
   optimise(function(x) exp(-x),c(0,5))
+```
+
+```
+## $minimum
+## [1] 4.999936
+## 
+## $objective
+## [1] 0.006738379
 ```
   
 - There are other functions for optimization like ***optim()***,***nlm()***,***constrOptim()***.

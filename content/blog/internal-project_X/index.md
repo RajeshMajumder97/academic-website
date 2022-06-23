@@ -10,11 +10,6 @@ summary: Besic introduction to SQL
 tags:
 - Blogs
 title: Besic introduction to SQL with MySQL
-categories:
-- SQL
-output:
-  blogdown::html_page:
-    toc: true
 ---
 This tutorial was planned for the under graduate students who are totally new to SQL. Through out this course we mainly used MySQL & MySQL query and some times R and Python were used. Most of the tutorials of this lecture series are given here; rest of the tutorials and course works will be available soon.
 

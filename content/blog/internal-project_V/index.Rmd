@@ -11,8 +11,9 @@ tags:
 - Blogs
 title: Understanding what is Statistical Regularity with a Ludo & Paper Game
 
-categories: ["R"]
-
+output:
+  blogdown::html_page:
+    toc: true
 ---
 
 Hi,... 

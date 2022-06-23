@@ -34,9 +34,9 @@ output:
 
 ## Key features of Sample Size Calculation :
 
-- **Effect Size:** magnitude of the effect under the $H_1$ (*alternative*). - the larger the effect size, the easier it is to an effect and require fewer samples.
+- **Effect Size:** magnitude of the effect under the `\(H_1\)` (*alternative*). - the larger the effect size, the easier it is to an effect and require fewer samples.
 
-- **Power:** Probability of correctly rejecting the $H_0$(*null*) if it is flse. i.e., ($1-\beta$), where $\beta$= Type-II Error.
+- **Power:** Probability of correctly rejecting the `\(H_0\)`(*null*) if it is flse. i.e., ($1-\beta$), where `\(\beta\)`= Type-II Error.
 
 - **Significance level($\alpha$):** Probability of falsely rejecting the null hypothesis even through it is true.  i.e., Type-I error.
 
@@ -113,12 +113,12 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
 ------------------------------------------------------------------------------------
 
 
-- **Effect size calculation:**  $Effect\:Size(D)= \frac{{|{\mu}_{H_1}-{\mu}_{H_0}}|}{\sigma}$
+- **Effect size calculation:**  `\(Effect\:Size(D)= \frac{{|{\mu}_{H_1}-{\mu}_{H_0}}|}{\sigma}\)`
 
 - **Example:(1)** **Is the average body temperature of college students any different from 98.6°F?**
 
 - **Solution:** 
-    - Here, $H_0\:: Avg\:Body\:temp.=98.6°F$ and $H_0\:: Avg\:Body\:temp.\neq 98.6°F$
+    - Here, `\(H_0\:: Avg\:Body\:temp.=98.6°F\)` and `\(H_0\:: Avg\:Body\:temp.\neq 98.6°F\)`
     
     - We will guess that the **effect sizes will be medium.**
     
@@ -134,13 +134,32 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
       - type= type of test
       
     - **Answer of the problem:**
-      ```{r,message=FALSE,warning=FALSE}
+      
+      ```r
           library(pwr)
           Pwer_t=pwr.t.test(d=0.5, sig.level=0.05, power=0.80, type="one.sample",alternative="two.sided")
           Pwer_t
+      ```
+      
+      ```
+      ## 
+      ##      One-sample t test power calculation 
+      ## 
+      ##               n = 33.36713
+      ##               d = 0.5
+      ##       sig.level = 0.05
+      ##           power = 0.8
+      ##     alternative = two.sided
+      ```
+      
+      ```r
           print(paste0("Sample Size by rounding off is:",round(Pwer_t$n,0)))
       ```
-- **Example:(2)** **Calculate the sample size for the following scenarios (with $\alpha=0.05$, and power=0.80):**
+      
+      ```
+      ## [1] "Sample Size by rounding off is:33"
+      ```
+- **Example:(2)** **Calculate the sample size for the following scenarios (with `\(\alpha=0.05\)`, and power=0.80):**
 
   - **(i)** You are interested in determining if the average income of college freshman is less than Rs.20,000. You collect trial data and find that the mean income was Rs.14,500 (SD=6000).
   
@@ -157,13 +176,18 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
   
   - (i) You are interested in determining if the average income of college freshman is less than Rs.20,000. You collect trial data and find that the mean income was Rs.14,500 (SD=6000).
       
-    - Effect size = $(Mean_{H_1}-Mean_{H_0})/SD= (14,500-20,000)/6000 = -0.917$
+    - Effect size = `\((Mean_{H_1}-Mean_{H_0})/SD= (14,500-20,000)/6000 = -0.917\)`
     
     - One-tailed test  
     
     - **R Code:**
-    ```{r}
+    
+    ```r
       print(paste0("The Sample Size is :",round(pwr.t.test(d=-0.917, sig.level=0.05, power=0.80, type="one.sample", alternative="less")$n,0)))
+    ```
+    
+    ```
+    ## [1] "The Sample Size is :9"
     ```
     
   - (ii) Effect size =$(Mean_{H_1}-Mean_{H_0})/SD =(-0.446-0)/1.96 = -0.228$
@@ -171,8 +195,13 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
       - Two-tailed test
       
       - **R Code:**
-      ```{r}
+      
+      ```r
       print(paste("The Sample Size is :",round(pwr.t.test(d=-0.228, sig.level=0.05, power=0.80, type="one.sample", alternative="two.sided")$n,0)))
+      ```
+      
+      ```
+      ## [1] "The Sample Size is : 153"
       ```
   - (iii) *Try it by yourself.*
 
@@ -188,12 +217,12 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
 ------------------------------------------------------------------------------------
 
 
-- **Effect size calculation:**  $Effect\:Size(D)= \frac{{|Mean_{H_1}-Mean_{H_0}}|}{SD_{pooled}}$
+- **Effect size calculation:**  `\(Effect\:Size(D)= \frac{{|Mean_{H_1}-Mean_{H_0}}|}{SD_{pooled}}\)`
 
 - **Example:(1)** **: Is the average body temperature higher in women than in men?**
 
 - **Solution:** 
-    - Here, $H_0\:: Avg\:difference\:Body\:temp.\:between\:men\:and\: women=0°F$ and $H_1\:: Avg\:difference\:Body\:temp.\:between\:men\:and\: women>0°F$
+    - Here, `\(H_0\:: Avg\:difference\:Body\:temp.\:between\:men\:and\: women=0°F\)` and `\(H_1\:: Avg\:difference\:Body\:temp.\:between\:men\:and\: women>0°F\)`
     
     - We will guess that the **effect sizes will be medium.**
     
@@ -211,8 +240,13 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
       - type= type of test
       
     - **Answer of the problem:**
-      ```{r}
+      
+      ```r
       print(paste0("The Sample Size is :",round(pwr.t.test(d=0.5, sig.level=0.05, power=0.80,type="two.sample", alternative="greater")$n,0)))
+      ```
+      
+      ```
+      ## [1] "The Sample Size is :50"
       ```
 
 - **Example:(2)** **Calculate the sample size for the following scenarios (with α=0.05, and power=0.80):**
@@ -233,13 +267,18 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
   
   - (i) You are interested in determining if the average income of college freshman is less than Rs.20,000. You collect trial data and find that the mean income was Rs.14,500 (SD=6000).
       
-    - Effect size = $(Mean_{H1}-Mean_{H0})/ SD_{pooled} =(2350.2-1872.4)/ \sqrt{(2582+ 4202)/2} =477.8/348.54 = 1.37$
+    - Effect size = `\((Mean_{H1}-Mean_{H0})/ SD_{pooled} =(2350.2-1872.4)/ \sqrt{(2582+ 4202)/2} =477.8/348.54 = 1.37\)`
     
     - two-tailed test  
     
     - **R Code:**
-    ```{r}
+    
+    ```r
       print(paste0("The Sample Size is :",round(pwr.t.test(d=1.37, sig.level=0.05, power=0.80, type="two.sample",alternative="two.sided")$n,0)))
+    ```
+    
+    ```
+    ## [1] "The Sample Size is :9"
     ```
     
   - (ii) Effect size =$(Mean_{H_1}-Mean_{H_0})/ SD_{pooled} =(4.59-4.98)/ \sqrt{(2.58^2+ 2.88^2)/2} = -0.14$
@@ -247,8 +286,13 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
       - Two-tailed test
       
       - **R Code:**
-      ```{r}
+      
+      ```r
       print(paste("The Sample Size is :",round(pwr.t.test(d=-0.14, sig.level=0.05, power=0.80, type="two.sample", alternative="two.sided")$n,0)))
+      ```
+      
+      ```
+      ## [1] "The Sample Size is : 802"
       ```
   - (iii) *Try it by yourself.*
 
@@ -264,13 +308,13 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
 ------------------------------------------------------------------------------------
 
 
-- **Effect size calculation:**  $Effect\:Size(D)= \frac{{|Mean_{H_1}-Mean_{H_0}}|}{SD_{pooled}}$
+- **Effect size calculation:**  `\(Effect\:Size(D)= \frac{{|Mean_{H_1}-Mean_{H_0}}|}{SD_{pooled}}\)`
 
 
 - **Example:(1)** **Is heart rate higher in patients after a run compared to before a run?**
 
 - **Solution:** 
-    - Here, $H_0\::bpm(after) – bpm(before) \leq 0$ and $H_1\:: bpm(after) – bpm(before)>0$
+    - Here, `\(H_0\::bpm(after) – bpm(before) \leq 0\)` and `\(H_1\:: bpm(after) – bpm(before)>0\)`
     
     - We will guess that the **effect sizes will be large.**
     
@@ -288,8 +332,13 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
       - type= type of test
       
     - **Answer of the problem:**
-      ```{r}
+      
+      ```r
       print(paste0("The Sample Size is :",round(pwr.t.test(d=0.8, sig.level=0.05, power=0.80, type="paired", alternative="greater")$n,0)))
+      ```
+      
+      ```
+      ## [1] "The Sample Size is :11"
       ```
 
 - **Example:(2)** **Calculate the sample size for the following scenarios (with α=0.05, and power=0.80):**
@@ -308,22 +357,32 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
   
   - (i) You are interested in determining if metabolic rate in patients after surgery is different from before surgery. You collected trial data and found a mean difference of 0.73 (SD=2.9).
       
-    - Effect size = $(Mean_{H_1}-Mean_{H_0})/SD =(0.73)/ 2.9 = 0.25$
+    - Effect size = `\((Mean_{H_1}-Mean_{H_0})/SD =(0.73)/ 2.9 = 0.25\)`
     
     - Two-tailed test  
     
     - **R Code:**
-    ```{r}
+    
+    ```r
       print(paste0("The Sample Size is :",round(pwr.t.test(d=0.25, sig.level=0.05, power=0.80, type="paired", alternative="two.sided")$n,0)))
     ```
     
-  - (ii) Effect size = $(Mean_{H_1}-Mean_{H_0})/ SD_{pooled} =(98.1-85.4)/ \sqrt{(26.82+ 27.22)/2} =12.7/27 = 0.47$
+    ```
+    ## [1] "The Sample Size is :128"
+    ```
+    
+  - (ii) Effect size = `\((Mean_{H_1}-Mean_{H_0})/ SD_{pooled} =(98.1-85.4)/ \sqrt{(26.82+ 27.22)/2} =12.7/27 = 0.47\)`
       
       - One-tailed test
       
       - **R Code:**
-      ```{r}
+      
+      ```r
       print(paste("The Sample Size is :",round(pwr.t.test(d=0.47, sig.level=0.05, power=0.80, type="paired", alternative="greater")$n,0)))
+      ```
+      
+      ```
+      ## [1] "The Sample Size is : 29"
       ```
 
 
@@ -338,12 +397,12 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
 ------------------------------------------------------------------------------------
 
 
-- **Effect size calculation:**  $$Effect\:Size(f)=\sqrt{\frac{\eta^2}{1-\eta^2}}$$ Where, $$\eta = \frac{SS_T}{TSS}=\frac{Treatment\:Sum\:Squares}{Total\:Sum\:Squares}$$ 
+- **Effect size calculation:**  `$$Effect\:Size(f)=\sqrt{\frac{\eta^2}{1-\eta^2}}$$` Where, `$$\eta = \frac{SS_T}{TSS}=\frac{Treatment\:Sum\:Squares}{Total\:Sum\:Squares}$$` 
 
 - **Example:(1)** **Is there a difference in new car interest rates across 6 different cities?**
 
 - **Solution:** 
-    - Here, $H_0\::0$ and $H_1\:: \neq 0$
+    - Here, `\(H_0\::0\)` and `\(H_1\:: \neq 0\)`
     
     - There are a total of 6 groups (cities).
     
@@ -363,8 +422,13 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
       - power= power of test
       
     - **Answer of the problem:**
-      ```{r}
+      
+      ```r
       print(paste0("The Sample Size is :",round(pwr.anova.test(k =6 , f =0.1 , sig.level=0.05 , power =0.80 )$n,0)))
+      ```
+      
+      ```
+      ## [1] "The Sample Size is :215"
       ```
 
 - **Example:(2)** **Calculate the sample size for the following scenarios (with α=0.05, and power=0.80):**
@@ -386,16 +450,21 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
   
   - (i) Here, 
     
-    - $\eta = SS_T/TSS=31.47/(31.47+62.87) = 0.33$
-    Note that, you can calculate $SS_T$ & $TSS$ by performing ANOVA on the dataset using *aov()* function.
+    - `\(\eta = SS_T/TSS=31.47/(31.47+62.87) = 0.33\)`
+    Note that, you can calculate `\(SS_T\)` & `\(TSS\)` by performing ANOVA on the dataset using *aov()* function.
     
-    - Effect size$(f)$ = $\sqrt{\eta^2/(1-\eta^2)}=\sqrt{0.33/(1- 0.33)} = 0.7$
+    - Effect size$(f)$ = `\(\sqrt{\eta^2/(1-\eta^2)}=\sqrt{0.33/(1- 0.33)} = 0.7\)`
     
     - No. of groups= 4
     
     - **R Code:**
-    ```{r}
+    
+    ```r
       print(paste0("The Sample Size is :",round(pwr.anova.test(k =4, f =0.7, sig.level=0.05, power =0.80 )$n,0)))
+    ```
+    
+    ```
+    ## [1] "The Sample Size is :7"
     ```
     
   - (ii) You are interested in determining if there is a difference in white blood cell counts between 5 different medication regimes.
@@ -405,8 +474,13 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
       - No. of groups= 5
       
       - **R Code:**
-      ```{r}
+      
+      ```r
       print(paste("The Sample Size is :",round(pwr.anova.test(k =5, f =0.25, sig.level=0.05, power =0.80 )$n,0)))
+      ```
+      
+      ```
+      ## [1] "The Sample Size is : 39"
       ```
 
 ## Single Proportion Test :
@@ -420,12 +494,12 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
 ------------------------------------------------------------------------------------
 
 
-- **Effect size calculation:**  $$Effect\:Size(h)=2*(arcsin(\sqrt{p_{H_1}}))-2*(arcsin(\sqrt{p_{H_0}})))$$ 
+- **Effect size calculation:**  `$$Effect\:Size(h)=2*(arcsin(\sqrt{p_{H_1}}))-2*(arcsin(\sqrt{p_{H_0}})))$$` 
 
 - **Example:(1)** **Is there a significance difference in cancer prevalence of middle-aged women who have a sister with breast cancer (5%) compared to the general population prevalence (2%)?**
 
 - **Solution:** 
-    - Here, $H_0\::0$ and $H_1\:: \neq 0$
+    - Here, `\(H_0\::0\)` and `\(H_1\:: \neq 0\)`
     
     - You don’t have background info, so you guess that there is a small effect size.
     
@@ -443,8 +517,13 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
       - alternative= type of tail
       
     - **Answer of the problem:**
-      ```{r}
+      
+      ```r
       print(paste0("The Sample Size is :",round( pwr.p.test(h=0.2, sig.level=0.05, power=0.80, alternative="two.sided")$n,0)))
+      ```
+      
+      ```
+      ## [1] "The Sample Size is :196"
       ```
 
 - **Example:(2)** **Calculate the sample size for the following scenarios (with α=0.05, and power=0.80):**
@@ -458,13 +537,18 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
   
   - (i) Here,
       
-    - Effect size = $2*arcsin(\sqrt{0.00495})-2*arcsin(\sqrt{0.00490})=0.0007$. Note that, in R arcsin can be calculated by the function *asin()*. Difference of proportion power calculation for binomial distribution (arcsine transformation) 
+    - Effect size = `\(2*arcsin(\sqrt{0.00495})-2*arcsin(\sqrt{0.00490})=0.0007\)`. Note that, in R arcsin can be calculated by the function *asin()*. Difference of proportion power calculation for binomial distribution (arcsine transformation) 
     
     - One-sided test  
     
     - **R Code:**
-    ```{r}
+    
+    ```r
       print(paste0("The Sample Size is :",round(pwr.p.test(h=0.0007, sig.level=0.05, power=0.80, alternative="greater")$n,0)))
+    ```
+    
+    ```
+    ## [1] "The Sample Size is :12617464"
     ```
     
   - (ii) You are interested in determining if the female incidence rate proportion of cancer in North Dakota is lower than the US average (prop=0.00420).
@@ -474,8 +558,13 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
       - One-tailed test
       
       - **R Code:**
-      ```{r}
+      
+      ```r
       print(paste("The Sample Size is :",round(pwr.p.test(h=-0.001, sig.level=0.05, power=0.80, alternative="less")$n,0)))
+      ```
+      
+      ```
+      ## [1] "The Sample Size is : 6182557"
       ```
 
 ## Two Proportions Test :
@@ -489,12 +578,12 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
 ------------------------------------------------------------------------------------
 
 
-- **Effect size calculation:**  $$Effect\:Size(h)=2*(arcsin(\sqrt{p_{H_1}}))-2*(arcsin(\sqrt{p_{H_0}})))$$ 
+- **Effect size calculation:**  `$$Effect\:Size(h)=2*(arcsin(\sqrt{p_{H_1}}))-2*(arcsin(\sqrt{p_{H_0}})))$$` 
 
 - **Example:(1)** **Is the expected proportion of students passing a stats course taught by psychology teachers different from the observed proportion of students passing the same stats class taught by mathematics teachers?**
 
 - **Solution:** 
-    - Here, $H_0\::0$ and $H_1\:: \neq 0$
+    - Here, `\(H_0\::0\)` and `\(H_1\:: \neq 0\)`
     
     - You don’t have background info, so you guess that there is a small effect size.
     
@@ -512,8 +601,13 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
       - alternative= type of tail
       
     - **Answer of the problem:**
-      ```{r}
+      
+      ```r
       print(paste0("The Sample Size is :",round( pwr.2p.test(h=0.2, sig.level=0.05, power=.80, alternative="two.sided")$n,0)))
+      ```
+      
+      ```
+      ## [1] "The Sample Size is :392"
       ```
 
 - **Example:(2)** **Calculate the sample size for the following scenarios (with α=0.05, and power=0.80):**
@@ -533,25 +627,35 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
   
   - (i) Here, 
     
-    - $p_1=7/10=0.70, p_2=6/10=0.60$
-    Note that, you can calculate $SS_T$ & $TSS$ by performing ANOVA on the dataset using *aov()* function.
+    - `\(p_1=7/10=0.70, p_2=6/10=0.60\)`
+    Note that, you can calculate `\(SS_T\)` & `\(TSS\)` by performing ANOVA on the dataset using *aov()* function.
     
-    - Effect size= $h= 2*asin(\sqrt{0.60})-2*asin(\sqrt{0.70})=-0.21$
+    - Effect size= `\(h= 2*asin(\sqrt{0.60})-2*asin(\sqrt{0.70})=-0.21\)`
     
     - **R Code:**
-    ```{r}
+    
+    ```r
       print(paste0("The Sample Size is :",round(pwr.2p.test(h=-0.21, sig.level=0.05, power=0.80, alternative="two.sided")$n,0)))
+    ```
+    
+    ```
+    ## [1] "The Sample Size is :356"
     ```
     
   - (ii) You are interested in determining if there is a difference in white blood cell counts between 5 different medication regimes.
       
-      - Guess that the expected proportion $(p_1)$ =0.85 
+      - Guess that the expected proportion `\((p_1)\)` =0.85 
       
-      - Effect Size= $h= 2*asin(\sqrt{0.85})-2*asin(\sqrt{0.75})=0.25$
+      - Effect Size= `\(h= 2*asin(\sqrt{0.85})-2*asin(\sqrt{0.75})=0.25\)`
       
       - **R Code:**
-      ```{r}
+      
+      ```r
       print(paste("The Sample Size is :",round(pwr.2p.test(h=0.25, sig.level=0.05, power=0.80, alternative="greater")$n,0)))
+      ```
+      
+      ```
+      ## [1] "The Sample Size is : 198"
       ```
 
 ## Chi-Squared Test :
@@ -561,16 +665,16 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
 
 Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Paired
 -------------- ----------- ---------------- ---------------------- ---------- ------
-$0$              $\geq 1$     $\geq 2$                1                N/A      No      
+`\(0\)`              `\(\geq 1\)`     `\(\geq 2\)`                1                N/A      No      
 ------------------------------------------------------------------------------------
 
 
-- **Effect size calculation:**  $$Effect\:Size(w)=\sqrt{\frac{{\chi}^2}{n\times df}}$$ where, $${\chi}^2=\sum{\frac{(O_i-E_i)^2}{E_i}}$$ 
+- **Effect size calculation:**  `$$Effect\:Size(w)=\sqrt{\frac{{\chi}^2}{n\times df}}$$` where, `$${\chi}^2=\sum{\frac{(O_i-E_i)^2}{E_i}}$$` 
 
 - **Example:(1)** **Does the observed proportions of phenotypes from a genetics experiment different from the expected 9:3:3:1? **
 
 - **Solution:** 
-    - Here, $H_0\::0$ and $H_1\:: \neq 0$
+    - Here, `\(H_0\::0\)` and `\(H_1\:: \neq 0\)`
     
     - You don’t have background info, so you guess that there is a small effect size.
     
@@ -588,8 +692,13 @@ $0$              $\geq 1$     $\geq 2$                1                N/A      
       - power= power of test
       
     - **Answer of the problem:**
-      ```{r}
+      
+      ```r
       print(paste0("The Sample Size is :",round(pwr.chisq.test(w=0.3, df=3, sig.level=0.05, power=0.80)$N,0)))
+      ```
+      
+      ```
+      ## [1] "The Sample Size is :121"
       ```
 
 - **Example:(2)** **Calculate the sample size for the following scenarios (with α=0.05, and power=0.80):**
@@ -617,24 +726,34 @@ $0$              $\geq 1$     $\geq 2$                1                N/A      
     
     - Will just focus on males
     
-    - $\chi^2= \sum{\frac{(O_i-E_i)^2}{E_i}} = (60-62.5)2/62.5 + (25-23)2/23 + (1-6)2/6 + (14-8.5)2/8.5 = 8$
+    - `\(\chi^2= \sum{\frac{(O_i-E_i)^2}{E_i}} = (60-62.5)2/62.5 + (25-23)2/23 + (1-6)2/6 + (14-8.5)2/8.5 = 8\)`
     
-    - Effect size= $w = \sqrt{\chi^2 /(n*df)}= \sqrt{8/(200*3)}=0.115$
+    - Effect size= `\(w = \sqrt{\chi^2 /(n*df)}= \sqrt{8/(200*3)}=0.115\)`
     
     - **R Code:**
-    ```{r}
+    
+    ```r
       print(paste0("The Sample Size is :",round(pwr.chisq.test(w=0.115, df=3, sig.level=0.05, power=0.80)$N,0)))
+    ```
+    
+    ```
+    ## [1] "The Sample Size is :824"
     ```
     
   - (ii) Note that here,
       
-      - $\chi^2= \sum{\frac{(O_i-E_i)^2}{E_i}} =  (7-5)^2/5 + (5-5)^2/5 + (5-5)^2/5 + (3-5)^2/5 = 1.6$ 
+      - `\(\chi^2= \sum{\frac{(O_i-E_i)^2}{E_i}} =  (7-5)^2/5 + (5-5)^2/5 + (5-5)^2/5 + (3-5)^2/5 = 1.6\)` 
       
-      - Effect Size= $w = \sqrt{\chi^2 /(n*df)}= \sqrt{1.6/(20*3)}=0.163$
+      - Effect Size= `\(w = \sqrt{\chi^2 /(n*df)}= \sqrt{1.6/(20*3)}=0.163\)`
       
       - **R Code:**
-      ```{r}
+      
+      ```r
       print(paste("The Sample Size is :",round(pwr.chisq.test(w=0.163, df=3, sig.level=0.05, power=0.80)$N,0)))
+      ```
+      
+      ```
+      ## [1] "The Sample Size is : 410"
       ```
 
 
@@ -649,16 +768,16 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
 ------------------------------------------------------------------------------------
 
 
-- **Effect size calculation:**  $$Effect\:Size(f2)=\sqrt{R^2}$$ Where, $$R^2= Goodness\:of \:fit\:measure(i.e., Adjusted\:R^2)$$ 
+- **Effect size calculation:**  `$$Effect\:Size(f2)=\sqrt{R^2}$$` Where, `$$R^2= Goodness\:of \:fit\:measure(i.e., Adjusted\:R^2)$$` 
 
 - **Example:(1)** **Is there a relationship between height and weight in college males?**
 
 - **Solution:** 
-    - Here, $H_0\::0$ and $H_1\:: \neq 0$
+    - Here, `\(H_0\::0\)` and `\(H_1\:: \neq 0\)`
     
     - You don’t have background info, so you guess that there is a small effect size.
     
-    - For $f2$-tests: **0.2=small**, **0.5=medium**, and **0.8=large** effect sizes.
+    - For `\(f2\)`-tests: **0.2=small**, **0.5=medium**, and **0.8=large** effect sizes.
     
     - For simple regression (only one predictor variable) = numerator df=1 & for multiple regression it is just the number of predictor variables.
     
@@ -677,11 +796,16 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
     - To calculate sample size: Sample Size(n)= **(denominator degrees of freedom(v) + Total No. of variables)**
     
     - **Answer of the problem:**
-      ```{r}
+      
+      ```r
       print(paste0("The Sample Size is :",round( pwr.f2.test(u=1, f2=0.35, sig.level=0.05, power=0.80)$v,0)+2)) ##--2 has add because it is a simple linear regression
       ```
+      
+      ```
+      ## [1] "The Sample Size is :25"
+      ```
 
-- **Example: (2)** **You are interested in determining if height (meters), weight (grams), and fertilizer added (grams) in plants can predict yield (grams of berries). You collect the following trial data. Here $\alpha=0.05$, & $Power=(1-\beta)=80%$**
+- **Example: (2)** **You are interested in determining if height (meters), weight (grams), and fertilizer added (grams) in plants can predict yield (grams of berries). You collect the following trial data. Here `\(\alpha=0.05\)`, & `\(Power=(1-\beta)=80%\)`**
 
     Variables             Values
     -------------  -------------------------------
@@ -691,13 +815,14 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
      Fertilizer    2.1, 3.2, 4.3, 1.1, 4.3
 
 - **Solution:** 
-    - Here, at first we have to find the $Adjusted\:R^2$ value by fitting the linear model.
+    - Here, at first we have to find the `\(Adjusted\:R^2\)` value by fitting the linear model.
     
     - Then, we will find the sample size.
     
     - **R Code :**
     
-    ```{r}
+    
+    ```r
     #--Data--#
     yield= c(46.8, 48.7, 48.4, 53.7, 56.7)
     height= c(14.6, 19.6, 18.6, 25.5, 20.4)
@@ -719,6 +844,10 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
     print(paste0("The Sample Size is :",round( pwr.f2.test(u=1, f2=f.2, sig.level=0.05, power=0.80)$v,0)+4))
     ```
     
+    ```
+    ## [1] "The Sample Size is :14"
+    ```
+    
 
 ## Correlation :
 
@@ -736,7 +865,7 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
 - **Example:(1)** **Is there a correlation between hours studied and test score? **
 
 - **Solution:** 
-    - Here, $H_0\::r=0$ and $H_1\:: r\neq 0$
+    - Here, `\(H_0\::r=0\)` and `\(H_1\:: r\neq 0\)`
     
     - You don’t have background info, so you guess that there is a small effect size.
     
@@ -753,8 +882,13 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
       - power= power of test
       
     - **Answer of the problem:**
-      ```{r}
+      
+      ```r
       print(paste0("The Sample Size is :",round(pwr.r.test(r=0.5, sig.level=0.05, power=0.80)$n,0)))
+      ```
+      
+      ```
+      ## [1] "The Sample Size is :28"
       ```
       
 - **Example:(2)** **Calculate the sample size for the following scenarios (with α=0.05, and power=0.80):**
@@ -777,7 +911,8 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
     - first, calculate the correlation value, and then calculate the sample size.
     
     - **R Code:**
-    ```{r}
+    
+    ```r
     #-- Data --#
     MH= c(178,166,172,186,182)
     MW= c(165,139,257,225,196)
@@ -788,13 +923,22 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
     print(paste0("The Sample Size is :",round(pwr.r.test(r=0.37, sig.level=0.05, power=0.80)$n,0)))
     ```
     
+    ```
+    ## [1] "The Sample Size is :54"
+    ```
+    
   - (ii)You are interested in determining if, in lab mice, the correlation between longevity (in months) and average protein intake (grams).
       
       - Guessed large (0.5) correlation
       
       - **R Code:**
-      ```{r}
+      
+      ```r
       print(paste("The Sample Size is :",round(pwr.r.test(r=0.5, sig.level=0.05, power=0.80)$n,0)))
+      ```
+      
+      ```
+      ## [1] "The Sample Size is : 28"
       ```
 
 ## Non-Parametric T-tests :
@@ -807,19 +951,19 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
 
 Name                                      Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Paired
 ----------------------------------------- -------------- ----------- ---------------- ---------------------- ---------- ------
-$\color{red}{\text{One Mean Wilcoxon:}}$   1              0           0                0                      No         NA    
-$\color{red}{\text{Mann-Whitney:}}$        1              1           2                1                      No         No  
-$\color{red}{\text{Paired Wilcoxon:}}$     1              1           2                1                      No         Yes
+`\(\color{red}{\text{One Mean Wilcoxon:}}\)`   1              0           0                0                      No         NA    
+`\(\color{red}{\text{Mann-Whitney:}}\)`        1              1           2                1                      No         No  
+`\(\color{red}{\text{Paired Wilcoxon:}}\)`     1              1           2                1                      No         Yes
 ------------------------------------------------------------------------------------------------------------------------------
 
 
-- **Effect size calculation:**  $\text{Effect Size}\;(\text{Cohen’s D:})= \frac{{|{\mu}_{H_1}-{\mu}_{H_0}}|}{\sigma};\frac{{|{\mu}_{H_1}-{\mu}_{H_0}}|}{\sigma_{pooled}};\frac{{\mu}_{\text{diff}}}{\sigma_{\text{diff}}}$
+- **Effect size calculation:**  `\(\text{Effect Size}\;(\text{Cohen’s D:})= \frac{{|{\mu}_{H_1}-{\mu}_{H_0}}|}{\sigma};\frac{{|{\mu}_{H_1}-{\mu}_{H_0}}|}{\sigma_{pooled}};\frac{{\mu}_{\text{diff}}}{\sigma_{\text{diff}}}\)`
 
 - **Example:(1)** **(for t-tests, 0.2=small, 0.5=medium, and 0.8 large effect sizes)**
   - (1) *$\color{red}{\text{One Mean Wilcoxon:}}$* **Is the average number of children in Grand Forks families different than 1?**
 
   - **Solution:** 
-    - Here, $H_0\:: 1\;\text{child}$ and $H_1\:: >1\;\text{child}$
+    - Here, `\(H_0\:: 1\;\text{child}\)` and `\(H_1\:: >1\;\text{child}\)`
     
     - You don’t have background info, so you guess that there is a **medium effect size.**
     
@@ -835,16 +979,21 @@ $\color{red}{\text{Paired Wilcoxon:}}$     1              1           2         
       - type= type of test
       
     - **Answer of the problem:**
-    ```{r,message=FALSE,warning=FALSE}
+    
+    ```r
     Pwer_t=pwr.t.test(d=0.5, sig.level=0.05, power=0.80, type="one.sample", alternative="greater")
     
     ##-- Nonparametric Correction : adding 15% --##
     print(paste0("Sample Size : ",round((Pwer_t$n*1.15),0)))
     ```
+    
+    ```
+    ## [1] "Sample Size : 30"
+    ```
   - (2) *$\color{red}{\text{Mann-Whitney:}}$* **Does the average number of snacks per day for individuals on a diet differ between young and old persons?**
   
   - **Solution:**
-    - Here, $H_0\:: 0\;\text{difference in snack number, }$ and $H_1\:: \neq 0\;\text{difference in snack number}$
+    - Here, `\(H_0\:: 0\;\text{difference in snack number, }\)` and `\(H_1\:: \neq 0\;\text{difference in snack number}\)`
     
     - You don’t have background info, so you guess that there is a **small effect size**
     
@@ -862,16 +1011,21 @@ $\color{red}{\text{Paired Wilcoxon:}}$     1              1           2         
     - Note: [**"Parametric t-test + 15% Approach"** for calculating Sample Size for Non Parametric test](https://www.graphpad.com/guides/prism/7/statistics/stat_sample_size_for_nonparametric_.htm)
     
     - **Answer of the problem:**
-    ```{r,message=FALSE,warning=FALSE}
+    
+    ```r
     Pwer_t=pwr.t.test(d=0.2, sig.level=0.05, power=0.80, type="two.sample", alternative="two.sided")
     
     ##-- Nonparametric Correction : adding 15% --##
     print(paste0("Sample Size : ",round((Pwer_t$n*1.15),0)))
     ```
+    
+    ```
+    ## [1] "Sample Size : 452"
+    ```
   - (3) *$\color{red}{\text{Paired Wilcoxon:}}$* **Is genome methylation patterns different between identical twins?**
   
   - **Solution:**
-    - Here, $H_0\::\text{0% methylation}$ and $H_1\:: \neq \text{0% methylation}$
+    - Here, `\(H_0\::\text{0% methylation}\)` and `\(H_1\:: \neq \text{0% methylation}\)`
     
     - You don’t have background info, so you guess that there is a **large effect size**
     
@@ -887,16 +1041,21 @@ $\color{red}{\text{Paired Wilcoxon:}}$     1              1           2         
       - type= type of test
       
     - **Answer of the problem:**
-    ```{r,message=FALSE,warning=FALSE}
+    
+    ```r
     Pwer_t= pwr.t.test(d=0.8, sig.level=0.05, power=0.80, type="paired", alternative="greater")
     
     ##-- Nonparametric Correction : adding 15% --##
     print(paste0("Sample Size : ",round((Pwer_t$n*1.15),0)))
     ```
+    
+    ```
+    ## [1] "Sample Size : 13"
+    ```
   
   
   
-- **Example:(2)** **Calculate the sample size for the following scenarios (with $\alpha=0.05$, and power=0.80):**
+- **Example:(2)** **Calculate the sample size for the following scenarios (with `\(\alpha=0.05\)`, and power=0.80):**
 
   - **(i)** You are interested in determining if the average number of pets in Grand Forks families is greater than 1. You collect the following trial data for pet number.
 
@@ -923,16 +1082,21 @@ $\color{red}{\text{Paired Wilcoxon:}}$     1              1           2         
   
   - (i) You are interested in determining if the average income of college freshman is less than Rs.20,000. You collect trial data and find that the mean income was Rs.14,500 (SD=6000).
       
-    - Effect size = $(Mean_{H_1}-Mean_{H_0})/SD= (1.3-1.0)/1.34 =0.224$
+    - Effect size = `\((Mean_{H_1}-Mean_{H_0})/SD= (1.3-1.0)/1.34 =0.224\)`
     
     - One-tailed test  
     
     - **R Code:**
-    ```{r}
+    
+    ```r
     Pwer_t= pwr.t.test(d=0.224, sig.level=0.05, power=0.80, type="one.sample", alternative="greater")
     
     #-- Non-parametric Correction --# 
     print(paste0("The Sample Size is :",round(Pwer_t$n*1.15,0)))
+    ```
+    
+    ```
+    ## [1] "The Sample Size is :143"
     ```
     
   - (ii)  *Try it by yourself.*
@@ -959,13 +1123,13 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
 - **Example:(1)** ** Is there a difference in draft rank across 3 different months? **
 
 - **Solution:** 
-    - Here, $H_0\::r=0$ and $H_1\:: r\neq 0$
+    - Here, `\(H_0\::r=0\)` and `\(H_1\:: r\neq 0\)`
     
     - There will be a total of 3 groups (months)
     
     - You don’t have background info, so you guess that there is a **medium effect size.**
     
-    - For $\text{f-test}$ : **0.1=small**, **0.25=medium**, and **0.4=large** correlations.
+    - For `\(\text{f-test}\)` : **0.1=small**, **0.25=medium**, and **0.4=large** correlations.
     
     - No Tails in ANOVA
     
@@ -981,12 +1145,17 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
       - power= power of test
       
     - **Answer of the problem:**
-    ```{r}
+    
+    ```r
       ##-- Balanced one-way analysis of variance power calculation --##
       Pwr_Anova=  pwr.anova.test(k =3 , f =0.25 , sig.level=0.05 , power =0.80 )
       
       #-- Non-parametric Correction --#
       print(paste0("The Sample Size is :",round((Pwr_Anova$n*1.15),0)))
+    ```
+    
+    ```
+    ## [1] "The Sample Size is :60"
     ```
 
 
@@ -1008,20 +1177,25 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
   
   - (i) Here, 
     
-    - $\eta^2 = SS_T/TSS=286.5/(286.5+625.2) = 0.314$
-    Note that, you can calculate $SS_T$ & $TSS$ by performing ANOVA on the dataset using *aov()* function.
+    - `\(\eta^2 = SS_T/TSS=286.5/(286.5+625.2) = 0.314\)`
+    Note that, you can calculate `\(SS_T\)` & `\(TSS\)` by performing ANOVA on the dataset using *aov()* function.
     
-    - Effect size$(f)$ = $\sqrt{\eta^2/(1-\eta^2)}=\sqrt{0.314/(1- 0.314)} = 0.677$
+    - Effect size$(f)$ = `\(\sqrt{\eta^2/(1-\eta^2)}=\sqrt{0.314/(1- 0.314)} = 0.677\)`
     
     - No. of groups= 3
     
     - **R Code:**
-    ```{r}
+    
+    ```r
       ##-- Balanced one-way analysis of variance power calculation --##
       Pwr_Anova=  pwr.anova.test(k =3, f =0.677, sig.level=0.05, power =0.80)
       
       #-- Non-parametric Correction --#
       print(paste0("The Sample Size is :",round((Pwr_Anova$n*1.15),0)))
+    ```
+    
+    ```
+    ## [1] "The Sample Size is :9"
     ```
     
   - (ii) You are interested in determining there is a difference in assistant professor salaries across 25 different departments.
@@ -1032,12 +1206,17 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
       
       - **R Code:**
       
-      ```{r}
+      
+      ```r
         #-- Balanced one-way analysis of variance power calculation --#
         Pwr_Anova= pwr.anova.test(k =25, f =0.10, sig.level=0.05, power =0.80)
       
         #-- Non-parametric Correction --#
         print(paste0("The Sample Size is :",round((Pwr_Anova$n*1.15),0)))
+      ```
+      
+      ```
+      ## [1] "The Sample Size is :104"
       ```
 
 
@@ -1053,12 +1232,12 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
 ------------------------------------------------------------------------------------
 
 
-- **Effect size calculation:**  $$Effect\:Size(f)=\frac{\sigma_m}{\sigma}$$ Where, $$\sigma_m=\sqrt{\frac{\sum_{j=1}^K{(m_j-m)^2}}{k}}= Standard\:Deviation\:of\:group\:means$$ $$m_j= j^{th}\:group\:mean\:,\:\:\forall\:j=1(1)K$$ $$m=Overall\:mean$$ $$K=number\:of\:groups$$ $$\sigma=overall\:standard\:deviation$$
+- **Effect size calculation:**  `$$Effect\:Size(f)=\frac{\sigma_m}{\sigma}$$` Where, `$$\sigma_m=\sqrt{\frac{\sum_{j=1}^K{(m_j-m)^2}}{k}}= Standard\:Deviation\:of\:group\:means$$` `$$m_j= j^{th}\:group\:mean\:,\:\:\forall\:j=1(1)K$$` `$$m=Overall\:mean$$` `$$K=number\:of\:groups$$` `$$\sigma=overall\:standard\:deviation$$`
 
 - **Example:(1)** **Is there a difference in blood pressure at 1, 2, 3, and 4 months post-treatment?**
 
 - **Solution:** 
-    - Here, $H_0\::0$ and $H_1\:: \neq 0$
+    - Here, `\(H_0\::0\)` and `\(H_1\:: \neq 0\)`
     
     - **1 group**, **4 measurements**
     
@@ -1085,9 +1264,14 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
         - **Between-effects:** examines differences between individuals
       
     - **Answer of the problem:**
-    ```{r,message=FALSE,warning=FALSE}
+    
+    ```r
     library(WebPower)
     print(paste0("The Sample Size is :",round(wp.rmanova(n=NULL, ng=1, nm=4, f=0.1, nscor=1, alpha=0.05, power=0.80, type=1)$n,0)))
+    ```
+    
+    ```
+    ## [1] "The Sample Size is :1092"
     ```
     - Note:
     
@@ -1113,17 +1297,49 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
   
   - (i) Here, 
     
-    -Effect Size:  $f =\sqrt{\frac{(27.8−37.3)^2+(38.4−37.3)^2+(38.8−37.3)^2+(25.2−37.3)^2}{4}}/ 12.74 = 0.608$
+    -Effect Size:  `\(f =\sqrt{\frac{(27.8−37.3)^2+(38.4−37.3)^2+(38.8−37.3)^2+(25.2−37.3)^2}{4}}/ 12.74 = 0.608\)`
     
     - To get sphericity, ran ANOVA
     
-    ```{r}
+    
+    ```r
     library(ez)
+    ```
+    
+    ```
+    ## Warning: package 'ez' was built under R version 4.1.3
+    ```
+    
+    ```
+    ## Registered S3 methods overwritten by 'car':
+    ##   method                          from
+    ##   influence.merMod                lme4
+    ##   cooks.distance.influence.merMod lme4
+    ##   dfbeta.influence.merMod         lme4
+    ##   dfbetas.influence.merMod        lme4
+    ```
+    
+    ```r
     data=data.frame(Patient= factor(rep(c(1,2,3,4,5),4)),
                     Month= factor(c(rep("6 Months",5),rep("12 Months",5),rep("18 Months",5),rep("24 Months",5))),
                     Serum= c(38,13,32,35,21,38,44,35,48,27,46,15,53,51,29,52,29,60,44,36))
     anova3= ezANOVA(data, dv=Serum, wid=Patient, within=.(Month),detailed=TRUE)
     anova3
+    ```
+    
+    ```
+    ## $ANOVA
+    ##        Effect DFn DFd     SSn    SSd         F           p p<.05       ges
+    ## 1 (Intercept)   1   4 27825.8 1506.7 73.872171 0.001006882     * 0.9212804
+    ## 2       Month   3  12   706.6  870.9  3.245378 0.060146886       0.2291032
+    ## 
+    ## $`Mauchly's Test for Sphericity`
+    ##   Effect         W         p p<.05
+    ## 2  Month 0.1556327 0.4348287      
+    ## 
+    ## $`Sphericity Corrections`
+    ##   Effect       GGe     p[GG] p[GG]<.05       HFe      p[HF] p[HF]<.05
+    ## 2  Month 0.4844127 0.1187469           0.6892662 0.09014564
     ```
     
     - Note: [For more details about *ezANOVA() function* for Sphericity and Repeated Measures ANOVA ](https://people.umass.edu/bwdillon/LING609/Lectures/Section3/Lecture21.html)
@@ -1133,8 +1349,13 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
     - One group, four measurements, within-effects so type 1
     
     - **R Code:**
-    ```{r}
+    
+    ```r
       print(paste0("The Sample Size is :",round(wp.rmanova(n=NULL, ng=1, nm=4, f=0.608, nscor=1, alpha=0.05, power=0.80, type=1)$n,0)))
+    ```
+    
+    ```
+    ## [1] "The Sample Size is :31"
     ```
     
   - (ii) You are interested in determining if there is a difference in antibody levels at 1, 2, and 3 months post-treatment.
@@ -1144,8 +1365,13 @@ Numeric Var(s) Cat. Var(s) Cat. Var Group # Cat. Var # of interest Parametric Pa
       - One group, three measurements, type 1
       
       - **R Code:**
-    ```{r}
+    
+    ```r
       print(paste("The Sample Size is :",round(wp.rmanova(n=NULL, ng=1, nm=3, f=0.25, nscor=1, alpha=0.05, power=0.80, type=1)$n,0)))
+    ```
+    
+    ```
+    ## [1] "The Sample Size is : 156"
     ```
 
 
