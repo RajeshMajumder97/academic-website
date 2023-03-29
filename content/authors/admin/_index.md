@@ -47,6 +47,6 @@ superuser: true
 title: Rajesh Majumder
 ---
 
-Rajesh Majumder is the creator and mentor of Start With Stat (a one-stop solution of Statistics for undergraduate students)  and the creator of Med-EZY wholesale medicine billing & accounting software(which will be available on the online platform very soon). He has completed his Master's degree in Statistics from West Bengal State University, withholding the 1st position in the university. Before that, he has completed his graduation from A.P.C. College, in Kolkata, West Bengal. Recently he is working  at St. John's Research Institute as a Research Assistant, Statistician. His primary interests include Regularized Regression theory, Advanced Multivariate Data Analysis, Missing Data, Epidemiology and Machine Learning.  He has an interest to learn different software and statistical/ML algorithms to develop software. Besides his academic and professional career, he has the interest to play blues harmonica and singing.
+Hi, My self Rajesh Majumder. I'm a researcher(statistician) at St. John's Research Institute, Bangalore, India. I received my B.Sc. in Statistics from Acharya Prafulla Chandra College(under WBSU) and, Masters of Science in Statistics from West Bengal State University. My primary interests include Regularized Regression theory, Advanced Multivariate Data Analysis, Missing Data, Epidemiology and Machine Learning.Besides my academic and professional career, I have interest to play harmonica and singing and composition.
 
-{{< icon name="download" pack="fas" >}} Download my {{< staticref "uploads/RAJESH MAJUMDER_RESUME.pdf" "newtab" >}}resumé{{< /staticref >}}.
+{{< icon name="download" pack="fas" >}} Download my {{< staticref "uploads/Resume.pdf" "newtab" >}}resumé{{< /staticref >}}.
