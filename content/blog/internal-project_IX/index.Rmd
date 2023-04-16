@@ -6,10 +6,10 @@ image:
   focal_point: Smart
   
 #slides: example
-summary: Besic introduction to SQL 
+summary: Basic introduction to SQL 
 tags:
 - Blogs
-title: Besic introduction to SQL with MySQL
+title: Basic introduction to SQL with MySQL
 categories:
 - SQL
 output:
