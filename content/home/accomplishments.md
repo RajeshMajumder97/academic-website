@@ -25,20 +25,20 @@ date_format: Jan 2006
 item:
 - certificate_url: https://drive.google.com/file/d/1C1bJqStzHp5yxb-FaAdSqubWA2tXxRmj/view?usp=sharing
   date_end: ""
-  date_start: "2022-25-11"
+  date_start: "2022-11-25"
   description: ""
   organization: Indian Society for Medical Statistics
   organization_url: https://www.isms-ind.org/
-  title: Best Oral Presentation Award
+  title: Best Oral Presentation Award in ISMSCON 2022
   url: ""
 - certificate_url: https://drive.google.com/file/d/1C-hc9XvHACyd9C55IdUrlqk1VO7UGQVw/view?usp=sharing
   date_end: ""
-  date_start: "2022-21-02"
+  date_start: "2022-02-01"
   description: ""
-  organization: ""
+  organization: WBSU
   organization_url: ""
   title: First Rank in M.Sc.
-  
+  url: ""
 
 design:
   columns: '2' 
