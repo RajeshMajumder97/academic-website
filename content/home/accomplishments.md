@@ -23,22 +23,22 @@ date_format: Jan 2006
 #   Leave other parameters empty if not required.
 #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
 item:
-- certificate_url: https://drive.google.com/file/d/19wadiTxtgVGr_Z0wi0v5SjDx6etJPc6G/view?usp=sharing
+- certificate_url: https://drive.google.com/file/d/1C1bJqStzHp5yxb-FaAdSqubWA2tXxRmj/view?usp=sharing
   date_end: ""
-  date_start: "2021-10-06"
+  date_start: "2022-25-11"
   description: ""
-  organization: Udemy
-  organization_url: https://www.udemy.com/
-  title: Machine learning, Data Science and Deep Learning with Python
-  url: "https://www.udemy.com/course/data-science-and-machine-learning-with-python-hands-on/"
-- certificate_url: https://drive.google.com/file/d/1xUc0VaLeCGUAl28uJMaIuCqq8MrLIcA0/view?usp=sharing
+  organization: Indian Society for Medical Statistics
+  organization_url: https://www.isms-ind.org/
+  title: Best Oral Presentation Award
+  url: ""
+- certificate_url: https://drive.google.com/file/d/1C-hc9XvHACyd9C55IdUrlqk1VO7UGQVw/view?usp=sharing
   date_end: ""
-  date_start: "2021-10-06"
+  date_start: "2022-21-02"
   description: ""
-  organization: Simplilearn
-  organization_url: https://www.simplilearn.com/
-  title: Introduction to SQL
-  url: https://www.simplilearn.com/free-online-course-to-learn-sql-basics-skillup
+  organization: ""
+  organization_url: ""
+  title: First Rank in M.Sc.
+  
 
 design:
   columns: '2' 
