@@ -1,0 +1,152 @@
+---
+date: "2023-06-25T00:00:00Z"
+external_link: ""
+image:
+#  caption: Photo by rawpixel on Unsplash
+  focal_point: Smart
+  
+#slides: example
+summary: How to Add Table of contents in a R Markdown and Jupyter Notebook Dodument
+tags:
+- Blogs
+title: How to Add Table of contents in a R Markdown and Jupyter Notebook Dodument
+categories: 
+- R Markdoen & Jupyter Notebook
+output:
+  blogdown::html_page:
+    toc: true
+  
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#r-markdown" id="toc-r-markdown">R Markdown</a>
+<ul>
+<li><a href="#pdf-document" id="toc-pdf-document">PDF Document</a></li>
+<li><a href="#html-document" id="toc-html-document">HTML Document</a></li>
+</ul></li>
+<li><a href="#jupyter-notebook" id="toc-jupyter-notebook">Jupyter Notebook</a>
+<ul>
+<li><a href="#step-1-select-the-markdown-format" id="toc-step-1-select-the-markdown-format">Step 1: Select the Markdown Format</a></li>
+<li><a href="#step-2-create-the-structure-of-the-table-of-content" id="toc-step-2-create-the-structure-of-the-table-of-content">Step 2: Create the Structure of the Table of Content</a></li>
+<li><a href="#step-3-create-anchor-tags" id="toc-step-3-create-anchor-tags">Step 3: Create Anchor Tags</a></li>
+</ul></li>
+</ul>
+</div>
+
+<p>As a statistician or a data analyst, writing reports and showcasing results is the most essential part. When you are dealing with a large data analysis project it is obvious that there will be several sections and sub-sections which you will explain in our report. Not only for the writing report; even if to write a blog or some article, there will be also several sections that you will mention. So, to give your reader a brief idea about what are the things that are mentioned in your blog or article one of the most important feature is to give a Table of Contents.</p>
+<p>Today I’m going to share the steps that how I’m creating my content list for my blog posts and reports which I usually create by using R Markdown &amp; Jupyter Notebook.
+pdf_document</p>
+<div id="r-markdown" class="section level1">
+<h1>R Markdown</h1>
+<p>For R Markdown adding a content list is very easy. You can add a table of contents (TOC) using the <code>toc</code> option. For example:</p>
+<div id="pdf-document" class="section level2">
+<h2>PDF Document</h2>
+<pre class="r"><code>---
+title: &quot;Habits&quot;
+output:
+  pdf_document:
+    toc: true
+---</code></pre>
+</div>
+<div id="html-document" class="section level2">
+<h2>HTML Document</h2>
+<pre class="r"><code>---
+title: &quot;Habits&quot;
+output:
+  html_document:
+    toc: true
+---</code></pre>
+<p>There are some other options to customize content list:</p>
+<pre class="r"><code>---
+title: &quot;Habits&quot;
+output:
+  html_document:
+    toc: true                # table of content true/yes
+    toc_depth: 3             # upto three depths of headings (specified by #, ## and ###)
+    number_sections: true    # if you want number sections at each table header
+    theme: united            # many options for theme, this one is my favorite.
+    highlight: tango         # specifies the syntax highlighting style
+    css: my.css              # you can add your custom css, should be in same folder
+---</code></pre>
+<p>For more details see: <a href="https://bookdown.org/yihui/rmarkdown/html-document.html">https://bookdown.org/yihui/rmarkdown/html-document.html</a></p>
+</div>
+</div>
+<div id="jupyter-notebook" class="section level1">
+<h1>Jupyter Notebook</h1>
+<p>The only tools required to include a table of contents in a Jupyter notebook are the <strong>“anchor tags”</strong> in the appropriate places. The links that point to the other sections of the notebook’s table of content are translated into such links.</p>
+<p>Creating a table of content in a Jupyter notebook is quite easy and simple. We can add the table of content in the Jupyter notebook using the HTML anchor. See the followin steps:</p>
+<div id="step-1-select-the-markdown-format" class="section level2">
+<h2>Step 1: Select the Markdown Format</h2>
+<p>Open the Jupyter notebook and select the markdown cell format instead of the code.</p>
+<p><img src="Contentpic1.jpeg" /></p>
+</div>
+<div id="step-2-create-the-structure-of-the-table-of-content" class="section level2">
+<h2>Step 2: Create the Structure of the Table of Content</h2>
+<p>First, create a table of contents using the markdown in the notebook. Here, we also need to link the anchors that we will create in the next step. Use the following text and paste it into the markdown cell:</p>
+<pre class="r"><code>## Table of Contents
+* [Chapter 1](#chapter1)
+    * [Section 1.1](#section_1_1)
+        * [Sub Section 1.1.1](#sub_section_1_1_1)
+* [Chapter 2](#chapter2)
+    * [Section 2.1](#section_2_1)
+        * [Sub Section 2.1.1](#sub_section_2_1_1)
+        * [Sub Section 2.1.2](#sub_section_2_1_2)
+    * [Section 2.2](#section_2_2)
+        * [Sub Section 2.2.1](#sub_section_2_2_1)
+        * [Sub Section 2.2.2](#sub_section_2_2_2)
+* [Chapter 3](#chapter3)
+    * [Section 3.1](#section_3_1)
+        * [Sub Section 3.1.1](#sub_section_3_1_1)
+        * [Sub Section 3.1.2](#sub_section_3_1_2)
+    * [Section 3.2](#section_3_2)
+        * [Sub Section 3.2.1](#sub_section_3_2_1)
+        * [Sub Section 3.2.2](#sub_section_3_2_2)</code></pre>
+<p>Press <strong>Shift + Enter</strong> to run the previous lines in the Jupyter notebook. The table of content should display like this:</p>
+<p><img src="Contentpic2.jpeg" /></p>
+<p>Note that, the displayed name of the link is enclosed in brackets <code>[]</code> and the reference to the anchor tags is placed in parenthesis preceded by a hash <code>(#)</code> symbol.</p>
+</div>
+<div id="step-3-create-anchor-tags" class="section level2">
+<h2>Step 3: Create Anchor Tags</h2>
+<p>Now, we will create the anchor tags in order to link with the table of contents. Create the chapters, sections, and subsections. Enter the following text in the next markdown cell:</p>
+<pre class="r"><code>## Chapter 1 &lt;a class=&quot;anchor&quot; id=&quot;chapter1&quot;&gt;&lt;/a&gt;
+This is chapter number 1
+### Section 1.1 &lt;a class=&quot;anchor&quot; id=&quot;section_1_1&quot;&gt;&lt;/a&gt;
+This is section 1.1
+##### Section 1.1.1 &lt;a class=&quot;anchor&quot; id=&quot;sub_section_1_1_1&quot;&gt;&lt;/a&gt;
+This is sub section 1.1.1
+## Chapter 2 &lt;a class=&quot;anchor&quot; id=&quot;chapter2&quot;&gt;&lt;/a&gt;
+This is chapter number 2
+### Section 2.1 &lt;a class=&quot;anchor&quot; id=&quot;section_2_1&quot;&gt;&lt;/a
+This is section 2.1
+#### Section 2.1.1 &lt;a class=&quot;anchor&quot; id=&quot;sub_section_2_1_1&quot;&gt;&lt;/a&gt;
+This is sub section 2.1.1
+#### Section 2.1.2 &lt;a class=&quot;anchor&quot; id=&quot;sub_section_2_1_2&quot;&gt;&lt;/a&gt;
+This is sub section 2.1.2
+### Section 2.2 &lt;a class=&quot;anchor&quot; id=&quot;section_2_2&quot;&gt;&lt;/a&gt;
+This is section 2.2
+#### Section 2.2.1 &lt;a class=&quot;anchor&quot; id=&quot;sub_section_2_2_1&quot;&gt;&lt;/a&gt;
+This is sub section 2.2.1
+#### Section 2.2.2 &lt;a class=&quot;anchor&quot; id=&quot;sub_section_2_2_2&quot;&gt;&lt;/a&gt;
+This is sub section 2.2.2
+## Chapter 3 &lt;a class=&quot;anchor&quot; id=&quot;chapter3&quot;&gt;&lt;/a&gt;
+This is chapter number 3
+### Section 3.1 &lt;a class=&quot;anchor&quot; id=&quot;section_3_1&quot;&gt;&lt;/a&gt;
+This is section 3.1
+#### Section 3.1.1 &lt;a class=&quot;anchor&quot; id=&quot;sub_section_3_1_1&quot;&gt;&lt;/a&gt;
+This is sub section 3.1.1
+#### Section 3.1.2 &lt;a class=&quot;anchor&quot; id=&quot;sub_section_3_1_2&quot;&gt;&lt;/a&gt;
+This is sub section 3.1.2
+### Section 3.2 &lt;a class=&quot;anchor&quot; id=&quot;section_3_2&quot;&gt;&lt;/a&gt;
+This is section 3.2
+#### Section 3.2.1 &lt;a class=&quot;anchor&quot; id=&quot;sub_section_3_2_1&quot;&gt;&lt;/a&gt;
+This is sub section 3.2.1
+#### Section 3.2.2 &lt;a class=&quot;anchor&quot; id=&quot;sub_section_3_2_2&quot;&gt;&lt;/a&gt;
+This is sub section 3.2.2</code></pre>
+<p>Press <strong>Shift + Enter</strong> or run this cell to see the effects. The following output should display on your notebook:</p>
+<p><img src="Contentpic3.jpeg" /></p>
+<p>Here, you will notice that you can easily navigate to the desired section from the table of content.</p>
+<p>Note that, We can also add a table of content in a Jupyter notebook using the pre-build extensions <a href="https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/toc2/README.html">click here</a>.</p>
+</div>
+</div>
