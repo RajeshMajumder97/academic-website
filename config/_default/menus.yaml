@@ -22,6 +22,9 @@ main:
   - name: Projects & Blogs
     url: '#blog'
     weight: 40
+  - name: Publication
+    url: '#Thesis'
+    weight: 40
   - name: Gallery
     url: '#gallery'
     weight: 20

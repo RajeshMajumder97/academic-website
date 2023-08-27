@@ -20,16 +20,16 @@ feature:
   name: Statistics
   
 - description: ''
-  name: 'Missing Data Techniques'
+  name: 'Biostatistics(Epidemiology)'
 
 - description: ''
   name: 'Penalized Regression Techniques'
 
 - description: ''
-  name: 'Biostatistics(Epidemiology)'
+  name: 'Missing Data Techniques'
 
 - description: ''
-  name: R/SAS/Python
+  name: R/Python/VBA
   
 - description: ''
   name: SQL

@@ -2,16 +2,19 @@
 bio:
 education:
   courses:
-  - course: M.Sc in STATISTICS
+  - course: Studies Doctor of Philosophy(PhD) in BIOSTATISTICS
+    institution: St. John's Research Institute, MAHE
+    year: 2023-present
+  - course: Studied M.Sc in STATISTICS
     institution: West Bengal State University
     year: 2021
-  - course: bachelor in STATISTICS
+  - course: Studied Bachelor in STATISTICS
     institution: A.P.C. College, WBSU
     year: 2019
-  - course: Higher Secondary
+  - course: Studied Higher Secondary
     institution: Madhyamgram High School, WBCHSE
     year: 2016
-  - course: Secondary
+  - course: Studied Secondary
     institution: Madhyamgram High School, WBSE
     year: 2014
 email: ""
@@ -23,7 +26,7 @@ interests:
 organizations:
 - name: St. John's Research Institute
   url: ''
-role: Statistician, Research Assistant
+role: PhD Student, Statistician, Research Assistant
 social:
 - icon: envelope
   icon_pack: fas
@@ -47,6 +50,6 @@ superuser: true
 title: Rajesh Majumder
 ---
 
-Hi, My self Rajesh Majumder. I'm a researcher(statistician) at St. John's Research Institute, Bangalore, India. I received my B.Sc. in Statistics from Acharya Prafulla Chandra College(under WBSU) and, Masters of Science in Statistics from West Bengal State University. My primary interests include Regularized Regression theory, Advanced Multivariate Data Analysis, Missing Data, Epidemiology and Machine Learning.Besides my academic and professional career, I have interest to play harmonica and singing and composition.
+Hi, I’m Rajesh Majumder. I’m a PhD student of Biostatistics at St. John's Research Institute, Bangalore, India & also work here as a researcher(statistician). Quantitative Methods for Public Health Nutrition is my area of study. I earned my undergraduate degree in statistics from Acharya Prafulla Chandra College (affiliated with WBSU) and earned a master's degree in statistics from West Bengal State University. My main areas of interest are Epidemiology, Regularized Regression theory, Hierarchical Model, Mixed Effect Model, Causal Inference, Missing Data, and Machine Learning. Along with my academic and professional pursuits, I enjoy singing, composing, playing the harmonica and guitar.
 
 {{< icon name="download" pack="fas" >}} Download my {{< staticref "uploads/Resume.pdf" "newtab" >}}resumé{{< /staticref >}}.
