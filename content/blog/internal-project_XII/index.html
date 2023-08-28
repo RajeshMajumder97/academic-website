@@ -1,0 +1,95 @@
+---
+date: "2023-08-28T00:00:00Z"
+external_link: ""
+image:
+#  caption: Photo by rawpixel on Unsplash
+  focal_point: Smart
+  
+#slides: example
+summary: How to convert Shiny app to a stand alone desktop application
+tags:
+- Blogs
+title: How to convert Shiny app to a stand alone desktop application
+categories: 
+- R
+output:
+  blogdown::html_page:
+    toc: false
+  
+---
+
+
+
+<p>Last month I got a consultancy work where I had to examine data on male breast cancer in Indian men and create an application for my clients—who were essentially doctors—so that they could utilize it for their upcoming diagnoses. For performing fundamental statistical analysis, I typically use R programming, and I typically use Python to create apps. But this time, I faced difficulties because I needed to deploy the app quickly and all of the statistical tools that were utilized here weren’t available in Python (or, to be more honest, I didn’t know how to do that in Python).</p>
+<p>The only choice left was to use Rshiny, but this time the issue was that they desired a desktop application. It was quite challenging for me at the time because I was only aware of how to utilize R Shiny to construct a web application that could be hosted on Shiny Server. I then began looking for answers, coming across a variety of them. In some articles, it is recommended to utilize Electron to transform a Siny app into a desktop application. Other sources advise utilizing the RInno package to do the same. But I found them all to be incredibly challenging. All of these approaches, which I attempted, were unsuccessful for me.</p>
+<p>I later discovered <a href="http://blog.analytixware.com/2014/03/packaging-your-shiny-app-as-windows.html">“Packaging your Shiny App as a Windows desktop app”</a> on Analytixware’s site, which is a wonderfully simple and efficient answer to my issue. Later, I came across <a href="https://www.r-bloggers.com/2014/04/deploying-desktop-apps-with-r/">Lee Pang’s</a> article on R Bloggers where he offered a similar solution. Here I’m going to explain these steps to convert a Shiny app into a standalone desktop app. Note that, this steps are Windows specific, not for Mac.</p>
+<div id="steps-to-convert-shiny-app-into-a-desktop-app" class="section level2">
+<h2>Steps to convert Shiny App into a Desktop app:</h2>
+<div id="step-1" class="section level3">
+<h3>Step 1</h3>
+<p>Create a Folder in a specific location add give it a name which you have decided for your App.</p>
+<p>For example :</p>
+<ul>
+<li><strong>path:</strong> <code>D:\Myapps\</code></li>
+<li><strong>Create New folder:</strong> <code>D:\Myapps\MyApp1\</code></li>
+</ul>
+</div>
+<div id="step-2" class="section level3">
+<h3>Step 2</h3>
+<p>Download:</p>
+<ul>
+<li>R-Portable</li>
+<li>Google Chrome Portable</li>
+</ul>
+<p>and install both into <code>MyApp1\</code> folder.</p>
+<p>So inside <code>MyApp1</code> folder there will be another two folder:</p>
+<p><code>D:\Myapps\MyApp1\GoogleChromePortable\</code>
+<code>D:\Myapps\MyApp1\R-Portable\</code></p>
+</div>
+<div id="step-3" class="section level3">
+<h3>Step 3</h3>
+<p>Download all dependencies(R packages) of your shiny app into R portable.</p>
+</div>
+<div id="step-4" class="section level3">
+<h3>Step 4</h3>
+<p>Create a folder called <code>D:\Myapps\MyApp1\shiny\</code>. This is where the files for your Shiny app (e.g. ui.R and server.R, data.csv, etc) will reside.</p>
+</div>
+<div id="step-5" class="section level3">
+<h3>Step 5</h3>
+<p>Add the following to the <code>server.R</code> inside the <code>shinyServer(function(input, output, session)  { ... })</code>. It is important to pass <strong>session</strong> as the third argument! The code you need to add is:</p>
+<pre class="r"><code>shinyServer(function(input, output, session)  { ... }) {
+    # ... your other server code here
+    
+    # close the R session when Chrome closes
+    session$onSessionEnded(function() { 
+     stopApp()
+     q(&quot;no&quot;) 
+    })
+    
+    # ... your other server code here
+  }</code></pre>
+</div>
+<div id="step-6" class="section level3">
+<h3>Step 6</h3>
+<p>To launch the application you will need two scripts:</p>
+<p><code>D:\Myapps\MyApp1\runShinyApp.R</code> : an R-script that loads the shiny package and launches your app via <code>runApp()</code>
+A shell script (either a <code>.bat</code> or <code>.vbs</code> file) that invokes R-portable.</p>
+<div id="step-6.1-create-runshinyapp.r" class="section level4">
+<h4>Step 6.1 Create runshinyApp.R:</h4>
+<p>Open a new notepad file and paste this following lines of code and save it as <code>runShinyApp.R</code> on <code>D:\Myapps\MyApp1\</code> location.</p>
+<pre class="r"><code>.libPaths(&quot;./R-Portable/App/R-Portable/library&quot;)
+# the path to portable chrome
+browser.path = file.path(getwd(),&quot;GoogleChromePortable/GoogleChromePortable.exe&quot;)
+options(browser = browser.path)
+shiny::runApp(&quot;./Shiny/&quot;,port=8888,launch.browser=TRUE)</code></pre>
+</div>
+<div id="step-6.2-create-shell-script-run.vbs-run.bat" class="section level4">
+<h4>Step 6.2 Create shell script (run.vbs / run.bat):</h4>
+<p>Again open a new notepad file and paste this following code and save it as <code>run.vbs</code> or <code>run.bat</code> on <code>D:\Myapps\MyApp1\</code> location.(I created <code>run.vbs</code>)</p>
+<pre><code>Randomize
+CreateObject(&quot;Wscript.Shell&quot;).Run &quot;R-Portable\App\R-Portable\bin\R.exe CMD BATCH --vanilla --slave runShinyApp.R&quot; &amp; &quot; &quot; &amp; RND &amp; &quot; &quot;, 0, False</code></pre>
+<p>Now, click on the run.vbs, you will see your App will be opened on the Google Crome browser.</p>
+<p>I highly recommend you to read <a href="http://blog.analytixware.com/2014/03/packaging-your-shiny-app-as-windows.html">Analytixware’s blog</a> and <a href="https://www.r-bloggers.com/2014/04/deploying-desktop-apps-with-r/">Lee Pang’s</a> article on R Bloggers for clear understanding.</p>
+</div>
+</div>
+</div>
