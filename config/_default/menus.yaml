@@ -25,9 +25,9 @@ main:
   - name: Publication
     url: '#Thesis'
     weight: 40
-  - name: Gallery
-    url: '#gallery'
-    weight: 20
+  - name: Tools
+    url: '#Tools'
+    weight: 40
   - name: Contact
     url: '#contact'
     weight: 50
