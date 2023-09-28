@@ -22,7 +22,6 @@ title: Slides
 - 3-in-1: Create, Present, and Publish your slides
 - Supports speaker notes
 - Mobile friendly slides
-
 ---
 
 ## Controls
@@ -161,3 +160,15 @@ Create `assets/css/reveal_custom.css` with:
 [Ask](https://github.com/wowchemy/wowchemy-hugo-modules/discussions)
 
 [Documentation](https://wowchemy.com/docs/managing-content/#create-slides)
+
+---
+
+## Test
+
+[](Shiny to exe.jpeg)
+
+---
+
+
+
+

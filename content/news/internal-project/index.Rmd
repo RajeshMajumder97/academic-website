@@ -1,0 +1,30 @@
+---
+date: "2021-08-23T00:00:00Z"
+external_link: ""
+image:
+#  caption: Photo by rawpixel on Unsplash
+  focal_point: Smart
+# links:
+# - icon: book
+#   icon_pack: fas 
+#   name: Report
+#   url:
+# - icon: github
+#   icon_pack: fab
+#   name: Code
+#   url: 
+#slides: example
+summary: 3rd Journal Club Presentation of 2023, St. John's Research Institute
+tags:
+- Projects
+title: 3rd Journal Club Presentation of 2023
+url_code: ""
+url_report: ""
+url_slides: "https://rajeshmajumder97.github.io/RMTMLE/"
+url_video: ""
+---
+Causal Inference is one of the richest research area in Statistics. Over the past few decades there have been major achievements in the development of causal inference theory and methods and in a range of applications. Foundational advancements in modern causal inference have come from diverse fields, including epidemiology, biostatistics, statistics, computer science, and economics. Seminal work by James Heckman, Judea Pearl, James Robins, Paul Rosenbaum, and Donald Rubin (among others) led to ground-breaking changes in how problems are approached and data are analyzed. Here is the presentation of the research paper **Variable selection for confounder control, flexible modeling and Collaborative Targeted Minimum Loss-based Estimation in causal inference** done by *Mireille E. Schnitzer, Judith J. Lok and Susan Gruber*; which I presented in 3rd Journal Club Presentation of 2023 at St. John's Research Institute, Bangalore.  This article was published in 2016 May, 1 on *International Journal of Biostatistics*. 
+
+{{% callout note %}}
+Click the *Slide* button above to see presentation.
+{{% /callout %}}

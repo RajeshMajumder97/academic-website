@@ -10,7 +10,7 @@ summary: Understanding what is Statistical Regularity with a Ludo & Paper Game.
 tags:
 - Blogs
 title: Understanding what is Statistical Regularity with a Ludo & Paper Game
-
+#slides: example
 output:
   blogdown::html_page:
     toc: true
@@ -150,7 +150,6 @@ play=function(n)
 
 Ans=play(100000) #--- Playing this game 10000 times
 ```
-
 
 So, actually, individual outcomes are random, but, when the number of trials are very large, then the experiment looses it's randomness and gives a known structural shape which is very interesting.
 
