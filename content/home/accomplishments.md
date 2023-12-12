@@ -23,6 +23,13 @@ date_format: Jan 2006
 #   Leave other parameters empty if not required.
 #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
 item:
+- certificate_url: ""
+  date_end: ""
+  date_start: "2023-11-04"
+  description: ""
+  organization: Indian Society for Medical Statistics
+  organization_url: https://www.isms-ind.org/
+  title: Best Oral Presentation Award in ISMSCON 2023
 - certificate_url: https://drive.google.com/file/d/1C1bJqStzHp5yxb-FaAdSqubWA2tXxRmj/view?usp=sharing
   date_end: ""
   date_start: "2022-11-25"
