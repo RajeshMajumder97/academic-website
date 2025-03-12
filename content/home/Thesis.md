@@ -23,6 +23,8 @@ content:
 
 ## Journal articles
 
+- [Krishna, Swathi R et al. “Predictive Factors for Esophageal Stricture Following Definitive Chemoradiotherapy in Esophageal Carcinoma.” Journal of gastrointestinal cancer vol. 56,1 65. 14 Feb. 2025, doi:10.1007/s12029-025-01192-1](https://pubmed.ncbi.nlm.nih.gov/39953181/)
+
 - [Majumder R, Kurpad AV, Sachdev HS, Thomas T, Ghosh S. Anthropometric Growth Reference for Indian Children and Adolescents. Indian Pediatr. 2024 Mar 19:S097475591600615. Epub ahead of print. PMID: 38517004.](https://pubmed.ncbi.nlm.nih.gov/38517004/)
   
 - [Ghosh S, Majumder R, Sachdev HS, Kurpad AV, Thomas T. Customization of WHO Under-five Growth Standards for an Appropriate Quantification of Public Health Burden of Growth Faltering in India. Indian Pediatr. 2023 Jun 21:S097475591600556. Epub ahead of print. PMID: 37551873.](https://pubmed.ncbi.nlm.nih.gov/37551873/#:~:text=Correction%20of%20WHO%20growth%20standards%20for%20India%20leading,were%20significantly%20lower%20than%20zero%20%28-0.52%20to%20-0.79%29.)
