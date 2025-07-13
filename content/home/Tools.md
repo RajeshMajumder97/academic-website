@@ -23,6 +23,6 @@ content:
 
 - ## [Anthropometric Z Score Calculator For Indian 0 to 19 Years children](https://indiau19azcal.streamlit.app/)
 
-- ## [Sample Size Calculator](https://sample-size-calculator.streamlit.app/)
+- ## [Sample Size Calculator](https://studysizer.streamlit.app/)
 
 - ## [Students' Exam Performance Report Generator](https://studreportapp.streamlit.app/)
