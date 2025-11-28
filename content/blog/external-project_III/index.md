@@ -6,10 +6,10 @@ image:
   focal_point: Smart
   
 #slides: example
-summary: Clastering in R 
+summary: Concept of ANOVA and Its sample size calculation formula
 tags:
 - Blogs
-title: Clastering in R
+title: Concept of ANOVA and Its sample size calculation formula
 categories:
 - R
 ---
