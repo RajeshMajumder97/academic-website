@@ -27,6 +27,13 @@ item:
   date_end: ""
   date_start: "2023-11-04"
   description: ""
+  organization: St. John's National Academy of Health Sciences
+  organization_url: https://www.stjohns.in/
+  title: Best Poster Presentation Award in 5th Annual Research Day, 2025
+- certificate_url: ""
+  date_end: ""
+  date_start: "2023-11-04"
+  description: ""
   organization: Indian Society for Medical Statistics
   organization_url: https://www.isms-ind.org/
   title: Best Oral Presentation Award in ISMSCON 2023
