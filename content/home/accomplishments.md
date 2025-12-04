@@ -25,7 +25,7 @@ date_format: Jan 2006
 item:
 - certificate_url: ""
   date_end: ""
-  date_start: "2023-11-04"
+  date_start: "2025-06-06"
   description: ""
   organization: St. John's National Academy of Health Sciences
   organization_url: https://www.stjohns.in/
