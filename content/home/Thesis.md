@@ -23,6 +23,8 @@ content:
 
 ## Journal articles
 
+- [Pullakhandam R, Augustine LF, Banjara SK, Dasi T, Palika R, Majumder R, et al. Impact evaluation of a population-based ‘Screen and Treat for Anaemia Reduction (STAR)’ strategy: a cluster randomised trial in rural Telangana, India. BMJ Global Health. 2025;10:e020633. https://doi.org/10.1136/bmjgh-2025-020633]([https://pubmed.ncbi.nlm.nih.gov/39953181/](https://gh.bmj.com/content/10/12/e020633))
+
 - [Krishna, Swathi R et al. “Predictive Factors for Esophageal Stricture Following Definitive Chemoradiotherapy in Esophageal Carcinoma.” Journal of gastrointestinal cancer vol. 56,1 65. 14 Feb. 2025, doi:10.1007/s12029-025-01192-1](https://pubmed.ncbi.nlm.nih.gov/39953181/)
 
 - [Majumder R, Kurpad AV, Sachdev HS, Thomas T, Ghosh S. Anthropometric Growth Reference for Indian Children and Adolescents. Indian Pediatr. 2024 Mar 19:S097475591600615. Epub ahead of print. PMID: 38517004.](https://pubmed.ncbi.nlm.nih.gov/38517004/)
