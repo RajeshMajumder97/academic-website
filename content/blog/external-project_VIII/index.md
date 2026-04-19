@@ -1,6 +1,6 @@
 ---
 date: "2026-04-18T00:00:00Z"
-external_link: "https://rajeshmajumder97.github.io/DALY-Explain/"
+external_link: "https://rajeshmajumder97.github.io/EnvEpi/"
 image:
 #  caption: Photo by Toa Heftiba on Unsplash
   focal_point: Smart
