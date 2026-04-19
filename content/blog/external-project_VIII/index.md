@@ -6,7 +6,7 @@ image:
   focal_point: Smart
   
 #slides: example
-summary: This post hosts a comprehensive document on Disability-Adjusted Life Years (DALY) and its role within the Global Burden of Disease (GBD) framework. The document provides a structured understanding of how population health is quantified by integrating both mortality and morbidity into a single metric.
+summary: This repository contains a comprehensive tutorial on Environmental Epidemiology. The document provides a structured introduction to the field, focusing on how environmental exposures influence population health and disease outcomes.
 tags:
 - Blogs
 title: Overview of Environmental Epidemiology
