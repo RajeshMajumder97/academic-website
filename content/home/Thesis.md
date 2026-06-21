@@ -23,6 +23,8 @@ content:
 
 ## Journal articles
 
+- [Majumder R, Kurpad AV, Sachdev HS, Kuriyan R, Thomas T, Ghosh S. Untangling weight from height: A generalised body mass index (gBMI) approach to evaluating child and adolescent nutritional status in India. Indian J Med Res. 2026;163:655-63. doi: 10.25259/IJMR_2555_2025.](https://ijmr.org.in/untangling-weight-from-height-a-generalised-body-mass-index-gbmi-approach-to-evaluating-child-and-adolescent-nutritional-status-in-india/)
+
 - [Pullakhandam R, Augustine LF, Banjara SK, Dasi T, Palika R, Majumder R, et al. Impact evaluation of a population-based ‘Screen and Treat for Anaemia Reduction (STAR)’ strategy: a cluster randomised trial in rural Telangana, India. BMJ Global Health. 2025;10:e020633. https://doi.org/10.1136/bmjgh-2025-020633](https://pmc.ncbi.nlm.nih.gov/articles/PMC12742117/#:~:text=Screen%20and%20treat%20intervention%20resulted,could%20explain%20the%20modest%20effects.)
 
 - [Krishna, Swathi R et al. “Predictive Factors for Esophageal Stricture Following Definitive Chemoradiotherapy in Esophageal Carcinoma.” Journal of gastrointestinal cancer vol. 56,1 65. 14 Feb. 2025, doi:10.1007/s12029-025-01192-1](https://pubmed.ncbi.nlm.nih.gov/39953181/)
