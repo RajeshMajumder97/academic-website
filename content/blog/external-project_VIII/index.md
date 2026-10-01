@@ -12,5 +12,5 @@ tags:
 - Blogs
 title: Introduction to Chromatin Accessibility using Bulk ATAC-seq
 categories:
-- Genetics
+- R
 ---
